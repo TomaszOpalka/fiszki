@@ -20,7 +20,7 @@ export default [
     ],
     answer: {
       definition:
-        '**Projekt** to – według PMI (**PMBOK Guide**) – tymczasowe przedsięwzięcie podejmowane w celu wytworzenia unikalnego produktu, usługi lub rezultatu. Jest ograniczony **trójkątem ograniczeń** (zakres, czas, koszt) z jakością w centrum, do którego często dolicza się ryzyko i zasoby. **Metodyka zarządzania projektem** to uporządkowany zestaw procesów, ról, technik i dokumentów; podejścia dzielą się na **predykcyjne** (klasyczne – plan z góry) i **zwinne** (**Agile** – adaptacja w krótkich iteracjach).',
+        '**Projekt** to – według PMI (**PMBOK Guide**) – tymczasowe przedsięwzięcie podejmowane w celu wytworzenia unikalnego produktu, usługi lub rezultatu. Jest ograniczony **trójkątem ograniczeń** (zakres, czas, koszt) z jakością w centrum; często uwzględnia się też ryzyko i zasoby. **Metodyka zarządzania projektem** to uporządkowany zestaw procesów, ról, technik i dokumentów; podejścia dzielą się na **predykcyjne** (klasyczne – plan z góry) i **zwinne** (**Agile** – adaptacja w krótkich iteracjach).',
       classification: [
         '**Podejście klasyczne (predykcyjne):** pełny zakres planowany z góry, fazy następują po sobie, zmiany zatwierdza się formalnie. Wzorce: **Waterfall** (W. Royce, 1970), **model V** (testy przypisane do faz projektowych) i **model spiralny** (B. Boehm, 1986 – iteracje sterowane ryzykiem).',
         '**PMBOK Guide (PMI):** standard wiedzy o zarządzaniu projektami. 6. edycja: 5 grup procesów (inicjowanie, planowanie, realizacja, monitorowanie i kontrola, zamykanie), 10 obszarów wiedzy i 49 procesów. **7. edycja (2021)** odchodzi od procesów na rzecz **12 zasad** i **8 domen efektywności** (performance domains) oraz dostosowania podejścia do projektu; powiązana certyfikacja to PMP.',
@@ -32,7 +32,7 @@ export default [
       example:
         'Informatyczny system dla administracji publicznej realizowany w trybie zamówienia publicznego (stały zakres opisany w SWZ, kontrakt ryczałtowy, odbiory etapów) prowadzi się zwykle według **PRINCE2** lub **Waterfall** z formalnym harmonogramem i bramkami decyzyjnymi. Aplikację mobilną startupu o niepewnych wymaganiach buduje się w **Scrum** w dwutygodniowych sprintach, z backlogiem w **Jira** i wydaniami co sprint. W korporacjach spotyka się **hybrydę**: twarde ramy budżetu i kamienie milowe oraz zwinną realizację w zespołach.',
       conclusion:
-        'Nie ma metodyki uniwersalnej – wybór zależy od **stabilności wymagań, ryzyka, skali i otoczenia kontraktowego**. Dojrzałe organizacje dostosowują (tailoring) podejście do projektu, najczęściej łącząc elementy obu światów.',
+        'Nie ma metodyki uniwersalnej – wybór zależy od **stabilności wymagań**, ryzyka, skali i otoczenia kontraktowego. Dojrzałe organizacje stosują **tailoring** – dostosowują podejście do projektu, najczęściej łącząc elementy obu światów.',
     },
     mustSay: [
       { term: 'Projekt – tymczasowe przedsięwzięcie, unikalny rezultat', aliases: ['tymczasow', 'przedsiewzieci', 'unikaln'] },
@@ -114,9 +114,9 @@ export default [
         '**Porównanie i Scrumban:** Scrum – iteracje o stałej długości, trzy role, zobowiązanie na Sprint; Kanban – ciągły przepływ, brak narzuconych ról, zmiany w dowolnym momencie, ograniczenie WIP. **Scrumban** łączy rytm Scruma z wizualizacją i limitami WIP z Kanbana.',
       ],
       example:
-        'Siedmioosobowy zespół rozwija aplikację w **Jira** w **dwutygodniowych Sprintach**: Sprint Planning, Daily Scrum po 15 min, Sprint Review z klientem i Retrospective; zadania szacuje **planning pokerem** w story points, a ze średniej **velocity** (np. 32 SP na Sprint) planuje kolejne przyrosty. Zespół utrzymania systemu pracuje w **Kanbanie** na tablicy z kolumnami To Do – In Progress (limit WIP = 3) – Review – Done: przy WIP = 6 zadań i przepustowości 2 zadań na dzień średni czas cyklu wynosi 3 dni (**prawo Little’a**).',
+        'Siedmioosobowy zespół rozwija aplikację w **Jira** w **dwutygodniowych Sprintach**: Sprint Planning, Daily Scrum po 15 min, Sprint Review z klientem i Retrospective; zadania szacuje **planning pokerem** w story points, a ze średniej **velocity** (np. 32 SP na Sprint) planuje kolejne przyrosty. Zespół utrzymania systemu pracuje w **Kanbanie** na tablicy z kolumnami To Do – In Progress (limit 3 zadań) – Review – Done: przy łącznym WIP = 6 zadań i przepustowości 2 zadań dziennie średni czas cyklu wynosi 3 dni (**prawo Little’a**).',
       conclusion:
-        'Scrum daje rytmiczną strukturę rozwoju produktu o zmiennych wymaganiach, a Kanban – elastyczne zarządzanie przepływem i skracanie czasu cyklu przez **limity WIP**. Oba opierają się na przejrzystości i ciągłym doskonaleniu, a w praktyce często łączy się je w Scrumban.',
+        'Scrum daje rytmiczną strukturę rozwoju produktu o zmiennych wymaganiach, a Kanban – elastyczne zarządzanie przepływem i skracanie czasu cyklu przez **limity WIP**. Oba opierają się na przejrzystości i ciągłym doskonaleniu, a w praktyce często łączy się je w **Scrumban**.',
     },
     mustSay: [
       { term: 'Empiryzm i 3 filary (przejrzystość, inspekcja, adaptacja)', aliases: ['empiryzm', 'empirycz', 'przejrzyst', 'inspekcj', 'adaptacj', 'transparen'] },
@@ -163,7 +163,7 @@ export default [
         text: 'Trzy filary empiryzmu w Scrumie to {{przejrzystość|transparentność|transparency}}, {{inspekcja|inspection}} i {{adaptacja|adaptation}}.',
       },
       {
-        text: '{{Daily Scrum}} trwa maksymalnie {{15}} minut, a trzy artefakty Scruma to Product Backlog, Sprint Backlog i {{Increment|Przyrost}}.',
+        text: 'Zdarzenie {{Daily Scrum|Daily}} trwa maksymalnie {{15}} minut, a trzy artefakty Scruma to Product Backlog, Sprint Backlog i {{Increment|Przyrost}}.',
       },
     ],
   },
@@ -191,15 +191,15 @@ export default [
       classification: [
         '**WBS (struktura podziału prac):** hierarchiczna dekompozycja **całego zakresu** projektu na pakiety robocze (**reguła 100%** – WBS obejmuje 100% zakresu i nic ponad niego), uzupełniana **słownikiem WBS**; stanowi podstawę szacowania kosztów i harmonogramu.',
         '**Diagram sieciowy i zależności:** czynności jako węzły (AON – activity on node); zależności **FS** (zakończenie–rozpoczęcie), **SS**, **FF** i **SF** oraz opóźnienia (lag) i wyprzedzenia (lead).',
-        '**CPM (Critical Path Method, DuPont / Remington Rand, lata 50.):** **ścieżka krytyczna** to najdłuższa ścieżka w sieci i wyznacza minimalny czas projektu. Obliczenia: przebieg w przód (ES, EF) i wstecz (LS, LF); czynności krytyczne mają **zapas całkowity = 0** (LS − ES).',
+        '**CPM (Critical Path Method, DuPont / Remington Rand, lata 50.):** **ścieżka krytyczna** to najdłuższa ścieżka w sieci i wyznacza minimalny czas projektu. Obliczenia: przebieg w przód (ES, EF) i wstecz (LS, LF); czynności krytyczne mają **zapas całkowity = 0** (zapas = LS − ES = LF − EF).',
         '**PERT (US Navy, program Polaris, 1958):** trzy oszacowania czasu – optymistyczne **a**, najbardziej prawdopodobne **m**, pesymistyczne **b**; czas oczekiwany **tₑ = (a + 4m + b) / 6**, odchylenie standardowe **σ = (b − a) / 6**.',
         '**Wykres Gantta (H. Gantt, ok. 1910–1915):** słupkowa wizualizacja harmonogramu w czasie (czynności, czasy trwania, zależności, kamienie milowe, linia bazowa); polskim prekursorem był K. Adamiecki (harmonogram). **Kompresja harmonogramu:** **crashing** (dodanie zasobów – rośnie koszt) i **fast tracking** (równoległe wykonanie czynności – rośnie ryzyko).',
         '**EVM:** miary bazowe – **PV** (wartość planowana), **EV** (wartość wypracowana), **AC** (koszt rzeczywisty), **BAC** (budżet całkowity). Odchylenia: **SV = EV − PV**, **CV = EV − AC**; wskaźniki: **SPI = EV / PV**, **CPI = EV / AC** (wartość < 1 oznacza opóźnienie lub przekroczenie kosztów); prognoza przy utrzymaniu trendu kosztowego: **EAC = BAC / CPI**.',
       ],
       example:
-        'W sieci z dwiema ścieżkami A→B→D (3 + 5 + 4 = 12 dni) i A→C→D (3 + 4 + 4 = 11 dni) ścieżką krytyczną jest pierwsza, a czynność C ma zapas 1 dzień. Projekt wdrożenia systemu ma budżet **BAC = 200 000 zł**; na dzień raportu zaplanowano prace o wartości **PV = 100 000 zł**, wykonano prace o wartości **EV = 80 000 zł**, a wydano **AC = 90 000 zł**. Stąd **SPI = 0,8** (opóźnienie), **CPI ≈ 0,89** (przekroczenie kosztów), SV = −20 000 zł, CV = −10 000 zł, a prognoza **EAC = 200 000 / 0,89 ≈ 225 000 zł**. Harmonogram i ścieżkę krytyczną buduje się w **MS Project**, zadania w zespołach zwinnych śledzi się w **Jira**, a darmową alternatywą jest **GanttProject**.',
+        'W sieci z dwiema ścieżkami A→B→D (3 + 5 + 4 = 12 dni) i A→C→D (3 + 4 + 4 = 11 dni) ścieżką krytyczną jest pierwsza, a czynność C ma zapas 1 dzień. Projekt wdrożenia systemu ma budżet **BAC = 200 000 zł**; na dzień raportu zaplanowano prace o wartości **PV = 100 000 zł**, wykonano prace o wartości **EV = 80 000 zł**, a wydano **AC = 90 000 zł**. Stąd **SPI = 0,8** (opóźnienie), **CPI ≈ 0,89** (przekroczenie kosztów), SV = −20 000 zł, CV = −10 000 zł, a prognoza **EAC = 200 000 / 0,89 ≈ 225 000 zł**. Harmonogram i ścieżkę krytyczną buduje się w **MS Project**, zadania w zespołach zwinnych śledzi się w Jira, a darmową alternatywą jest GanttProject.',
       conclusion:
-        'WBS, CPM/PERT i wykres Gantta odpowiadają na pytanie „jak zaplanować”, a **EVM** – „gdzie faktycznie jesteśmy” w ujęciu zintegrowanym kosztu i czasu. Wskaźniki SPI i CPI poniżej 1 to sygnał do działań korygujących (crashing, fast tracking, ograniczenie zakresu) jeszcze przed końcem projektu.',
+        'WBS, CPM/PERT i wykres Gantta odpowiadają na pytanie „jak zaplanować”, a **EVM** – „gdzie faktycznie jesteśmy” w ujęciu zintegrowanym kosztu i czasu. Wskaźniki **SPI** i **CPI** poniżej 1 to sygnał do działań korygujących (crashing, fast tracking, ograniczenie zakresu) jeszcze przed końcem projektu.',
     },
     mustSay: [
       { term: 'WBS – struktura podziału prac', aliases: ['wbs', 'struktur podzial', 'work breakdown', 'dekompozycj'] },
@@ -288,7 +288,7 @@ export default [
       example:
         'Sieć sklepów łączy dane z **ERP** (SAP), **CRM** i sklepu internetowego (API) procesami **ETL** do hurtowni w chmurze (np. Snowflake lub BigQuery). W **Microsoft Power BI** powstaje model semantyczny (Power Query do transformacji, **DAX** do miar) i **dashboard** z KPI: sprzedaż r/r, marża, rotacja zapasów, wskaźnik konwersji. Dostęp ograniczają reguły **RLS** (kierownik widzi tylko swój region); analityka predykcyjna prognozuje popyt, a preskryptywna sugeruje wielkość zamówień towaru.',
       conclusion:
-        'BI zamienia rozproszone dane operacyjne w spójną informację zarządczą i skraca drogę od danych do decyzji. O skuteczności decyduje nie samo narzędzie, lecz **jakość danych, data governance i dobrze dobrane KPI**; kierunek rozwoju to analityka predykcyjna i preskryptywna oraz self-service BI.',
+        'BI zamienia rozproszone dane operacyjne w spójną informację zarządczą i skraca drogę od danych do decyzji. O skuteczności decyduje nie samo narzędzie, lecz **jakość danych**, **data governance** i dobrze dobrane **KPI**; kierunek rozwoju to analityka predykcyjna i preskryptywna oraz self-service BI.',
     },
     mustSay: [
       { term: 'Business Intelligence – definicja', aliases: ['business intelligence', 'bi', 'inteligencj biznes'] },
@@ -365,14 +365,14 @@ export default [
         '**OLTP a OLAP:** OLTP – krótkie transakcje (INSERT/UPDATE), dane bieżące, schemat znormalizowany (3NF), wielu użytkowników operacyjnych; hurtownia (OLAP) – złożone zapytania analityczne na dużych wolumenach danych historycznych, głównie odczyt, ładowanie wsadowe, model zdenormalizowany.',
         '**Architektura warstwowa:** źródła → **obszar przejściowy (staging)** → opcjonalnie **ODS** (Operational Data Store – bieżące, zintegrowane dane operacyjne) → **hurtownia (EDW)** → **data marty** → narzędzia BI; przekrojowo **metadane** (słownik danych, pochodzenie danych).',
         '**Podejście Inmona (top-down):** najpierw korporacyjna hurtownia **EDW** w **3NF**, z której zasilane są **zależne data marty**; zapewnia jedno spójne źródło prawdy, ale start jest dłuższy i droższy.',
-        '**Podejście Kimballa (bottom-up):** („The Data Warehouse Toolkit”, 1996) hurtownia jako suma data martów w **modelu wymiarowym**, łączonych **architekturą magistrali** (bus architecture) przez **wymiary wspólne (conformed dimensions)** i macierz magistrali; szybsze dostarczenie wartości biznesowej.',
+        '**Podejście Kimballa (bottom-up):** opisane w „The Data Warehouse Toolkit” (1996); hurtownia jako suma data martów w **modelu wymiarowym**, łączonych **architekturą magistrali** (bus architecture) przez **wymiary wspólne (conformed dimensions)** i macierz magistrali; szybsze dostarczenie wartości biznesowej.',
         '**Data Vault:** model D. Linstedta oparty na **hubach** (klucze biznesowe), **linkach** (relacje) i **satelitach** (atrybuty z historią); elastyczny, audytowalny i przyjazny ładowaniu przyrostowemu.',
         '**Hurtownie chmurowe i architektura medalionowa:** **Snowflake**, **Google BigQuery**, **Amazon Redshift**, **Azure Synapse**; warstwy **bronze / silver / gold** (dane surowe → oczyszczone → gotowe do analiz).',
       ],
       example:
-        'Sieć handlowa ładuje nocą dane z ERP i systemów POS do obszaru **staging** w **Snowflake**, oczyszcza je i integruje w warstwie **EDW**, a stąd zasila **data marty** Sprzedaż, Zapasy i Finanse z **wymiarami wspólnymi** (Czas, Produkt, Sklep). Transformacje definiuje **dbt**, a harmonogram obsługuje **Airflow**. Raporty w **Power BI** czytają z warstwy **gold** (architektura medalionowa), dzięki czemu wszystkie działy liczą np. marżę tak samo.',
+        'Sieć handlowa ładuje nocą dane z ERP i systemów POS do obszaru **staging** w **Snowflake**, oczyszcza je i integruje w warstwie **EDW**, a stąd zasila **data marty** Sprzedaż, Zapasy i Finanse z **wymiarami wspólnymi** (Czas, Produkt, Sklep). Transformacje definiuje dbt, a harmonogram obsługuje Airflow. Raporty w Power BI czytają z warstwy **gold** (architektura medalionowa), dzięki czemu wszystkie działy liczą np. marżę tak samo.',
       conclusion:
-        'Hurtownia danych jest fundamentem BI, bo zapewnia jedno, historyczne i spójne źródło danych oddzielone od systemów operacyjnych. Wybór między Inmonem a Kimballem (lub ich połączenie, a dziś także Data Vault i architektura medalionowa) zależy od skali organizacji, budżetu i tempa oczekiwanych rezultatów.',
+        'Hurtownia danych jest fundamentem BI, bo zapewnia jedno, historyczne i spójne źródło danych oddzielone od systemów operacyjnych. Wybór między Inmonem a Kimballem (lub ich połączenie, a dziś także **Data Vault** i **architektura medalionowa**) zależy od skali organizacji, budżetu i tempa oczekiwanych rezultatów.',
     },
     mustSay: [
       { term: 'Definicja Inmona', aliases: ['inmon'] },
@@ -386,7 +386,7 @@ export default [
       { term: 'Inmon: top-down, EDW w 3NF', aliases: ['top down', 'odgorn', 'edw', '3nf', 'enterprise data warehouse'] },
       { term: 'Kimball: bottom-up, model wymiarowy', aliases: ['kimball', 'bottom up', 'oddoln', 'model wymiarow', 'dimensional'] },
       { term: 'Wymiary wspólne / magistrala', aliases: ['conformed', 'wymiar wspoln', 'magistral', 'bus architecture', 'bus matrix'] },
-      { term: 'Data Vault (huby, linki, satelity)', aliases: ['data vault', 'linstedt', 'huby', 'linki', 'satelit'] },
+      { term: 'Data Vault (huby, linki, satelity)', aliases: ['data vault', 'linstedt', 'hub', 'huby', 'hubach', 'hubow', 'linki', 'linkach', 'linkow', 'satelit'] },
       { term: 'Hurtownie chmurowe', aliases: ['snowflake', 'bigquery', 'redshift', 'synapse', 'chmur'] },
       { term: 'Architektura medalionowa', aliases: ['medalion', 'medallion', 'bronze', 'silver', 'gold'] },
     ],
@@ -433,7 +433,7 @@ export default [
     title: 'Proces ETL i ELT – ekstrakcja, transformacja, ładowanie, jakość danych',
     hint: 'Opisz trzy etapy ETL wraz z wariantami każdego, potem ELT i kiedy go wybrać. Omów jakość danych (wymiary DAMA), przetwarzanie wsadowe a strumieniowe, niezawodność pipeline’u i narzędzia.',
     keywords: [
-      'Extract – pełna, przyrostowa, CDC',
+      'Extract: przyrostowa, CDC',
       'Transform – czyszczenie, SCD',
       'Load – upsert (MERGE)',
       'ETL vs ELT',
@@ -450,9 +450,9 @@ export default [
         '**Transform (transformacja):** czyszczenie, **deduplikacja**, standaryzacja formatów, walidacja reguł biznesowych, łączenie (join) i agregacja, generowanie **kluczy zastępczych** (surrogate keys) oraz obsługa wymiarów **SCD**.',
         '**Load (ładowanie):** **pełne** (truncate and load), **przyrostowe** (append) oraz **upsert** (**MERGE** – wstaw lub zaktualizuj); wymiary ładuje się przed faktami, aby zachować integralność referencyjną.',
         '**ELT a ETL:** ETL – transformacja na osobnym silniku przed załadowaniem (SSIS, Informatica, Talend); ELT – surowe dane ładowane najpierw (Snowflake, BigQuery), a transformacje w SQL wewnątrz platformy (**dbt**); zalety ELT to skalowalność, elastyczność i zachowanie danych surowych do ponownego przetwarzania.',
-        '**Jakość danych (DAMA):** wymiary – **kompletność**, **poprawność**, **spójność**, **aktualność**, **unikalność** i **ważność**; kontrolują ją profilowanie danych i testy automatyczne (**dbt tests**, **Great Expectations**), a odrzucone rekordy trafiają do tabeli błędów.',
+        '**Jakość danych (DAMA):** wymiary – **kompletność**, **poprawność**, **spójność**, **aktualność**, **unikalność** i **ważność**; kontrolują ją profilowanie danych i testy automatyczne (dbt tests, Great Expectations), a odrzucone rekordy trafiają do tabeli błędów.',
         '**Tryb i niezawodność:** przetwarzanie **wsadowe (batch)** a **strumieniowe (streaming)** – Kafka, Spark Structured Streaming; **idempotencja** (ponowne uruchomienie nie duplikuje danych), logowanie, obsługa błędów i ponowienia oraz monitoring.',
-        '**Narzędzia:** ETL – **SSIS**, **Informatica PowerCenter**, **Talend**, **Azure Data Factory**, **AWS Glue**, **Apache NiFi**; ingest – **Fivetran**; orkiestracja – **Apache Airflow** (zadania jako DAG); transformacje – **dbt**.',
+        '**Narzędzia:** ETL – **SSIS**, **Informatica PowerCenter**, **Talend**, Azure Data Factory, AWS Glue, Apache NiFi; ingest – Fivetran; orkiestracja – **Apache Airflow** (zadania jako DAG); transformacje – **dbt**.',
       ],
       example:
         'Hurtownia sprzedaży detalicznej: zmiany z bazy **PostgreSQL** systemu POS są przechwytywane przez **CDC (Debezium → Kafka)**, a z ERP trafiają eksporty CSV do obszaru **staging**. **Airflow** o 2:00 uruchamia DAG ładujący dane do **Snowflake** (ELT); modele **dbt** deduplikują rekordy, nadają klucze zastępcze i wykonują **MERGE** do tabel faktów i wymiarów (SCD typu 2). Testy dbt (`unique`, `not_null`, `relationships`) wykrywają np. zdublowane zamówienia lub puste kody produktów, a niezgodne rekordy trafiają do tabeli odrzuceń.',
@@ -534,11 +534,11 @@ export default [
         '**Tabele wymiarów:** atrybuty opisowe i **hierarchie** (np. dzień → miesiąc → kwartał → rok; produkt → kategoria), klucz zastępczy; numer dokumentu przechowywany w tabeli faktów to wymiar zdegenerowany.',
         '**Schematy:** **gwiazda** (star) – jedna tabela faktów i zdenormalizowane wymiary (mało złączeń, szybkie zapytania, redundancja); **płatek śniegu** (snowflake) – znormalizowane wymiary rozbite na podtabele (mniej redundancji, więcej JOIN-ów); **konstelacja faktów** – wiele tabel faktów współdzielących wymiary.',
         '**SCD (Slowly Changing Dimensions):** typ **0** – wartość stała, **1** – nadpisanie (brak historii), **2** – nowy wiersz z datami ważności (`valid_from` / `valid_to`) i flagą bieżącego wiersza (pełna historia), **3** – dodatkowa kolumna na poprzednią wartość (historia ograniczona); typy hybrydowe: **4** (osobna tabela historii lub mini-wymiar) i **6** (połączenie 1 + 2 + 3).',
-        '**OLAP – architektury i operacje:** **MOLAP** (wstępnie zagregowana kostka wielowymiarowa – szybka), **ROLAP** (relacyjna baza, agregacje w SQL – skalowalna), **HOLAP** (hybryda). Operacje: **roll-up** (agregacja w górę hierarchii), **drill-down** (zejście do szczegółu), **slice** (przekrój po jednej wartości wymiaru), **dice** (podkostka po kilku wymiarach), **pivot** (obrót osi) i **drill-through** (do rekordów źródłowych).',
+        '**OLAP – architektury i operacje:** **MOLAP** (wstępnie zagregowana kostka wielowymiarowa – szybka), **ROLAP** (relacyjna baza, agregacje w SQL – skalowalna), HOLAP (hybryda). Operacje: **roll-up** (agregacja w górę hierarchii), **drill-down** (zejście do szczegółu), **slice** (przekrój po jednej wartości wymiaru), **dice** (podkostka po kilku wymiarach), **pivot** (obrót osi) i drill-through (przejście do rekordów źródłowych).',
         '**Języki:** w SQL `GROUP BY ROLLUP / CUBE / GROUPING SETS`; **MDX** (Multidimensional Expressions) do zapytań do kostek (SSAS) oraz **DAX** w Power BI i Analysis Services Tabular.',
       ],
       example:
-        'Hurtownia sprzedaży: tabela faktów `FactSales` o ziarnistości „pozycja paragonu” (miary: ilość, kwota, rabat) z kluczami do wymiarów `DimDate`, `DimProduct`, `DimStore` i `DimCustomer` – układ **gwiazdy** w SQL Server lub Snowflake. Zmianę miasta klienta obsługuje **SCD typ 2** (nowy wiersz z `valid_from` / `valid_to`), dzięki czemu stare zamówienia pozostają przypisane do dawnego miasta. Raport kwartalny z możliwością zejścia do miesiąca (**drill-down**) powstaje z kostki **SSAS** w trybie MOLAP, w SQL – przez `GROUP BY ROLLUP (rok, kwartał, miesiąc)`, a w Power BI miary liczy się w **DAX**.',
+        'Hurtownia sprzedaży: tabela faktów `FactSales` o ziarnistości „pozycja paragonu” (miary: ilość, kwota, rabat) z kluczami do wymiarów `DimDate`, `DimProduct`, `DimStore` i `DimCustomer` – układ **gwiazdy** w SQL Server lub Snowflake. Zmianę miasta klienta obsługuje **SCD typ 2** (nowy wiersz z `valid_from` / `valid_to`), dzięki czemu stare zamówienia pozostają przypisane do dawnego miasta. Raport kwartalny z możliwością zejścia do miesiąca (**drill-down**) powstaje z kostki **SSAS** w trybie MOLAP, w SQL – przez `GROUP BY ROLLUP (rok, kwartal, miesiac)`, a w Power BI miary liczy się w **DAX**.',
       conclusion:
         'Model wymiarowy (gwiazda) upraszcza zapytania analityczne i jest naturalny dla użytkownika biznesowego, a OLAP daje interaktywną nawigację po hierarchiach. Kluczowe decyzje projektowe to **ziarnistość faktów** i sposób **śledzenia historii wymiarów (SCD)**.',
     },
@@ -624,7 +624,7 @@ export default [
       example:
         'Operator telekomunikacyjny zbiera miliardy rekordów CDR i logów sieciowych dziennie. Strumień zdarzeń trafia do **Kafki**, **Spark Structured Streaming** wykrywa anomalie w czasie rzeczywistym, a surowe dane lądują w **Data Lake** (np. Amazon S3) w formacie **Parquet**. W **Databricks** działa na nich **Lakehouse** z tabelami **Delta Lake** (ACID, time travel): warstwy bronze / silver / gold zasilają modele odejść klientów w **MLlib** i raporty w Power BI.',
       conclusion:
-        'Big Data wymaga przejścia od centralnych baz do przetwarzania rozproszonego i elastycznych magazynów danych, a prawdziwą wartość dają dopiero wiarygodność danych i zastosowanie biznesowe (Veracity, Value). Trend zmierza w stronę **Lakehouse**, który łączy skalowalność jeziora danych z transakcyjnością i zarządzaniem hurtowni.',
+        'Big Data wymaga przejścia od centralnych baz do przetwarzania rozproszonego i elastycznych magazynów danych, a prawdziwą wartość dają dopiero wiarygodność danych i zastosowanie biznesowe (**Veracity**, **Value**). Trend zmierza w stronę **Lakehouse**, który łączy skalowalność jeziora danych z transakcyjnością i zarządzaniem hurtowni.',
     },
     mustSay: [
       { term: 'Big Data – definicja', aliases: ['big data', 'bigdata'] },
