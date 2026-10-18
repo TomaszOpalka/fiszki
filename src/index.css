@@ -29,3 +29,46 @@
 @utility rotate-y-180 {
   transform: rotateY(180deg);
 }
+
+/* Zmienne układu: wysokość nagłówka i dolnego paska wraz z safe-area (iPhone). */
+:root {
+  --header-h: calc(3.5rem + env(safe-area-inset-top, 0px));
+  --nav-h: calc(4rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Przewijane poziomo rzędy chipów bez widocznego paska przewijania. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Delikatne wejście zakładki (fade + lekki slide, 180 ms). */
+@keyframes tab-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-tab-in {
+  animation: tab-in 180ms ease-out backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-tab-in {
+    animation: none;
+  }
+}
+
+/* Tailwind 4 zeruje kursor przycisków – przywracamy wskaźnik dłoni. */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  summary {
+    cursor: pointer;
+  }
+}

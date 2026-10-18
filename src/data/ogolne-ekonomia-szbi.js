@@ -1,2 +1,690 @@
-// Plik w przygotowaniu – zostanie uzupełniony pytaniami zgodnie ze schematem z PLAN.md.
-export default []
+// Pytania ogólne 8–15: Ekonomia oraz SZBI i audyt.
+export default [
+  {
+    id: 'O8',
+    category: 'ogolne',
+    number: 8,
+    day: 1,
+    area: 'Ekonomia',
+    title: 'Podstawowe kategorie mikroekonomii – popyt, podaż, równowaga rynkowa, elastyczność, struktury rynku',
+    hint: 'Zacznij od modelu popytu i podaży oraz równowagi (ruch wzdłuż krzywej a jej przesunięcie), potem elastyczność i warunek MR = MC. Zakończ strukturami rynku i przykładem rynku chmury jako oligopolu.',
+    keywords: [
+      'Popyt i podaż',
+      'Równowaga rynkowa',
+      'Elastyczność E = %ΔQ / %ΔP',
+      'Koszt krańcowy, MR = MC',
+      'Konkurencja doskonała',
+      'Oligopol i monopol',
+      'Efekt sieciowy, lock-in',
+    ],
+    answer: {
+      definition:
+        '**Mikroekonomia** bada decyzje pojedynczych podmiotów – gospodarstw domowych i przedsiębiorstw – oraz mechanizm ich koordynacji na rynkach. Podstawą jest model **popytu i podaży** przy założeniu **ceteris paribus** (niezmienności pozostałych czynników), przedstawiany w „krzyżu marshallowskim” (A. Marshall). **Popyt** to ilość dobra, którą nabywcy chcą i mogą kupić po danej cenie, a **podaż** – ilość, którą producenci chcą sprzedać; cena ustala się tam, gdzie obie wielkości się równoważą.',
+      classification: [
+        '**Prawo popytu i prawo podaży:** wraz ze wzrostem ceny popyt maleje (**ujemna zależność** ceny i ilości, krzywa malejąca), a podaż rośnie (zależność dodatnia, krzywa rosnąca). Zmiana ceny to **ruch wzdłuż krzywej**, natomiast zmiana czynników pozacenowych (dochody, preferencje, ceny innych dóbr, technologia, koszty produkcji, podatki) to **przesunięcie krzywej**.',
+        '**Równowaga rynkowa:** punkt przecięcia krzywych popytu i podaży wyznacza **cenę i ilość równowagi**. Przy cenie wyższej powstaje nadwyżka podaży (presja na spadek ceny), przy niższej – niedobór (presja na wzrost); cena maksymalna lub minimalna narzucona przez państwo zaburza ten mechanizm.',
+        '**Elastyczność cenowa popytu:** E = %ΔQ / %ΔP. Popyt jest **elastyczny** przy |E| > 1, **nieelastyczny** przy |E| < 1 i jednostkowo elastyczny przy |E| = 1; im więcej substytutów, tym popyt bardziej elastyczny. Elastyczność **dochodowa** rozróżnia dobra normalne (E > 0), luksusowe (E > 1) i niższego rzędu (E < 0), a **mieszana (krzyżowa)** – substytuty (E > 0) i dobra komplementarne (E < 0).',
+        '**Koszty i decyzje przedsiębiorstwa:** koszty stałe (niezależne od wielkości produkcji), zmienne (rosnące z produkcją) oraz **koszt krańcowy (MC)** – przyrost kosztu całkowitego przy wytworzeniu kolejnej jednostki. Przedsiębiorstwo **maksymalizuje zysk**, gdy **MR = MC** (przychód krańcowy równy kosztowi krańcowemu); w konkurencji doskonałej MR = P.',
+        '**Struktury rynku:** **konkurencja doskonała** (wielu sprzedawców, produkt jednorodny, brak barier wejścia, firma jest „price takerem”), **konkurencja monopolistyczna** (wielu sprzedawców, produkty zróżnicowane, np. aplikacje mobilne), **oligopol** (kilku dużych graczy o współzależnych decyzjach, wysokie bariery wejścia) i **monopol** (jeden sprzedawca, firma jest „price makerem”).',
+        '**Specyfika rynków IT:** dobra cyfrowe mają wysokie koszty stałe (R&D) i **koszt krańcowy bliski zera** (kopia oprogramowania), stąd ceny oparte na wartości, wersjonowanie i **freemium**. Silne są **efekt sieciowy** (wartość produktu rośnie z liczbą użytkowników), koszty przełączania (**lock-in**) oraz **cena dynamiczna** (algorytmiczna zmiana ceny zależnie od popytu).',
+      ],
+      example:
+        'Rynek **chmury publicznej** to **oligopol** (AWS, Microsoft Azure, Google Cloud): ogromne koszty stałe centrów danych tworzą bariery wejścia i korzyści skali, a dostawcy konkurują nie tylko ceną (model **pay-as-you-go**, zniżki za rezerwację zasobów), lecz także ekosystemem usług. Popyt firm na chmurę jest w krótkim okresie **nieelastyczny**, bo zmiana dostawcy jest kosztowna (lock-in). Gdy cena subskrypcji SaaS rośnie o 10%, a liczba subskrybentów spada o 5%, E = −0,5, więc podwyżka zwiększa przychód. **Cenę dynamiczną** stosują m.in. przewoźnicy lotniczy, aplikacje przewozowe typu Uber oraz chmura (ceny instancji typu spot zależą od bieżącego popytu na moc obliczeniową).',
+      conclusion:
+        'Mikroekonomia tłumaczy, jak powstają ceny i dlaczego firmy IT stosują strategie od freemium po cenę dynamiczną. O sile przetargowej dostawcy decyduje struktura rynku (**oligopol**, **efekt sieciowy**, lock-in), a o skutkach zmiany ceny – **elastyczność popytu**.',
+    },
+    mustSay: [
+      { term: 'Popyt i prawo popytu', aliases: ['popyt'] },
+      { term: 'Podaż i prawo podaży', aliases: ['podaz'] },
+      { term: 'Równowaga rynkowa', aliases: ['rownowag', 'equilibrium'] },
+      { term: 'Ruch wzdłuż krzywej a jej przesunięcie', aliases: ['ruch wzdluz', 'wzdluz krzyw', 'przesunieci krzyw'] },
+      { term: 'Ceteris paribus', aliases: ['ceteris'] },
+      { term: 'Elastyczność cenowa popytu', aliases: ['elastyczn'] },
+      { term: 'Elastyczność dochodowa i mieszana (substytuty, komplementy)', aliases: ['dochodow', 'mieszan', 'krzyzow', 'substytut', 'komplement'] },
+      { term: 'Koszt krańcowy (MC)', aliases: ['koszt krancow', 'mc'] },
+      { term: 'Maksymalizacja zysku: MR = MC', aliases: ['mr', 'przychod krancow', 'maksymalizacj zysk'] },
+      { term: 'Konkurencja doskonała', aliases: ['konkurencj doskonal', 'perfect competition'] },
+      { term: 'Monopol i konkurencja monopolistyczna', aliases: ['monopol'] },
+      { term: 'Oligopol', aliases: ['oligopol'] },
+      { term: 'Efekt sieciowy i dobra cyfrowe', aliases: ['efekt siec', 'network effect', 'dobra cyfrow', 'dobr cyfrow'] },
+    ],
+    quiz: [
+      {
+        q: 'Cena subskrypcji SaaS wzrosła o 10%, a liczba subskrybentów spadła o 5%. Jak scharakteryzować cenową elastyczność popytu?',
+        options: [
+          'Popyt elastyczny (|E| = 2)',
+          'Popyt nieelastyczny (|E| = 0,5)',
+          'Popyt jednostkowo elastyczny (|E| = 1)',
+          'Popyt doskonale nieelastyczny (E = 0)',
+        ],
+        correct: 1,
+        explain: 'E = %ΔQ / %ΔP = −5% / 10% = −0,5, czyli |E| < 1 – popyt nieelastyczny, więc podwyżka ceny zwiększa przychód.',
+      },
+      {
+        q: 'Przedsiębiorstwo maksymalizuje zysk, produkując taką ilość dobra, przy której:',
+        options: [
+          'cena równa się średniemu kosztowi całkowitemu (P = AC)',
+          'koszt krańcowy równa się średniemu kosztowi zmiennemu (MC = AVC)',
+          'przychód krańcowy jest równy zero (MR = 0), czyli przychód całkowity jest największy',
+          'przychód krańcowy równa się kosztowi krańcowemu (MR = MC)',
+        ],
+        correct: 3,
+        explain: 'Warunek maksymalizacji zysku to MR = MC; MR = 0 maksymalizuje przychód całkowity, a nie zysk.',
+      },
+      {
+        q: 'Dla dóbr komplementarnych (np. konsola i gry) współczynnik elastyczności mieszanej (krzyżowej) popytu jest:',
+        options: ['dodatni', 'równy zero', 'ujemny', 'zawsze większy od 1'],
+        correct: 2,
+        explain: 'Wzrost ceny konsoli obniża popyt na gry – zmiany idą w przeciwnych kierunkach, więc E < 0; dla substytutów E > 0.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Popyt jest {{elastyczny}}, gdy bezwzględna wartość współczynnika elastyczności cenowej E = %ΔQ / %ΔP jest większa od {{1}}.',
+      },
+      {
+        text: 'Przedsiębiorstwo maksymalizuje zysk, gdy {{przychód krańcowy|MR}} jest równy {{kosztowi krańcowemu|koszt krańcowy|MC}}.',
+      },
+    ],
+  },
+  {
+    id: 'O9',
+    category: 'ogolne',
+    number: 9,
+    day: 1,
+    area: 'Ekonomia',
+    title: 'Podstawowe kategorie makroekonomii – PKB, inflacja, bezrobocie, polityka pieniężna i fiskalna',
+    hint: 'Zacznij od definicji PKB i metod jego pomiaru, potem inflacja (CPI, cel NBP), bezrobocie i cykl koniunkturalny. Zakończ polityką pieniężną (RPP, stopy) i fiskalną (dług, art. 216 ust. 5 Konstytucji) oraz wpływem stóp procentowych na startupy.',
+    keywords: [
+      'PKB: Y = C + I + G + NX',
+      'CPI, cel NBP 2,5% ± 1 pp',
+      'Bezrobocie, krzywa Phillipsa',
+      'RPP i stopa referencyjna',
+      'Polityka pieniężna vs fiskalna',
+      'Dług ≤ 3/5 PKB (art. 216 Konst.)',
+      'Kryteria z Maastricht',
+    ],
+    answer: {
+      definition:
+        '**Makroekonomia** bada gospodarkę jako całość za pomocą agregatów, takich jak PKB, poziom cen, zatrudnienie i stopy procentowe. **Produkt krajowy brutto (PKB)** to wartość rynkowa finalnych dóbr i usług wytworzonych na terytorium kraju w danym okresie (zwykle kwartale lub roku); liczy się tylko **dobra finalne**, aby nie liczyć podwójnie dóbr pośrednich. W Polsce dane o PKB publikuje GUS, a głównymi celami polityki makroekonomicznej są stabilny wzrost, stabilność cen i niskie bezrobocie.',
+      classification: [
+        '**PKB i metody pomiaru:** metoda **produkcyjna** (suma wartości dodanej), **dochodowa** (suma dochodów czynników produkcji) i **wydatkowa**: Y = C + I + G + NX (konsumpcja, inwestycje, wydatki rządowe, eksport netto). **PKB nominalny** liczy się w cenach bieżących, **realny** – w cenach stałych (po usunięciu wpływu inflacji); porównania międzynarodowe opierają się na PKB per capita i parytecie siły nabywczej (PPP).',
+        '**Inflacja:** trwały wzrost ogólnego poziomu cen, mierzony wskaźnikiem **CPI** (ceny towarów i usług konsumpcyjnych; w Polsce GUS, w UE ujednolicony HICP – Eurostat). Rodzaje: **popytowa** (nadmierny popyt), **kosztowa** (wzrost kosztów, np. energii i płac), a także **deflacja** (spadek cen) i **stagflacja** (inflacja przy stagnacji i wysokim bezrobociu). **Cel inflacyjny NBP** to 2,5% z symetrycznym przedziałem odchyleń ±1 pkt proc.',
+        '**Bezrobocie:** stopa bezrobocia = bezrobotni / aktywni zawodowo (pracujący + bezrobotni) × 100%. Rodzaje: **frykcyjne** (przejściowe, przy zmianie pracy), **strukturalne** (niedopasowanie kwalifikacji do popytu na pracę) i **koniunkturalne** (cykliczne, w recesji). Zależność inflacji i bezrobocia w krótkim okresie opisuje **krzywa Phillipsa** (zależność ujemna). W Polsce odróżnia się stopę rejestrowaną (urzędy pracy) od stopy BAEL (GUS, metodologia ILO).',
+        '**Cykl koniunkturalny:** naprzemienne fazy przyspieszenia i spowolnienia aktywności gospodarczej – **ekspansja** (ożywienie, szczyt) i **recesja** (spowolnienie, dno). Za recesję techniczną uznaje się potocznie spadek PKB przez dwa kolejne kwartały.',
+        '**Polityka pieniężna:** prowadzi ją bank centralny – **NBP**, który odpowiada za wartość polskiego pieniądza (art. 227 Konstytucji RP), a jego podstawowym celem jest stabilny poziom cen. Stopy procentowe, w tym **stopę referencyjną**, ustala **Rada Polityki Pieniężnej (RPP)**. Instrumenty: **stopy procentowe**, **operacje otwartego rynku** (np. bony pieniężne NBP, operacje repo) i **rezerwa obowiązkowa** banków. W strefie euro politykę tę prowadzi EBC.',
+        '**Polityka fiskalna:** prowadzi ją rząd za pomocą **podatków** i **wydatków budżetowych**; różnica to deficyt, a skumulowane deficyty tworzą **dług publiczny**. Polityka może być ekspansywna (niższe podatki, wyższe wydatki) lub restrykcyjna. Ograniczenia: **art. 216 ust. 5 Konstytucji RP** – państwowy dług publiczny nie może przekroczyć **3/5 PKB**; **kryteria z Maastricht** – m.in. deficyt sektora finansów publicznych ≤ 3% PKB i dług ≤ 60% PKB.',
+      ],
+      example:
+        'Wzrost **stóp procentowych** podnosi koszt kredytu i oczekiwaną stopę zwrotu inwestorów, przez co spadają wyceny spółek technologicznych i maleje skłonność funduszy **venture capital** do finansowania startupów (tak było po zaostrzeniu polityki pieniężnej w latach 2022–2023). **Automatyzacja i AI** zmniejszają popyt na część zawodów, co zwiększa **bezrobocie strukturalne**, a jednocześnie rośnie popyt na kompetencje cyfrowe. **Inflacja i kurs walutowy** podnoszą koszty IT, bo licencje i usługi chmurowe są często rozliczane w dolarach, a płace specjalistów rosną. Instrumentami fiskalnymi wspierającymi sektor IT są m.in. ulga B+R i preferencyjna stawka **IP Box** (5%).',
+      conclusion:
+        'Makroekonomia opisuje otoczenie firm IT – **koniunktura** i **koszt pieniądza** wpływają na popyt na usługi, dostępność finansowania i rynek pracy. Bank centralny stabilizuje ceny instrumentami pieniężnymi, a rząd oddziałuje podatkami i wydatkami w granicach limitów zadłużenia.',
+    },
+    mustSay: [
+      { term: 'PKB – produkt krajowy brutto', aliases: ['pkb', 'produkt krajowy', 'gdp'] },
+      { term: 'Metody pomiaru PKB: produkcyjna, dochodowa, wydatkowa', aliases: ['wydatkow', 'produkcyjn', 'metod dochodow'] },
+      { term: 'PKB nominalny a realny', aliases: ['nominaln', 'realn', 'ceny stal'] },
+      { term: 'Inflacja i CPI', aliases: ['inflacj', 'cpi'] },
+      { term: 'Cel inflacyjny NBP 2,5% ± 1 pkt proc.', aliases: ['cel inflacyjn', 'celu inflacyjn', 'celem inflacyjn'] },
+      { term: 'Stopa bezrobocia', aliases: ['bezroboci', 'bezrobotn'] },
+      { term: 'Bezrobocie frykcyjne, strukturalne, koniunkturalne', aliases: ['frykcyjn', 'strukturaln', 'koniunkturaln'] },
+      { term: 'Krzywa Phillipsa', aliases: ['phillips', 'philips'] },
+      { term: 'Cykl koniunkturalny i recesja', aliases: ['cykl koniunkturaln', 'cykl gospodarcz', 'recesj'] },
+      { term: 'Polityka pieniężna – NBP, RPP, stopa referencyjna', aliases: ['rpp', 'referencyjn', 'polityk pieniezn', 'polityc pieniezn'] },
+      { term: 'Instrumenty: stopy, operacje otwartego rynku, rezerwa obowiązkowa', aliases: ['operacj otwart', 'otwartego rynku', 'rezerw obowiazkow', 'stop procentow'] },
+      { term: 'Polityka fiskalna (podatki, wydatki, deficyt)', aliases: ['fiskaln', 'fiscal policy', 'budzet'] },
+      { term: 'Dług publiczny i kryteria z Maastricht', aliases: ['maastricht', 'dlug publiczn', '216', 'konwergencj'] },
+    ],
+    quiz: [
+      {
+        q: 'Jaki jest ciągły cel inflacyjny Narodowego Banku Polskiego?',
+        options: [
+          '2,0% bez przedziału odchyleń',
+          '3,0% ± 2 pkt proc.',
+          '2,5% ± 1 pkt proc.',
+          '4,0% ± 1 pkt proc.',
+        ],
+        correct: 2,
+        explain: 'RPP od 2004 r. stosuje ciągły cel inflacyjny 2,5% z symetrycznym przedziałem odchyleń ±1 pkt proc.',
+      },
+      {
+        q: 'Zgodnie z art. 216 ust. 5 Konstytucji RP nie wolno zaciągać pożyczek ani udzielać gwarancji, w następstwie których państwowy dług publiczny przekroczy:',
+        options: [
+          '3/5 wartości rocznego PKB',
+          '1/2 wartości rocznego PKB',
+          '2/3 wartości rocznego PKB',
+          '4/5 wartości rocznego PKB',
+        ],
+        correct: 0,
+        explain: '3/5 PKB to 60% PKB – ta sama wartość co kryterium zadłużenia z Maastricht.',
+      },
+      {
+        q: 'W wydatkowej metodzie liczenia PKB (Y = C + I + G + NX) symbol NX oznacza:',
+        options: [
+          'nominalne wydatki konsumentów',
+          'nowe inwestycje przedsiębiorstw',
+          'podatki netto',
+          'eksport netto (eksport minus import)',
+        ],
+        correct: 3,
+        explain: 'C – konsumpcja, I – inwestycje, G – wydatki rządowe, NX – eksport netto, czyli saldo handlu zagranicznego.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Kryteria z Maastricht ograniczają deficyt sektora finansów publicznych do {{3}}% PKB, a dług publiczny do {{60}}% PKB.',
+      },
+      {
+        text: 'Stopę bezrobocia oblicza się jako stosunek liczby bezrobotnych do liczby osób {{aktywnych zawodowo|aktywnych}}, a stopy procentowe w Polsce ustala {{Rada Polityki Pieniężnej|RPP}}.',
+      },
+    ],
+  },
+  {
+    id: 'O10',
+    category: 'ogolne',
+    number: 10,
+    day: 1,
+    area: 'Ekonomia',
+    title: 'Ocena efektywności inwestycji IT – NPV, IRR, ROI, okres zwrotu, TCO, próg rentowności',
+    hint: 'Zacznij od wartości pieniądza w czasie i podziału na metody statyczne i dyskontowe. Podaj wzory NPV, IRR, ROI, BEP i definicję TCO, a w przykładzie policz NPV migracji do chmury.',
+    keywords: [
+      'Wartość pieniądza w czasie',
+      'NPV = Σ CFt/(1+r)^t − I0',
+      'IRR: NPV = 0, IRR > WACC',
+      'ROI = (zysk − nakład)/nakład',
+      'Okres zwrotu (prosty, zdysk.)',
+      'TCO – koszt posiadania',
+      'BEP = KS / (c − kj zm.)',
+      'Analiza wrażliwości',
+    ],
+    answer: {
+      definition:
+        '**Ocena efektywności inwestycji IT** polega na porównaniu nakładów (CAPEX i OPEX) z oczekiwanymi korzyściami – oszczędnościami, przychodami lub redukcją ryzyka – z uwzględnieniem czasu i ryzyka. Podstawą jest **wartość pieniądza w czasie**: złotówka dziś jest warta więcej niż za rok, dlatego przepływy pieniężne **dyskontuje się** stopą r równą kosztowi kapitału (np. **WACC**). Metody dzieli się na **statyczne** (ROI, okres zwrotu, próg rentowności) i **dynamiczne** (NPV, IRR); osobną koncepcją kosztową jest **TCO** (Total Cost of Ownership), spopularyzowana przez firmę Gartner.',
+      classification: [
+        '**ROI (zwrot z inwestycji):** ROI = (zysk − nakład) / nakład × 100%, gdzie „zysk” oznacza łączne korzyści z inwestycji (przychody lub oszczędności). Miara prosta i czytelna, ale **nie uwzględnia wartości pieniądza w czasie** ani rozkładu przepływów.',
+        '**Okres zwrotu (payback):** czas, po którym skumulowane przepływy pokrywają nakład. **Prosty** liczy się bez dyskonta, **zdyskontowany** – na przepływach zdyskontowanych i jest zawsze dłuższy. Metoda pomija przepływy po okresie zwrotu, więc nie mierzy całkowitej opłacalności.',
+        '**NPV (wartość bieżąca netto):** NPV = Σ [CFt / (1 + r)^t] − I0, t = 1…n. Projekt jest opłacalny, gdy **NPV > 0**; spośród wykluczających się projektów wybiera się ten o najwyższym NPV. To kryterium najbardziej wiarygodne, ale wrażliwe na przyjętą stopę r.',
+        '**IRR (wewnętrzna stopa zwrotu):** stopa dyskontowa, przy której **NPV = 0**. Projekt jest opłacalny, gdy **IRR > koszt kapitału (WACC)**. Ograniczenia: przy nietypowych przepływach (wielokrotna zmiana znaku) może istnieć kilka IRR, a miara nie uwzględnia skali projektu.',
+        '**TCO (całkowity koszt posiadania):** suma kosztów w całym cyklu życia rozwiązania – **bezpośrednich** (licencje, sprzęt, wdrożenie, migracja) i **pośrednich** (szkolenia, przestoje, administracja, utrzymanie, wsparcie, wycofanie z eksploatacji). Służy do porównywania wariantów (np. on-premise a chmura), ale sama nie uwzględnia korzyści.',
+        '**Próg rentowności i analiza wrażliwości:** BEP = KS / (c − kj zm.), gdzie KS to koszty stałe, c – cena jednostkowa, kj zm. – jednostkowy koszt zmienny; wynik to liczba jednostek, od której zysk jest dodatni. **Analiza wrażliwości** bada, jak zmieni się NPV przy innych r, kosztach lub korzyściach, a **korzyści niemierzalne** (np. bezpieczeństwo, wizerunek) ujmuje się m.in. w **Balanced Scorecard** (Kaplan i Norton).',
+      ],
+      example:
+        'Firma rozważa **migrację z własnej serwerowni do chmury**: jednorazowy nakład I0 = 300 000 zł (migracja, szkolenia), roczne koszty on-premise 400 000 zł (energia, serwis, administracja, odnowienie sprzętu) wobec 280 000 zł w chmurze, czyli oszczędność 120 000 zł rocznie przez 4 lata. **TCO (4 lata):** on-premise 1 600 000 zł, chmura 300 000 + 4 × 280 000 = 1 420 000 zł. **ROI** = (480 000 − 300 000) / 300 000 = 60%, okres zwrotu prosty = 2,5 roku. Przy r = 10%: **NPV** = 120 000 × 3,16987 − 300 000 ≈ **80 384 zł** (> 0), **IRR ≈ 21,9%** (> 10%), okres zwrotu zdyskontowany ≈ 3,0 roku – projekt jest opłacalny. W Excelu: =NPV(10%; przepływy) − I0 (funkcja NPV nie uwzględnia nakładu początkowego), =IRR(zakres), =XNPV dla przepływów w konkretnych datach. **BEP** dla usługi SaaS: KS = 120 000 zł/mies., cena 200 zł, kj zm. 50 zł, czyli 120 000 / 150 = 800 użytkowników.',
+      conclusion:
+        'Żadna miara nie wystarcza sama – metody statyczne służą do szybkiej oceny, a o decyzji powinny przesądzać kryteria dyskontowe (**NPV > 0**, **IRR > WACC**) uzupełnione analizą **TCO** i wrażliwości. W IT trzeba też uwzględnić ryzyko i korzyści niemierzalne, bo wiele efektów (bezpieczeństwo, elastyczność) trudno wyrazić w pieniądzach.',
+    },
+    mustSay: [
+      { term: 'NPV – wartość bieżąca netto', aliases: ['npv', 'wartosc biezac', 'net present value'] },
+      { term: 'IRR – wewnętrzna stopa zwrotu', aliases: ['irr', 'wewnetrzn stop'] },
+      { term: 'ROI – zwrot z inwestycji', aliases: ['roi', 'zwrot z inwestycj'] },
+      { term: 'Okres zwrotu (payback)', aliases: ['okres zwrot', 'payback'] },
+      { term: 'Okres zwrotu zdyskontowany', aliases: ['zdyskontowan', 'discounted payback'] },
+      { term: 'Wartość pieniądza w czasie / dyskontowanie', aliases: ['wartosc pieniadz', 'pieniadza w czasie', 'dyskont', 'time value'] },
+      { term: 'Koszt kapitału / WACC / stopa dyskontowa', aliases: ['wacc', 'koszt kapital', 'stop dyskontow'] },
+      { term: 'TCO – całkowity koszt posiadania', aliases: ['tco', 'calkowit koszt', 'total cost'] },
+      { term: 'Koszty bezpośrednie i pośrednie', aliases: ['bezposredni', 'posredni'] },
+      { term: 'Próg rentowności (BEP)', aliases: ['prog rentown', 'bep', 'break even'] },
+      { term: 'Analiza wrażliwości / scenariuszowa', aliases: ['wrazliw', 'scenariusz', 'sensitivity'] },
+      { term: 'Korzyści niemierzalne / Balanced Scorecard', aliases: ['niemierzaln', 'balanced scorecard', 'bsc'] },
+      { term: 'CAPEX i OPEX', aliases: ['capex', 'opex'] },
+    ],
+    quiz: [
+      {
+        q: 'Jak działa funkcja =NPV(stopa; zakres) w Excelu?',
+        options: [
+          'Uwzględnia nakład początkowy I0 wpisany w komórce okresu zerowego',
+          'Dyskontuje przepływy od końca okresu 1, więc nakład początkowy trzeba odjąć osobno',
+          'Oblicza wewnętrzną stopę zwrotu projektu',
+          'Dyskontuje przepływy według dat podanych w osobnej kolumnie',
+        ],
+        correct: 1,
+        explain: 'Excelowe NPV zakłada, że pierwszy przepływ następuje na koniec okresu 1; I0 odejmuje się poza funkcją, a dla przepływów z datami służy XNPV.',
+      },
+      {
+        q: 'Koszty stałe usługi SaaS wynoszą 120 000 zł miesięcznie, cena subskrypcji 200 zł, a koszt zmienny na użytkownika 50 zł. Ilu płatnych użytkowników wyznacza próg rentowności?',
+        options: ['600', '480', '800', '1 200'],
+        correct: 2,
+        explain: 'BEP = KS / (c − kj zm.) = 120 000 / (200 − 50) = 800 użytkowników.',
+      },
+      {
+        q: 'Nakład na wdrożenie wynosi 300 000 zł, a łączne korzyści w ciągu 4 lat 480 000 zł. Ile wynosi ROI?',
+        options: ['60%', '37,5%', '160%', '180%'],
+        correct: 0,
+        explain: 'ROI = (480 000 − 300 000) / 300 000 × 100% = 60%; 160% to stosunek korzyści do nakładu, a nie ROI.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Projekt inwestycyjny jest opłacalny, gdy {{NPV}} > 0 oraz gdy {{IRR}} przewyższa koszt kapitału (WACC); IRR to stopa, przy której NPV wynosi {{zero|0}}.',
+      },
+      {
+        text: 'Próg rentowności BEP = KS / (c − kj zm.), gdzie KS to koszty {{stałe}}, a skrót TCO oznacza {{całkowity koszt posiadania|Total Cost of Ownership}}.',
+      },
+    ],
+  },
+  {
+    id: 'O11',
+    category: 'ogolne',
+    number: 11,
+    day: 1,
+    area: 'Ekonomia',
+    title: 'Gospodarka cyfrowa i modele biznesowe e-biznesu (B2B, B2C, SaaS, platformy, efekt sieciowy)',
+    hint: 'Zacznij od definicji gospodarki cyfrowej i e-biznesu, potem podział modeli (relacje B2B/B2C, modele przychodowe), platformy i efekt sieciowy. Zakończ Business Model Canvas i regulacjami DMA/DSA.',
+    keywords: [
+      'B2B / B2C / C2C / B2G',
+      'SaaS, freemium, prowizja',
+      'Pay-as-you-go',
+      'Platformy wielostronne',
+      'Efekt sieciowy (Metcalfe n²)',
+      'Długi ogon (C. Anderson)',
+      'Business Model Canvas (9)',
+      'DMA i DSA',
+    ],
+    answer: {
+      definition:
+        '**Gospodarka cyfrowa** (digital economy) to gospodarka, w której kluczowymi zasobami są dane i informacja, a produkcja, dystrybucja i wymiana opierają się na technologiach cyfrowych i sieci (termin spopularyzował D. Tapscott w książce „The Digital Economy”, 1995). **E-biznes** obejmuje prowadzenie procesów biznesowych z użyciem ICT, a **handel elektroniczny (e-commerce)** jest jego częścią – dotyczy transakcji kupna i sprzedaży online. **Model biznesowy** opisuje, w jaki sposób organizacja tworzy, dostarcza i przechwytuje wartość (A. Osterwalder, Y. Pigneur).',
+      classification: [
+        '**Modele relacji:** **B2B** (firma–firma, np. SaaS, platformy zakupowe), **B2C** (firma–konsument, np. sklepy internetowe), **C2C** (konsument–konsument, np. OLX), **B2G** (firma–administracja, np. e-zamówienia publiczne) oraz **C2B** (konsument oferuje usługę firmie, np. freelancerzy, crowdsourcing).',
+        '**Modele przychodowe:** **subskrypcja** (SaaS, np. Microsoft 365), **freemium** (wersja darmowa i płatna, np. Spotify), **reklama** (np. Google), **prowizja** (marketplace, np. Allegro), **pay-per-use** (opłata za zużycie, np. AWS) oraz klasyczna **licencja** jednorazowa.',
+        '**Platformy wielostronne i efekt sieciowy:** platforma łączy co najmniej dwie grupy użytkowników (np. sprzedających i kupujących). **Efekt sieciowy** oznacza, że wartość usługi rośnie wraz z liczbą użytkowników – bezpośrednio (komunikatory) lub pośrednio (więcej sprzedawców przyciąga kupujących). Opisuje go **prawo Metcalfe’a**: wartość sieci rośnie proporcjonalnie do n² (liczba możliwych połączeń to n(n−1)/2). Skutki: tendencja do dominacji jednego gracza („winner takes most”) i **lock-in**.',
+        '**Długi ogon i ekonomia współdzielenia:** koncepcja **długiego ogona** (Chris Anderson, 2004) – dzięki niskim kosztom przechowywania i dystrybucji cyfrowej suma sprzedaży produktów niszowych może dorównywać hitom (Amazon, Netflix, Spotify). **Ekonomia współdzielenia** zastępuje własność dostępem (Uber, Airbnb). Dobra cyfrowe mają koszt krańcowy bliski zera.',
+        '**Business Model Canvas** (A. Osterwalder i Y. Pigneur): **9 elementów** – segmenty klientów, propozycja wartości, kanały, relacje z klientami, strumienie przychodów, kluczowe zasoby, kluczowe działania, kluczowi partnerzy, struktura kosztów.',
+        '**Regulacje UE:** **DMA** – Akt o rynkach cyfrowych, rozporządzenie **(UE) 2022/1925**, nakłada obowiązki na **strażników dostępu** (gatekeepers), czyli największe platformy; **DSA** – Akt o usługach cyfrowych, rozporządzenie **(UE) 2022/2065**, reguluje odpowiedzialność pośredników, zwalczanie nielegalnych treści i przejrzystość platform. Uzupełniają je RODO i eIDAS.',
+      ],
+      example:
+        'Allegro to marketplace (B2C i C2C) zarabiający na **prowizji** od sprzedaży oraz na reklamach, a jego wartość rośnie wraz z liczbą sprzedawców i kupujących (**efekt sieciowy**). Spotify stosuje **freemium** (darmowy plan z reklamami i płatny Premium), Microsoft 365 – **subskrypcję SaaS**, a AWS – rozliczenie **pay-as-you-go**. Alphabet, Amazon, Apple, Meta i Microsoft zostały wyznaczone jako **strażnicy dostępu** w rozumieniu DMA. Zespół wdrażający własny produkt SaaS opisuje model w **Business Model Canvas**, a o cenie rozstrzyga m.in. analiza progu rentowności (zob. O10).',
+      conclusion:
+        'Gospodarka cyfrowa przesuwa przewagę konkurencyjną z zasobów fizycznych na **dane, platformy i efekty sieciowe**, a modele przychodowe – od licencji ku **subskrypcji i opłatom za użycie**. Skala platform wywołała regulacje UE (DMA, DSA), które ograniczają nadużywanie pozycji dominującej i zwiększają odpowiedzialność pośredników.',
+    },
+    mustSay: [
+      { term: 'Gospodarka cyfrowa', aliases: ['gospodark cyfrow', 'gospodarc cyfrow', 'digital economy'] },
+      { term: 'B2B (business to business)', aliases: ['b2b', 'business to business'] },
+      { term: 'B2C (business to consumer)', aliases: ['b2c', 'business to consumer'] },
+      { term: 'SaaS / subskrypcja', aliases: ['saas', 'subskrypcj', 'software as a service'] },
+      { term: 'Freemium', aliases: ['freemium'] },
+      { term: 'Prowizja / marketplace', aliases: ['prowizj', 'marketplace'] },
+      { term: 'Pay-per-use / pay-as-you-go', aliases: ['pay as you go', 'pay per use', 'za uzycie'] },
+      { term: 'Platformy wielostronne', aliases: ['platform', 'wielostronn', 'two sided'] },
+      { term: 'Efekt sieciowy / prawo Metcalfe’a', aliases: ['efekt siec', 'network effect', 'metcalfe'] },
+      { term: 'Długi ogon', aliases: ['dlug ogon', 'long tail', 'anderson'] },
+      { term: 'Ekonomia współdzielenia', aliases: ['wspoldziel', 'sharing economy', 'uber', 'airbnb'] },
+      { term: 'Business Model Canvas', aliases: ['business model canvas', 'canvas', 'osterwalder'] },
+      { term: 'DMA i DSA – strażnicy dostępu', aliases: ['dma', 'dsa', 'digital markets act', 'digital services act', 'straznik dostep', 'gatekeeper'] },
+    ],
+    quiz: [
+      {
+        q: 'Które rozporządzenie UE jest Aktem o rynkach cyfrowych (DMA), wprowadzającym pojęcie „strażników dostępu” (gatekeepers)?',
+        options: ['(UE) 2022/2065', '(UE) 2022/1925', '(UE) 2016/679', '(UE) 2024/1689'],
+        correct: 1,
+        explain: 'DMA to rozporządzenie (UE) 2022/1925; (UE) 2022/2065 to Akt o usługach cyfrowych (DSA), 2016/679 – RODO, 2024/1689 – akt o sztucznej inteligencji.',
+      },
+      {
+        q: 'Z ilu elementów (bloków) składa się Business Model Canvas A. Osterwaldera i Y. Pigneura?',
+        options: ['5', '7', '9', '12'],
+        correct: 2,
+        explain: 'Canvas ma 9 elementów, m.in. segmenty klientów, propozycję wartości, kanały, strumienie przychodów i strukturę kosztów.',
+      },
+      {
+        q: 'Zgodnie z prawem Metcalfe’a wartość sieci jest proporcjonalna do:',
+        options: [
+          'kwadratu liczby użytkowników (n²)',
+          'liczby użytkowników (n)',
+          'logarytmu liczby użytkowników (log n)',
+          '2^n, gdzie n to liczba użytkowników (prawo Reeda)',
+        ],
+        correct: 0,
+        explain: 'Wartość sieci rośnie jak n², bo liczba możliwych połączeń wynosi n(n−1)/2; zależność wykładnicza 2^n to prawo Reeda.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Akt o rynkach cyfrowych (DMA) – rozporządzenie (UE) {{2022/1925}} – nakłada obowiązki na {{strażników dostępu|gatekeepers|gatekeeper}}, czyli największe platformy.',
+      },
+      {
+        text: 'Business Model Canvas, opracowany przez Alexandra {{Osterwaldera|Osterwalder}} i Yvesa Pigneura, składa się z {{9|dziewięciu}} elementów.',
+      },
+    ],
+  },
+  {
+    id: 'O12',
+    category: 'ogolne',
+    number: 12,
+    day: 1,
+    area: 'SZBI i audyt',
+    title: 'System Zarządzania Bezpieczeństwem Informacji wg ISO/IEC 27001:2022',
+    hint: 'Zacznij od definicji SZBI i normy ISO/IEC 27001:2022, potem struktura rozdziałów 4–10 i PDCA. Wymień SoA, Załącznik A (93 zabezpieczenia w 4 tematach, 11 nowych) i proces certyfikacji.',
+    keywords: [
+      'ISO/IEC 27001:2022',
+      'Struktura HLS – rozdz. 4–10',
+      'PDCA (Deming)',
+      'SoA – Deklaracja stosowania',
+      'Załącznik A: 93 zabezpieczenia',
+      '11 nowych zabezpieczeń',
+      'ISO/IEC 27002 i rodzina 270xx',
+      'Certyfikacja: PCA, 3 lata',
+    ],
+    answer: {
+      definition:
+        '**System Zarządzania Bezpieczeństwem Informacji (SZBI, ang. ISMS)** to zbiór polityk, procedur, wytycznych oraz powiązanych zasobów i działań, zarządzanych wspólnie przez organizację w celu ochrony jej aktywów informacyjnych (ISO/IEC 27000). Wymagania dla SZBI określa norma **ISO/IEC 27001:2022**, opublikowana w październiku 2022 r. i zastępująca wydanie z 2013 r.; okres przejściowy dla certyfikatów wydania 2013 zakończył się 31 października 2025 r. Norma opiera się na **zarządzaniu ryzykiem** i ciągłym doskonaleniu, a nie na narzucaniu konkretnych technologii.',
+      classification: [
+        '**Struktura zharmonizowana (Annex SL / HLS):** wspólny szkielet norm systemów zarządzania (m.in. ISO 9001, ISO 14001), co ułatwia budowę zintegrowanego systemu zarządzania. Wymagania zawarte są w **rozdziałach 4–10**: kontekst organizacji, przywództwo, planowanie, wsparcie, działania operacyjne, ocena efektów, doskonalenie.',
+        '**Cykl PDCA (Deming):** układ rozdziałów odzwierciedla logikę ciągłego doskonalenia – **Plan** (rozdz. 4–7: kontekst, polityka, ocena ryzyka, cele, zasoby), **Do** (rozdz. 8: wdrożenie i eksploatacja zabezpieczeń), **Check** (rozdz. 9: monitorowanie, **audyt wewnętrzny**, **przegląd zarządzania**), **Act** (rozdz. 10: działania korygujące i doskonalenie).',
+        '**Ryzyko i Deklaracja stosowania (SoA):** organizacja ustala metodykę **szacowania ryzyka** (pkt 6.1.2), przygotowuje **plan postępowania z ryzykiem** (6.1.3) i sporządza **Deklarację stosowania (SoA)** – listę niezbędnych zabezpieczeń z uzasadnieniem ich włączenia lub wyłączenia oraz statusem wdrożenia.',
+        '**Załącznik A:** **93 zabezpieczenia** w **4 tematach** – organizacyjne (37), osobowe (8), fizyczne (14) i technologiczne (34); w wydaniu 2013 było 114 zabezpieczeń w 14 domenach. Dodano **11 nowych zabezpieczeń**, m.in. threat intelligence, bezpieczeństwo usług chmurowych, gotowość ICT do ciągłości działania, maskowanie danych, zapobieganie wyciekom danych (DLP), monitorowanie działań, filtrowanie stron WWW i bezpieczne kodowanie. Lista nie jest wyczerpująca – organizacja może dodać własne zabezpieczenia.',
+        '**Rodzina norm ISO/IEC 27000:** **27000** – terminologia, **27002:2022** – wytyczne do zabezpieczeń, **27005** – zarządzanie ryzykiem, **27006** – wymagania dla jednostek certyfikujących SZBI, **27007** – audytowanie SZBI, **27017** – zabezpieczenia usług chmurowych, **27018** – ochrona danych osobowych w chmurze publicznej, **27701** – system zarządzania informacjami o prywatności (PIMS).',
+        '**Certyfikacja:** przeprowadza ją niezależna jednostka certyfikująca, akredytowana (w Polsce przez **PCA – Polskie Centrum Akredytacji**). **Audyt certyfikacyjny jest dwuetapowy**: etap 1 – przegląd dokumentacji i gotowości, etap 2 – ocena wdrożenia i skuteczności. Certyfikat obowiązuje **3 lata**, w tym czasie odbywają się **audyty nadzoru** co roku, a po 3 latach **recertyfikacja**.',
+      ],
+      example:
+        'Software house tworzący aplikacje SaaS wdraża SZBI: ustala zakres (rozwój i hosting produktu), zarząd zatwierdza **politykę bezpieczeństwa informacji**, a zespół prowadzi rejestr ryzyk wg ISO/IEC 27005 i przygotowuje **SoA**. Wybrane zabezpieczenia to m.in. **A.8.24** (kryptografia), **A.8.15** (rejestrowanie zdarzeń), **A.8.28** (bezpieczne kodowanie – nowe w 2022 r.) oraz **A.5.23** (bezpieczeństwo usług chmurowych – nowe w 2022 r.). Następnie przeprowadza **audyt wewnętrzny** i **przegląd zarządzania**, a na końcu audyt certyfikacyjny jednostki akredytowanej przez PCA.',
+      conclusion:
+        'ISO/IEC 27001 wymaga **systematycznego, opartego na ryzyku** zarządzania bezpieczeństwem informacji i ciągłego doskonalenia, a nie jednorazowego wdrożenia zabezpieczeń. **Certyfikat** jest dla klientów i kontrahentów wiarygodnym dowodem dojrzałości organizacji, a **struktura HLS** ułatwia integrację z innymi normami.',
+    },
+    mustSay: [
+      { term: 'SZBI (ISMS)', aliases: ['szbi', 'isms', 'system zarzadzani bezpieczenstw'] },
+      { term: 'ISO/IEC 27001:2022', aliases: ['27001'] },
+      { term: 'Struktura zharmonizowana (Annex SL / HLS)', aliases: ['annex sl', 'hls', 'high level structure', 'zharmonizowan'] },
+      { term: 'Kontekst organizacji i przywództwo', aliases: ['kontekst', 'przywodztw'] },
+      { term: 'Audyt wewnętrzny i przegląd zarządzania', aliases: ['audyt wewnetrzn', 'przeglad zarzadzani', 'przeglad kierownictw'] },
+      { term: 'Cykl PDCA (Deming)', aliases: ['pdca', 'deming', 'plan do check act'] },
+      { term: 'Deklaracja stosowania (SoA)', aliases: ['soa', 'deklaracj stosowani', 'statement of applicability'] },
+      { term: 'Szacowanie i postępowanie z ryzykiem', aliases: ['ryzyk', 'risk assessment'] },
+      { term: 'Załącznik A – 93 zabezpieczenia', aliases: ['zalacznik a', 'annex a', '93'] },
+      { term: '4 tematy: organizacyjne, osobowe, fizyczne, technologiczne', aliases: ['organizacyjn', 'osobow', 'fizyczn', 'technologiczn'] },
+      { term: '11 nowych zabezpieczeń', aliases: ['nowych zabezpieczen', 'nowe zabezpieczen', 'threat intelligence', 'dlp', 'maskowani', 'bezpieczn kodowani', 'secure coding'] },
+      { term: 'Rodzina norm ISO/IEC 27000 (27002, 27005, 27017, 27701)', aliases: ['27000', '27002', '27005', '27017', '27018', '27701'] },
+      { term: 'Certyfikacja (PCA, audyt nadzoru, recertyfikacja)', aliases: ['certyfikacj', 'certyfikat', 'pca', 'recertyfikacj', 'akredytowan'] },
+    ],
+    quiz: [
+      {
+        q: 'Ile zabezpieczeń zawiera Załącznik A normy ISO/IEC 27001:2022?',
+        options: ['114', '133', '35', '93'],
+        correct: 3,
+        explain: 'Wydanie 2022 ma 93 zabezpieczenia w 4 tematach; 114 zabezpieczeń w 14 domenach było w wydaniu 2013.',
+      },
+      {
+        q: 'Ile nowych zabezpieczeń wprowadzono w Załączniku A wydania 2022 w porównaniu z wydaniem 2013?',
+        options: ['4', '7', '11', '24'],
+        correct: 2,
+        explain: 'Dodano 11 nowych zabezpieczeń (m.in. threat intelligence, usługi chmurowe, DLP, maskowanie danych, bezpieczne kodowanie, filtrowanie stron WWW).',
+      },
+      {
+        q: 'Jak długo ważny jest certyfikat zgodności z ISO/IEC 27001 i jak często odbywają się audyty nadzoru?',
+        options: [
+          '3 lata; audyty nadzoru co roku',
+          '1 rok; audyty nadzoru co kwartał',
+          '5 lat; audyty nadzoru co 2 lata',
+          '2 lata; audyty nadzoru co pół roku',
+        ],
+        correct: 0,
+        explain: 'Cykl certyfikacji trwa 3 lata: audyt certyfikacyjny, coroczne audyty nadzoru i recertyfikacja po 3 latach.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Załącznik A normy ISO/IEC 27001:2022 zawiera {{93}} zabezpieczenia w {{4}} tematach, a ich listę z uzasadnieniem wyboru nazywamy {{Deklaracją stosowania|Deklaracja stosowania|SoA|Statement of Applicability}}.',
+      },
+      {
+        text: 'Wymagania normy ISO/IEC 27001 zawarte są w rozdziałach od {{4}} do {{10}}, a cykl ciągłego doskonalenia nazywamy {{PDCA|Plan-Do-Check-Act|cykl Deminga}}.',
+      },
+    ],
+  },
+  {
+    id: 'O13',
+    category: 'ogolne',
+    number: 13,
+    day: 1,
+    area: 'SZBI i audyt',
+    title: 'Atrybuty bezpieczeństwa informacji – triada CIA i atrybuty rozszerzone (ISO/IEC 27000)',
+    hint: 'Zacznij od definicji z ISO/IEC 27000 dla poufności, integralności i dostępności, potem atrybuty rozszerzone, heksada Parkera i model AAA. Przy każdym atrybucie podaj mechanizmy ochrony.',
+    keywords: [
+      'Triada CIA',
+      'Poufność – szyfrowanie, RBAC',
+      'Integralność – hash, HMAC',
+      'Dostępność – HA, backup 3-2-1',
+      'Autentyczność, rozliczalność',
+      'Niezaprzeczalność',
+      'Heksada Parkera',
+      'Model AAA',
+    ],
+    answer: {
+      definition:
+        '**Bezpieczeństwo informacji** to według ISO/IEC 27000 zachowanie **poufności**, **integralności** i **dostępności** informacji (triada **CIA**); mogą być też uwzględniane inne właściwości: autentyczność, rozliczalność, niezaprzeczalność i niezawodność. Poufność to właściwość polegająca na tym, że informacja nie jest udostępniana ani ujawniana nieuprawnionym osobom, podmiotom lub procesom; integralność – zapewnienie dokładności i kompletności; dostępność – bycie dostępnym i użytecznym na żądanie uprawnionego podmiotu.',
+      classification: [
+        '**Poufność (Confidentiality):** zagrożenia – podsłuch, wyciek, nieuprawniony dostęp. Mechanizmy: **szyfrowanie** (AES, TLS), **kontrola dostępu** – DAC (uznaniowa), MAC (obowiązkowa, oparta na etykietach), RBAC (oparta na rolach) – zasada najmniejszych uprawnień, **klasyfikacja informacji** i DLP.',
+        '**Integralność (Integrity):** zagrożenia – nieuprawniona lub przypadkowa modyfikacja danych. Mechanizmy: **funkcje skrótu** (SHA-256), **HMAC**, **podpis cyfrowy**, kontrola wersji, sumy kontrolne i transakcje bazodanowe.',
+        '**Dostępność (Availability):** zagrożenia – awarie, ataki DDoS, ransomware. Mechanizmy: **redundancja** (RAID, klastry HA), **kopie zapasowe wg zasady 3-2-1** (3 kopie, 2 rodzaje nośników, 1 poza lokalizacją), plan ciągłości działania i odtwarzania po awarii (cele RTO i RPO), ochrona przed DDoS (WAF, CDN) oraz umowy **SLA**.',
+        '**Atrybuty rozszerzone (ISO/IEC 27000):** **autentyczność** – pewność, że podmiot jest tym, za kogo się podaje (uwierzytelnianie, certyfikaty); **rozliczalność** – możliwość przypisania działań i decyzji konkretnemu podmiotowi (logi, SIEM); **niezaprzeczalność** – brak możliwości wyparcia się działania (kwalifikowany podpis elektroniczny, znacznik czasu); **niezawodność** – spójność zamierzonego zachowania i wyników.',
+        '**Heksada Parkera (Donn Parker):** rozszerzenie CIA do sześciu atrybutów – poufność, integralność, dostępność oraz **posiadanie/kontrola** (possession/control), **autentyczność** i **użyteczność** (utility). Wskazuje, że np. kradzież zaszyfrowanego nośnika narusza posiadanie, choć treść nie zostaje ujawniona.',
+        '**Model AAA:** **uwierzytelnianie** (Authentication – kim jesteś), **autoryzacja** (Authorization – co możesz), **rozliczanie** (Accounting – co zrobiłeś); realizowany m.in. przez protokoły RADIUS, TACACS+ i Diameter. Egzekwuje poufność i zapewnia rozliczalność.',
+      ],
+      example:
+        'Bankowość internetowa: **poufność** zapewniają **TLS 1.3** w transmisji, szyfrowanie danych w spoczynku (AES-256) i MFA (silne uwierzytelnianie klienta wymagane przez PSD2); **integralność** – podpis lub kod autoryzujący przelew, wiążący kwotę i odbiorcę, oraz **HSM** chroniący klucze kryptograficzne; **dostępność** – klastry HA, zapasowe centrum danych i ochrona przed DDoS; **rozliczalność** i **niezaprzeczalność** – logi audytowe zbierane w **SIEM** oraz autoryzacja przelewu, której klient nie może się wyprzeć. Przy analizie ryzyka każde aktywo ocenia się osobno pod kątem C, I i A.',
+      conclusion:
+        '**Triada CIA** jest podstawą wartościowania aktywów i doboru zabezpieczeń – każde zabezpieczenie powinno chronić co najmniej jeden atrybut. **Atrybuty rozszerzone** (autentyczność, rozliczalność, niezaprzeczalność) uzupełniają CIA tam, gdzie liczy się dowodowa moc działań, np. w systemach finansowych.',
+    },
+    mustSay: [
+      { term: 'Triada CIA', aliases: ['cia', 'triad'] },
+      { term: 'Poufność', aliases: ['poufn', 'confidential'] },
+      { term: 'Integralność', aliases: ['integraln', 'integrity'] },
+      { term: 'Dostępność', aliases: ['dostepn', 'availability'] },
+      { term: 'Autentyczność', aliases: ['autentyczn', 'authenticity'] },
+      { term: 'Rozliczalność (logi, SIEM)', aliases: ['rozliczaln', 'accountability', 'siem'] },
+      { term: 'Niezaprzeczalność (non-repudiation)', aliases: ['niezaprzeczaln', 'non repudiation', 'nonrepudiation'] },
+      { term: 'Niezawodność', aliases: ['niezawodn', 'reliability'] },
+      { term: 'Heksada Parkera', aliases: ['parker', 'heksad', 'hexad'] },
+      { term: 'Model AAA', aliases: ['aaa', 'radius', 'accounting'] },
+      { term: 'Szyfrowanie i kontrola dostępu (DAC, MAC, RBAC)', aliases: ['szyfrowan', 'rbac', 'dac', 'mac', 'kontrol dostep'] },
+      { term: 'Funkcje skrótu, HMAC, podpis cyfrowy', aliases: ['skrot', 'hmac', 'hash', 'sha', 'podpis cyfrow'] },
+      { term: 'Redundancja i kopie zapasowe 3-2-1', aliases: ['redundancj', 'kopi zapasow', 'backup', '3 2 1', 'raid'] },
+    ],
+    quiz: [
+      {
+        q: 'Jakie atrybuty dodał Donn Parker do triady CIA w swojej heksadzie?',
+        options: [
+          'posiadanie/kontrolę, autentyczność i użyteczność',
+          'rozliczalność, niezaprzeczalność i niezawodność',
+          'uwierzytelnianie, autoryzację i rozliczanie',
+          'prywatność, anonimowość i trwałość',
+        ],
+        correct: 0,
+        explain: 'Heksada Parkera to CIA plus posiadanie/kontrola (possession), autentyczność i użyteczność (utility); rozliczalność, niezaprzeczalność i niezawodność to atrybuty rozszerzone z ISO/IEC 27000.',
+      },
+      {
+        q: 'Co oznacza zasada wykonywania kopii zapasowych 3-2-1?',
+        options: [
+          '3 serwery, 2 administratorów, 1 hasło szyfrujące',
+          '3 dni retencji, 2 kopie pełne, 1 kopia przyrostowa',
+          '3 kopie danych na 2 rodzajach nośników, w tym 1 kopia poza lokalizacją podstawową',
+          '3 lokalizacje, 2 algorytmy szyfrowania, 1 klucz',
+        ],
+        correct: 2,
+        explain: 'Zasada 3-2-1: trzy kopie danych, na dwóch różnych typach nośników, z jedną kopią przechowywaną poza główną lokalizacją (off-site); wspiera dostępność.',
+      },
+      {
+        q: 'Który mechanizm zapewnia niezaprzeczalność (non-repudiation) autorstwa dokumentu?',
+        options: [
+          'HMAC ze współdzielonym kluczem tajnym',
+          'szyfrowanie symetryczne AES',
+          'macierz RAID 5',
+          'podpis cyfrowy z użyciem klucza prywatnego nadawcy (np. kwalifikowany)',
+        ],
+        correct: 3,
+        explain: 'Tylko podpis asymetryczny wiąże dokument z jedną osobą; HMAC używa wspólnego klucza, więc obie strony mogłyby wytworzyć ten sam znacznik.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Poufność oznacza, że informacja nie jest ujawniana osobom {{nieuprawnionym|nieupoważnionym}}, a integralność – zapewnienie {{dokładności}} i {{kompletności}}.',
+      },
+      {
+        text: 'Heksada Parkera rozszerza triadę CIA o posiadanie (kontrolę), autentyczność i {{użyteczność|utility}}, a model AAA to uwierzytelnianie, autoryzacja i {{rozliczanie|accounting}}.',
+      },
+    ],
+  },
+  {
+    id: 'O14',
+    category: 'ogolne',
+    number: 14,
+    day: 1,
+    area: 'SZBI i audyt',
+    title: 'Zarządzanie ryzykiem w bezpieczeństwie informacji – ISO 31000, ISO/IEC 27005, metody analizy',
+    hint: 'Zacznij od definicji ryzyka (ISO 31000) i jego elementów, potem proces wg ISO/IEC 27005 i opcje postępowania. Podaj metody (jakościowe, ilościowe SLE/ALE), metodyki i policz przykład liczbowy.',
+    keywords: [
+      'Ryzyko = wpływ niepewności',
+      'ISO 31000:2018',
+      'ISO/IEC 27005:2022',
+      'Zagrożenie, podatność, aktywo',
+      'SLE = AV × EF; ALE = SLE × ARO',
+      'Macierz ryzyka',
+      'Opcje postępowania z ryzykiem',
+      'NIST SP 800-30, OCTAVE, FAIR',
+    ],
+    answer: {
+      definition:
+        '**Ryzyko** to według ISO 31000:2018 „wpływ niepewności na cele”. W bezpieczeństwie informacji ryzyko powstaje, gdy **zagrożenie** wykorzystuje **podatność** **aktywa** i powoduje skutek (szkodę); jest funkcją prawdopodobieństwa i skutków zdarzenia. **Zarządzanie ryzykiem** to skoordynowane działania w zakresie kierowania organizacją i nadzorowania jej w odniesieniu do ryzyka (ISO 31000); w SZBI jest wymogiem ISO/IEC 27001 (pkt 6.1.2, 6.1.3, 8.2, 8.3), rozwiniętym w wytycznych **ISO/IEC 27005:2022**.',
+      classification: [
+        '**Elementy ryzyka:** **aktywo** (zasób o wartości dla organizacji), **zagrożenie** (potencjalna przyczyna niepożądanego incydentu, np. ransomware), **podatność** (słabość aktywa lub zabezpieczenia, np. brak łatki), **prawdopodobieństwo** i **skutek**. Zabezpieczenia redukują ryzyko, a to, co pozostaje po ich wdrożeniu, to **ryzyko szczątkowe**.',
+        '**Proces wg ISO 31000 i ISO/IEC 27005:** (1) **ustalenie kontekstu** i kryteriów ryzyka, (2) **szacowanie ryzyka** – identyfikacja, analiza i ewaluacja, (3) **postępowanie z ryzykiem**, (4) akceptacja ryzyka szczątkowego; przez cały czas **komunikacja i konsultacje** oraz **monitorowanie i przegląd**. Proces jest cykliczny.',
+        '**Metody analizy:** **jakościowe** (skale opisowe, **macierz prawdopodobieństwo × skutek**, mapa ciepła), **ilościowe** (wartości pieniężne: **SLE = AV × EF**, **ALE = SLE × ARO**) i **półilościowe** (skale punktowe, np. 1–5). AV – wartość aktywa, EF – współczynnik ekspozycji, SLE – strata jednorazowa, ARO – roczna częstość zdarzeń, ALE – oczekiwana strata roczna.',
+        '**Postępowanie z ryzykiem (4 opcje):** **modyfikacja (redukcja)** – wdrożenie zabezpieczeń, **unikanie** – rezygnacja z działania generującego ryzyko, **dzielenie (transfer)** – np. ubezpieczenie cybernetyczne lub outsourcing, **akceptacja (retencja)** – świadoma decyzja zgodna z kryteriami akceptacji ryzyka.',
+        '**Metodyki:** **NIST SP 800-30** (Guide for Conducting Risk Assessments), **OCTAVE** (CERT/SEI, podejście zorientowane na aktywa i organizację), **FAIR** (ilościowa analiza ryzyka finansowego), **MEHARI** (CLUSIF, metoda francuska) i CRAMM; ramowo także ISO 31000 i ISO/IEC 27005.',
+        '**Zarządzanie ryzykiem w organizacji:** kierownictwo ustala **apetyt na ryzyko** i kryteria akceptacji, prowadzi się **rejestr ryzyk** z przypisanym **właścicielem ryzyka** (osobą odpowiedzialną i uprawnioną do zarządzania ryzykiem); ocenę powtarza się w zaplanowanych odstępach i po istotnych zmianach.',
+      ],
+      example:
+        'Serwer z bazą klientów ma wartość **AV = 200 000 zł**; awaria lub atak ransomware niszczy średnio **EF = 25%** wartości, więc **SLE = 200 000 × 0,25 = 50 000 zł**. Zdarzenie występuje średnio raz na 5 lat (**ARO = 0,2**), stąd **ALE = 50 000 × 0,2 = 10 000 zł/rok**. Zabezpieczenie (np. klaster i kopie offline) kosztujące 5 000 zł/rok i obniżające ARO do 0,05 zmniejsza ALE do 2 500 zł, czyli o 7 500 zł rocznie – jest opłacalne, bo korzyść przewyższa koszt. Zasada: roczny koszt zabezpieczenia powinien być niższy od redukcji ALE (maksymalnie 10 000 zł/rok). W praktyce firma prowadzi **rejestr ryzyk** z macierzą 5×5 (wg NIST SP 800-30 lub ISO/IEC 27005), a ryzyka wysokie redukuje (MFA, łatanie), przenosi (cyberubezpieczenie) lub akceptuje po decyzji właściciela ryzyka.',
+      conclusion:
+        '**Zarządzanie ryzykiem** jest sercem SZBI – pozwala dobierać zabezpieczenia proporcjonalnie do zagrożeń i wartości aktywów, zamiast chronić wszystko jednakowo. **Analiza ilościowa (ALE)** uzasadnia nakłady finansowe, a **jakościowa (macierz ryzyka)** ułatwia komunikację z kierownictwem.',
+    },
+    mustSay: [
+      { term: 'Ryzyko jako wpływ niepewności na cele (ISO 31000)', aliases: ['wplyw niepewnosci', 'niepewnosc', '31000'] },
+      { term: 'ISO/IEC 27005', aliases: ['27005'] },
+      { term: 'Aktywo', aliases: ['aktyw', 'asset'] },
+      { term: 'Zagrożenie', aliases: ['zagrozen', 'threat'] },
+      { term: 'Podatność', aliases: ['podatn', 'vulnerab'] },
+      { term: 'Ustalenie kontekstu', aliases: ['kontekst'] },
+      { term: 'Szacowanie ryzyka (identyfikacja, analiza, ewaluacja)', aliases: ['szacowani', 'oszacowani', 'ewaluacj', 'risk assessment'] },
+      { term: 'Postępowanie z ryzykiem (redukcja, unikanie, transfer, akceptacja)', aliases: ['postepowani z ryzyk', 'modyfikacj', 'unikani', 'transfer', 'dzieleni', 'retencj', 'akceptacj'] },
+      { term: 'Ryzyko szczątkowe', aliases: ['szczatkow', 'residual'] },
+      { term: 'Metody jakościowe – macierz ryzyka', aliases: ['jakosciow', 'macierz', 'mapa ciepla', 'heat map'] },
+      { term: 'Metody ilościowe – SLE, ALE, ARO', aliases: ['ilosciow', 'sle', 'aro', 'roczn strat', 'oczekiwana strat'] },
+      { term: 'Metodyki: NIST SP 800-30, OCTAVE, FAIR, MEHARI', aliases: ['nist', 'octave', 'fair', 'mehari'] },
+      { term: 'Apetyt na ryzyko, rejestr ryzyk, właściciel ryzyka', aliases: ['apetyt', 'risk appetite', 'rejestr', 'wlasciciel', 'risk owner'] },
+    ],
+    quiz: [
+      {
+        q: 'Jak ISO 31000:2018 definiuje ryzyko?',
+        options: [
+          'prawdopodobieństwo wystąpienia incydentu pomnożone przez jego koszt',
+          'wpływ niepewności na cele',
+          'zagrożenie wykorzystujące podatność aktywa',
+          'brak zabezpieczeń wdrożonych w organizacji',
+        ],
+        correct: 1,
+        explain: 'ISO 31000:2018 definiuje ryzyko jako „wpływ niepewności na cele” (effect of uncertainty on objectives); pozostałe opcje opisują składniki lub miary ryzyka.',
+      },
+      {
+        q: 'Aktywo ma wartość AV = 200 000 zł, współczynnik ekspozycji EF = 25%, a ARO = 0,2. Ile wynosi oczekiwana strata roczna (ALE)?',
+        options: ['50 000 zł/rok', '40 000 zł/rok', '10 000 zł/rok', '2 500 zł/rok'],
+        correct: 2,
+        explain: 'SLE = AV × EF = 200 000 × 25% = 50 000 zł; ALE = SLE × ARO = 50 000 × 0,2 = 10 000 zł/rok.',
+      },
+      {
+        q: 'Która z poniższych NIE jest opcją postępowania z ryzykiem wg ISO/IEC 27005?',
+        options: [
+          'modyfikacja (redukcja) ryzyka',
+          'unikanie ryzyka',
+          'dzielenie (transfer) ryzyka',
+          'ignorowanie ryzyka bez decyzji kierownictwa',
+        ],
+        correct: 3,
+        explain: 'Opcje to modyfikacja, utrzymanie (świadoma akceptacja), unikanie i dzielenie ryzyka; akceptacja wymaga formalnej decyzji zgodnej z kryteriami, a nie ignorowania.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Ryzyko to według ISO 31000:2018 „wpływ {{niepewności|niepewność}} na {{cele}}”.',
+      },
+      {
+        text: 'Oczekiwaną stratę roczną obliczamy ze wzoru ALE = {{SLE}} × {{ARO}}, gdzie SLE = AV × {{EF|współczynnik ekspozycji}}.',
+      },
+    ],
+  },
+  {
+    id: 'O15',
+    category: 'ogolne',
+    number: 15,
+    day: 1,
+    area: 'SZBI i audyt',
+    title: 'Audyt systemów informatycznych – rodzaje, etapy, standardy (ISO 19011, ISO/IEC 27007, COBIT, ISACA)',
+    hint: 'Zacznij od definicji audytu z ISO 19011:2018, potem rodzaje (1., 2., 3. strona; zgodności, bezpieczeństwa) i etapy. Dodaj 7 zasad, standardy (27007, 17021-1, COBIT 2019, ISACA) oraz narzędzia audytora.',
+    keywords: [
+      'Audyt – definicja ISO 19011',
+      'Audyt 1., 2. i 3. strony',
+      'Etapy: plan → realizacja → raport',
+      'Niezgodność duża / mała',
+      '7 zasad audytowania',
+      'ISO/IEC 27007 i 17021-1',
+      'COBIT 2019 – 40 celów, 5 domen',
+      'ISACA, ITAF, CISA',
+    ],
+    answer: {
+      definition:
+        '**Audyt** to według ISO 19011:2018 „systematyczny, niezależny i udokumentowany proces uzyskiwania dowodów i ich obiektywnej oceny w celu określenia stopnia spełnienia kryteriów audytu”. **Audyt systemów informatycznych** (IS audit) obejmuje ocenę zabezpieczeń, zgodności z wymaganiami (normy, przepisy, polityki), integralności danych oraz skuteczności i efektywności procesów IT. Ogólne wytyczne audytowania systemów zarządzania podaje ISO 19011, a dla SZBI – **ISO/IEC 27007**.',
+      classification: [
+        '**Rodzaje wg strony audytującej:** audyt **pierwszej strony** (wewnętrzny – organizacja audytuje sama siebie), **drugiej strony** (klient audytuje dostawcę lub kontrahenta) i **trzeciej strony** (niezależna jednostka – np. audyt certyfikacyjny wg ISO/IEC 17021-1 lub regulacyjny).',
+        '**Rodzaje wg przedmiotu:** audyt **zgodności** (z RODO, KSC, ISO/IEC 27001), **bezpieczeństwa** (przegląd zabezpieczeń, skany podatności, testy penetracyjne), **informatyczny** (kontrole ogólne ITGC i aplikacyjne, ciągłość działania) oraz **śledczy** (forensic – analiza incydentu i zabezpieczanie dowodów cyfrowych).',
+        '**Etapy audytu (ISO 19011):** zarządzanie programem audytu → **planowanie** (cele, zakres, kryteria) → **przygotowanie** (plan, listy kontrolne) → **realizacja**: spotkanie otwierające, zbieranie dowodów (wywiady, obserwacja, przegląd dokumentacji, testy techniczne), ustalenia, spotkanie zamykające → **raport** → **działania poaudytowe** (działania korygujące, weryfikacja – follow-up).',
+        '**Ustalenia audytu:** w audytach certyfikacyjnych rozróżnia się **niezgodność poważną (major)** – brak spełnienia wymagania podważający skuteczność systemu, **niezgodność drobną (minor)** – pojedyncze odstępstwo niewpływające na skuteczność systemu, a także obserwacje i możliwości doskonalenia; każde ustalenie opiera się na dowodach i kryteriach audytu.',
+        '**Siedem zasad audytowania (ISO 19011:2018):** **uczciwość**, **rzetelna prezentacja**, **należyta staranność zawodowa**, **poufność**, **niezależność**, **podejście oparte na dowodach** i **podejście oparte na ryzyku**.',
+        '**Standardy i ramy:** **ISO/IEC 27007** (wytyczne audytu SZBI), **ISO/IEC 17021-1** (wymagania dla jednostek certyfikujących), **COBIT 2019** (ISACA – **40 celów** ładu i zarządzania w 5 domenach: EDM, APO, BAI, DSS, MEA), **ITAF** (ISACA IT Assurance Framework) i certyfikat audytora **CISA**. W Polsce ustawa o KSC nakłada na operatorów usług kluczowych obowiązek audytu bezpieczeństwa co najmniej raz na 2 lata (w brzmieniu z 2018 r.; zob. O5).',
+      ],
+      example:
+        'Wewnętrzny audyt zgodności SZBI wg ISO/IEC 27001 w firmie IT: audytor przygotowuje plan i **listę kontrolną** opartą na Załączniku A, a następnie zbiera dowody – wywiady z administratorami, przegląd polityk i rejestrów, obserwację procesów oraz **testy techniczne**: skanowanie podatności (**Nessus**, **OpenVAS**), weryfikację konfiguracji z wzorcami **CIS Benchmarks** i audyt serwerów Linux narzędziem **Lynis**. Do analizy całej populacji transakcji (zamiast próbkowania) służą narzędzia **CAAT** (np. ACL, IDEA). Wynikiem jest raport, np. z niezgodnością drobną „brak okresowego przeglądu uprawnień”, i plan działań korygujących, którego realizację audytor weryfikuje w follow-up.',
+      conclusion:
+        'Audyt dostarcza niezależnej, popartej dowodami oceny stanu bezpieczeństwa i zgodności, a jego wartość zależy od przestrzegania zasad audytowania, zwłaszcza **niezależności** i **podejścia opartego na dowodach**. Wnioski z audytu napędzają **ciągłe doskonalenie** SZBI poprzez działania korygujące.',
+    },
+    mustSay: [
+      { term: 'Systematyczny, niezależny, udokumentowany proces', aliases: ['systematyczn', 'udokumentowan'] },
+      { term: 'ISO 19011', aliases: ['19011'] },
+      { term: 'Audyt pierwszej, drugiej i trzeciej strony', aliases: ['pierwszej strony', 'drugiej strony', 'trzeciej strony', 'wewnetrzn', 'certyfikacyjn'] },
+      { term: 'Audyt zgodności, bezpieczeństwa, śledczy', aliases: ['zgodnosc', 'sledcz', 'forensic', 'compliance'] },
+      { term: 'Planowanie: cele, zakres, kryteria, listy kontrolne', aliases: ['kryteri audyt', 'zakres audyt', 'plan audyt', 'list kontroln'] },
+      { term: 'Dowody audytowe (wywiady, obserwacja, przegląd dokumentacji)', aliases: ['dowod', 'wywiad'] },
+      { term: 'Spotkanie otwierające i zamykające', aliases: ['spotkani otwieraj', 'spotkani zamykaj'] },
+      { term: 'Niezgodność duża i mała (major, minor)', aliases: ['niezgodnosc', 'major', 'minor'] },
+      { term: 'Działania korygujące i follow-up', aliases: ['koryguj', 'follow up', 'poaudytow'] },
+      { term: '7 zasad audytowania (uczciwość, niezależność, podejście oparte na dowodach)', aliases: ['uczciwosc', 'starann', 'rzetelna prezent', 'rzetelnej prezent'] },
+      { term: 'ISO/IEC 27007', aliases: ['27007'] },
+      { term: 'ISO/IEC 17021-1 – jednostki certyfikujące', aliases: ['17021', '27006', 'jednostk certyfikuj', 'jednostek certyfikuj'] },
+      { term: 'COBIT 2019, ISACA, ITAF, CISA', aliases: ['cobit', 'isaca', 'itaf', 'cisa', 'edm', 'dss'] },
+    ],
+    quiz: [
+      {
+        q: 'Ile zasad audytowania określa norma ISO 19011:2018?',
+        options: ['5', '6', '7', '9'],
+        correct: 2,
+        explain: 'Siedem zasad: uczciwość, rzetelna prezentacja, należyta staranność zawodowa, poufność, niezależność, podejście oparte na dowodach i podejście oparte na ryzyku.',
+      },
+      {
+        q: 'Ile celów ładu i zarządzania obejmuje COBIT 2019 (ISACA) w pięciu domenach EDM, APO, BAI, DSS i MEA?',
+        options: ['37', '40', '34', '24'],
+        correct: 1,
+        explain: 'COBIT 2019 definiuje 40 celów ładu i zarządzania; 37 procesów miał COBIT 5, a 34 – COBIT 4.1.',
+      },
+      {
+        q: 'Która norma zawiera wytyczne dotyczące audytowania systemu zarządzania bezpieczeństwem informacji (SZBI)?',
+        options: ['ISO/IEC 27005', 'ISO/IEC 27002', 'ISO/IEC 17021-1', 'ISO/IEC 27007'],
+        correct: 3,
+        explain: 'ISO/IEC 27007 to wytyczne audytowania SZBI; 27005 dotyczy ryzyka, 27002 zabezpieczeń, a 17021-1 wymagań dla jednostek certyfikujących.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Audyt to {{systematyczny}}, niezależny i {{udokumentowany}} proces uzyskiwania dowodów i ich obiektywnej oceny w celu określenia stopnia spełnienia {{kryteriów audytu|kryteriów}} (ISO 19011:2018).',
+      },
+      {
+        text: 'COBIT 2019 definiuje {{40}} celów ładu i zarządzania w pięciu domenach: EDM, APO, BAI, DSS i {{MEA}}.',
+      },
+    ],
+  },
+]
