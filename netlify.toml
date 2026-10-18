@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Aplikacja jest SPA bez routingu po ścieżkach – każda ścieżka zwraca index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
