@@ -1,2 +1,490 @@
-// Plik w przygotowaniu – zostanie uzupełniony pytaniami zgodnie ze schematem z PLAN.md.
-export default []
+// Pytania kierunkowe 20–25: Uczenie maszynowe, architektura systemów i cyberbezpieczeństwo.
+export default [
+  {
+    id: 'K20',
+    category: 'kierunkowe',
+    number: 20,
+    day: 3,
+    area: 'Uczenie maszynowe',
+    title: 'Uczenie maszynowe – definicja, rodzaje uczenia, przeuczenie, walidacja, metryki jakości modeli',
+    hint: 'Zacznij od definicji Samuela i Mitchella, potem rodzaje uczenia (nadzorowane, nienadzorowane, ze wzmocnieniem). Omów podział train / validation / test, przeuczenie oraz metryki – wzory precision, recall i F1.',
+    keywords: [
+      'Samuel 1959 / Mitchell 1997',
+      'nadzorowane / nienadzorowane',
+      'uczenie ze wzmocnieniem',
+      'CRISP-DM (6 faz)',
+      'train / validation / test',
+      'przeuczenie, regularyzacja',
+      'precision, recall, F1',
+      'scikit-learn, AI Act',
+    ],
+    answer: {
+      definition:
+        '**Uczenie maszynowe** (ang. machine learning, ML) to dział sztucznej inteligencji, w którym algorytmy poprawiają swoje działanie na podstawie danych, bez jawnego programowania reguł. Według sformułowania przypisywanego **A. Samuelowi (1959)** jest to dziedzina dająca komputerom zdolność uczenia się bez jawnego programowania, a **T. Mitchell (1997)** podał definicję formalną: program uczy się z **doświadczenia E** względem klasy **zadań T** i **miary jakości P**, jeśli jego wydajność w zadaniach T, mierzona przez P, rośnie wraz z doświadczeniem E. Efektem uczenia jest **model**, który ma **generalizować**, czyli działać poprawnie na nowych, nieznanych danych.',
+      classification: [
+        '**Uczenie nadzorowane:** dane **etykietowane** (wejście i znana odpowiedź). **Klasyfikacja** – regresja logistyczna, drzewa decyzyjne, SVM, k-NN, naiwny Bayes, lasy losowe, gradient boosting (np. XGBoost); **regresja** – np. regresja liniowa.',
+        '**Uczenie nienadzorowane:** dane bez etykiet, model sam wykrywa strukturę. **Klasteryzacja** (k-means, DBSCAN, hierarchiczna), **redukcja wymiarowości** (PCA), **reguły asocjacyjne** (Apriori).',
+        '**Pozostałe paradygmaty:** **częściowo nadzorowane** (mało etykiet, dużo danych bez etykiet), **samonadzorowane** (etykiety generowane z samych danych, np. przewidywanie zamaskowanego słowa) oraz **uczenie ze wzmocnieniem** – **agent** działa w **środowisku**, otrzymuje **nagrodę** i uczy się **polityki** maksymalizującej sumaryczną nagrodę (Q-learning, AlphaGo 2016).',
+        '**Proces i walidacja:** **CRISP-DM** (6 faz: zrozumienie biznesu, zrozumienie danych, przygotowanie danych, modelowanie, ewaluacja, wdrożenie); dane dzieli się na zbiór **treningowy**, **walidacyjny** (dobór hiperparametrów) i **testowy** (ostateczna, jednorazowa ocena); stosuje się też **k-krotną walidację krzyżową**.',
+        '**Przeuczenie i niedouczenie:** **przeuczenie** (overfitting) – model zapamiętuje szum z danych treningowych (niski błąd treningowy, wysoki walidacyjny; wysoka wariancja); **niedouczenie** (underfitting) – model zbyt prosty (wysokie obciążenie). To **kompromis obciążenie–wariancja**; przeciwdziałanie: **regularyzacja L1** (Lasso) i **L2** (Ridge), więcej danych, prostszy model, early stopping.',
+        '**Metryki jakości:** klasyfikacja – **macierz pomyłek** (TP, FP, TN, FN), accuracy = (TP+TN)/(TP+TN+FP+FN), **precision = TP/(TP+FP)**, **recall = TP/(TP+FN)**, **F1 = 2·P·R/(P+R)** (średnia harmoniczna precision i recall), **ROC AUC**; regresja – MAE, MSE, RMSE, R².',
+      ],
+      example:
+        'Wykrywanie **oszustw kartowych** w banku: dane są silnie **niezbalansowane** (oszustwa to ok. 0,1% transakcji), więc model „wszystko to nie-oszustwo” osiąga ok. **99,9% accuracy**, a jego **recall wynosi 0** – dlatego ocenia się go przez **precision, recall i F1** oraz ROC AUC. Potok w Pythonie: **pandas** (przygotowanie danych), **scikit-learn** (las losowy lub gradient boosting, walidacja krzyżowa, ważenie klas), **MLflow** (śledzenie eksperymentów i rejestr modeli).',
+      conclusion:
+        'Jakość modelu zależy w równym stopniu od **danych i poprawnej walidacji** co od samego algorytmu – trzeba unikać przeuczenia i wycieku danych oraz dobrać metrykę do problemu. W UE systemy AI reguluje **AI Act** (rozporządzenie (UE) 2024/1689), oparty na podejściu do ryzyka (ryzyko niedopuszczalne, wysokie, ograniczone i minimalne).',
+    },
+    mustSay: [
+      { term: 'Definicja ML (Samuel, Mitchell)', aliases: ['samuel', 'mitchell', 'uczeni maszynow', 'machine learning'] },
+      { term: 'Uczenie nadzorowane (klasyfikacja, regresja)', aliases: ['nadzorowan', 'supervised', 'klasyfikacj', 'regresj'] },
+      { term: 'Uczenie nienadzorowane (klasteryzacja, PCA)', aliases: ['nienadzorowan', 'unsupervised', 'klasteryz', 'clustering', 'pca'] },
+      { term: 'Uczenie ze wzmocnieniem', aliases: ['wzmocnieni', 'reinforcement', 'q learning'] },
+      { term: 'Przeuczenie, niedouczenie (bias–variance)', aliases: ['przeucz', 'niedoucz', 'overfit', 'underfit', 'obciazeni', 'wariancj'] },
+      { term: 'Regularyzacja (L1 / L2)', aliases: ['regularyz', 'lasso', 'ridge', 'l1', 'l2'] },
+      { term: 'Podział train / validation / test', aliases: ['walidac', 'validation', 'zbior testow', 'zbior treningow', 'train test'] },
+      { term: 'Macierz pomyłek', aliases: ['macierz pomyl', 'confusion'] },
+      { term: 'Precision i recall', aliases: ['precision', 'recall', 'precyzj', 'czulosc'] },
+      { term: 'F1 – średnia harmoniczna', aliases: ['f1', 'f miar', 'f score', 'harmonicz'] },
+      { term: 'ROC AUC', aliases: ['roc', 'auc'] },
+      { term: 'CRISP-DM', aliases: ['crisp'] },
+      { term: 'Narzędzia: scikit-learn, pandas, MLflow', aliases: ['scikit', 'sklearn', 'pandas', 'mlflow'] },
+      { term: 'AI Act (2024/1689)', aliases: ['ai act', '1689', 'akt o sztuczn'] },
+    ],
+    quiz: [
+      {
+        q: 'Który wzór opisuje precision (precyzję) w klasyfikacji binarnej?',
+        options: ['TP / (TP + FP)', 'TP / (TP + FN)', '(TP + TN) / (TP + TN + FP + FN)', 'TN / (TN + FP)'],
+        correct: 0,
+        explain: 'Precision to odsetek poprawnych wskazań pozytywnych wśród wszystkich wskazań pozytywnych: TP / (TP + FP); wzór TP / (TP + FN) opisuje recall.',
+      },
+      {
+        q: 'Który z wymienionych algorytmów należy do uczenia nienadzorowanego?',
+        options: ['k-NN', 'k-means', 'Naiwny klasyfikator Bayesa', 'Regresja logistyczna'],
+        correct: 1,
+        explain: 'k-means to algorytm klasteryzacji działający na danych bez etykiet, natomiast k-NN, naiwny Bayes i regresja logistyczna są metodami nadzorowanymi.',
+      },
+      {
+        q: 'Jaki numer nosi rozporządzenie UE w sprawie sztucznej inteligencji (AI Act)?',
+        options: ['(UE) 2016/679', '(UE) 2022/2065', '(UE) 2022/2554', '(UE) 2024/1689'],
+        correct: 3,
+        explain: 'AI Act to rozporządzenie (UE) 2024/1689; (UE) 2016/679 to RODO, 2022/2065 to akt o usługach cyfrowych (DSA), a 2022/2554 to DORA.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Zgodnie z definicją T. {{Mitchella|Mitchell}} z roku {{1997}} program uczy się z doświadczenia E względem zadań T i miary P, jeśli jego wydajność w T, mierzona przez P, rośnie wraz z E.',
+      },
+      {
+        text: 'Recall (czułość) liczymy ze wzoru {{TP/(TP+FN)|TP / (TP + FN)}}, a miara F1 to {{średnia harmoniczna|srednia harmoniczna|średnią harmoniczną}} precision i recall.',
+      },
+    ],
+  },
+  {
+    id: 'K21',
+    category: 'kierunkowe',
+    number: 21,
+    day: 3,
+    area: 'Uczenie maszynowe',
+    title: 'Sztuczne sieci neuronowe i głębokie uczenie – perceptron, propagacja wsteczna, CNN, RNN, Transformery',
+    hint: 'Zacznij od neuronu i perceptronu (Rosenblatt 1958), przejdź do MLP i propagacji wstecznej, potem do architektur: CNN, RNN / LSTM, Transformer. Wspomnij o przeuczeniu, transfer learningu i frameworkach.',
+    keywords: [
+      'Perceptron (Rosenblatt 1958)',
+      'MLP, funkcje aktywacji',
+      'Propagacja wsteczna (1986)',
+      'Spadek gradientu, Adam',
+      'CNN (LeNet, AlexNet 2012)',
+      'RNN, LSTM (1997)',
+      'Transformer (2017), samouwaga',
+      'PyTorch, transfer learning',
+    ],
+    answer: {
+      definition:
+        '**Sztuczna sieć neuronowa** to model złożony z połączonych warstwami **neuronów**, z których każdy oblicza ważoną sumę wejść i przepuszcza ją przez nieliniową **funkcję aktywacji** (inspiracja: neuron McCullocha–Pittsa, 1943). Podstawowym elementem jest **perceptron** F. Rosenblatta (1958): y = f(Σ wi·xi + b), gdzie wi to wagi, xi – wejścia, a b – obciążenie (bias). **Głębokie uczenie** (deep learning) to trenowanie sieci o wielu warstwach ukrytych, które same uczą się hierarchii cech z surowych danych.',
+      classification: [
+        '**Perceptron i MLP:** pojedynczy perceptron rozdziela tylko dane liniowo separowalne – Minsky i Papert (1969) wykazali, że nie rozwiąże problemu **XOR**. Rozwiązaniem są **sieci wielowarstwowe (MLP)** z warstwami ukrytymi i nieliniową aktywacją.',
+        '**Funkcje aktywacji:** sigmoid, tanh, **ReLU** (standard w warstwach ukrytych) oraz **softmax** (rozkład prawdopodobieństwa klas w warstwie wyjściowej).',
+        '**Uczenie sieci:** **funkcja straty** (MSE w regresji, **entropia krzyżowa** w klasyfikacji) jest minimalizowana **spadkiem gradientu** (SGD, Adam); gradienty wylicza **propagacja wsteczna** (Rumelhart, Hinton, Williams, 1986) oparta na **regule łańcuchowej**.',
+        '**Problemy uczenia:** **zanikający gradient** (zwłaszcza przy sigmoidzie w głębokich sieciach) i **przeuczenie**. Pomagają ReLU i połączenia rezydualne oraz **dropout**, **normalizacja wsadowa**, early stopping i augmentacja danych.',
+        '**CNN i RNN:** **CNN** (sieci splotowe; Y. LeCun – LeNet) mają warstwy splotowe i pooling, służą do obrazów; **AlexNet** wygrał ImageNet w 2012 r. **RNN** przetwarzają sekwencje ze stanem ukrytym, a **LSTM** (Hochreiter i Schmidhuber, 1997) oraz GRU radzą sobie z zanikającym gradientem w długich sekwencjach.',
+        '**Transformer i modele generatywne:** **Transformer** („Attention Is All You Need”, Vaswani i in., 2017) opiera się na mechanizmie **samouwagi** (self-attention) i przetwarza sekwencję równolegle; jest podstawą **LLM** (BERT 2018, GPT). **GAN** (Goodfellow, 2014) i modele dyfuzyjne generują obrazy; **transfer learning** pozwala dostroić wstępnie wytrenowany model do własnego zadania.',
+      ],
+      example:
+        'Klasyfikacja **zdjęć RTG** klatki piersiowej: sieć **CNN** (np. **ResNet-50** wstępnie wytrenowana na zbiorze **ImageNet**) jest dostrajana (**fine-tuning**) na opisanych zdjęciach w **PyTorch** (alternatywy: TensorFlow / Keras, JAX) na kartach **GPU**. Trening używa entropii krzyżowej, optymalizatora Adam, augmentacji danych i early stoppingu, a jakość ocenia się przez recall i ROC AUC. Dla tekstu analogicznie dostraja się model typu Transformer, np. BERT.',
+      conclusion:
+        'Sieci głębokie zawdzięczają sukces **dużym zbiorom danych, mocy obliczeniowej GPU / TPU** i lepszym algorytmom (ReLU, Adam, Transformer); potwierdzeniem są **Nagroda Turinga 2018** (Bengio, Hinton, LeCun) i Nagroda Nobla z fizyki 2024 (Hopfield, Hinton). Ograniczeniami pozostają koszt obliczeń, głód danych i słaba interpretowalność.',
+    },
+    mustSay: [
+      { term: 'Perceptron (Rosenblatt)', aliases: ['perceptron', 'rosenblatt'] },
+      { term: 'Funkcje aktywacji (ReLU, sigmoid)', aliases: ['aktywacj', 'activation', 'relu', 'sigmoid', 'softmax'] },
+      { term: 'MLP i problem XOR', aliases: ['xor', 'mlp', 'wielowarstw', 'multilayer'] },
+      { term: 'Funkcja straty (entropia krzyżowa)', aliases: ['funkcj stra', 'loss', 'entropi krzyzow', 'cross entropy', 'mse'] },
+      { term: 'Spadek gradientu (SGD, Adam)', aliases: ['spad gradient', 'gradient descent', 'sgd', 'adam'] },
+      { term: 'Propagacja wsteczna', aliases: ['propagacj wsteczn', 'wsteczn', 'backprop'] },
+      { term: 'Zanikający gradient', aliases: ['zanik gradient', 'zanikajac', 'vanishing'] },
+      { term: 'Dropout i normalizacja wsadowa', aliases: ['dropout', 'normalizacj wsad', 'batch norm', 'early stopping'] },
+      { term: 'CNN – sieci splotowe', aliases: ['cnn', 'splot', 'convolution', 'lenet', 'alexnet'] },
+      { term: 'RNN i LSTM', aliases: ['rnn', 'lstm', 'gru', 'rekurencyjn', 'recurrent'] },
+      { term: 'Transformer – samouwaga', aliases: ['transformer', 'samouwag', 'self attention', 'attention'] },
+      { term: 'LLM (BERT, GPT)', aliases: ['llm', 'bert', 'gpt', 'jezykow'] },
+      { term: 'Transfer learning / fine-tuning', aliases: ['transfer learning', 'transfer wiedz', 'fine tun', 'dostrajan'] },
+      { term: 'Frameworki: PyTorch, TensorFlow', aliases: ['pytorch', 'tensorflow', 'keras', 'jax'] },
+    ],
+    quiz: [
+      {
+        q: 'Kto w 1986 r. opublikował metodę propagacji wstecznej błędu, która upowszechniła uczenie sieci wielowarstwowych?',
+        options: ['Rumelhart, Hinton i Williams', 'McCulloch i Pitts', 'Minsky i Papert', 'Vaswani i in.'],
+        correct: 0,
+        explain: 'Propagację wsteczną spopularyzowali w 1986 r. Rumelhart, Hinton i Williams; McCulloch i Pitts opisali model neuronu w 1943 r., a Minsky i Papert skrytykowali perceptron w 1969 r.',
+      },
+      {
+        q: 'W którym roku opublikowano artykuł „Attention Is All You Need”, wprowadzający architekturę Transformer?',
+        options: ['2012', '2015', '2017', '2019'],
+        correct: 2,
+        explain: 'Artykuł Vaswaniego i in. ukazał się w 2017 r.; rok 2012 to AlexNet, a BERT powstał w 2018 r.',
+      },
+      {
+        q: 'Jaką architekturę wprowadzili w 1997 r. Hochreiter i Schmidhuber, aby ograniczyć problem zanikającego gradientu w sekwencjach?',
+        options: ['GRU', 'CNN', 'GAN', 'LSTM'],
+        correct: 3,
+        explain: 'LSTM (Long Short-Term Memory) z bramkami i komórką pamięci opisali Hochreiter i Schmidhuber w 1997 r.; GRU to późniejszy, uproszczony wariant.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Pojedynczy perceptron nie potrafi rozwiązać problemu {{XOR}}, co w 1969 r. wykazali {{Minsky i Papert|Minsky|Papert}}.',
+      },
+      {
+        text: 'Architektura {{Transformer|Transformera}} (Vaswani i in., {{2017}}) opiera się na mechanizmie {{samouwagi|self-attention|self attention|uwagi}}.',
+      },
+    ],
+  },
+  {
+    id: 'K22',
+    category: 'kierunkowe',
+    number: 22,
+    day: 3,
+    area: 'Architektura',
+    title: 'Architektury systemów informatycznych – warstwowa, MVC, SOA, mikroserwisy, REST, konteneryzacja',
+    hint: 'Zacznij od definicji architektury (ISO/IEC/IEEE 42010) i monolitu, potem ewolucja: warstwowa, MVC, SOA, mikroserwisy. Dodaj REST (Fielding), kontenery (Docker, Kubernetes) i atrybuty jakości.',
+    keywords: [
+      'ISO/IEC/IEEE 42010',
+      'Monolit vs mikroserwisy',
+      'Warstwowa, MVC (1979)',
+      'SOA, ESB, SOAP',
+      'API Gateway, circuit breaker',
+      'REST (Fielding 2000)',
+      'Docker, Kubernetes',
+      'ISO/IEC 25010, model C4',
+    ],
+    answer: {
+      definition:
+        '**Architektura systemu** to podstawowa organizacja systemu wyrażona przez jego **komponenty**, ich wzajemne **relacje** oraz **zasady projektowania i ewolucji** (ISO/IEC/IEEE 42010). Ma ona zapewnić wymagania funkcjonalne i przede wszystkim **atrybuty jakości** (wydajność, skalowalność, bezpieczeństwo, utrzymywalność – model ISO/IEC 25010), a jej błędny wybór jest kosztowny do naprawienia. Punktem wyjścia jest **monolit**, czyli aplikacja wdrażana jako jedna całość; rozwój wymagań doprowadził do architektur rozproszonych.',
+      classification: [
+        '**Architektura warstwowa i klient–serwer:** podział na warstwy **prezentacji, logiki biznesowej i dostępu do danych** (trójwarstwowa); każda warstwa korzysta z niższej. Jest prosta i czytelna, ale zwykle wdrażana jako monolit.',
+        '**MVC, MVVM i heksagonalna:** **MVC** (T. Reenskaug, 1979, Smalltalk) dzieli aplikację na **Model** (dane i logikę), **Widok** i **Kontroler**; **MVVM** zastępuje kontroler warstwą ViewModel z wiązaniem danych. Architektura heksagonalna (porty i adaptery, A. Cockburn) izoluje logikę domenową od infrastruktury.',
+        '**SOA:** system złożony z **usług** o jawnych kontraktach, które komunikują się przez szynę **ESB** i protokoły **SOAP / WSDL**; ryzyko to przeniesienie zbyt dużej logiki do ESB (wąskie gardło).',
+        '**Mikroserwisy:** (J. Lewis i M. Fowler, 2014) małe usługi **wdrażane niezależnie**, każda z **własną bazą danych**, komunikujące się przez API lub zdarzenia. Typowe wzorce: **API Gateway**, service discovery, **circuit breaker**. Koszt: złożoność operacyjna i spójność danych.',
+        '**Architektura sterowana zdarzeniami i serverless:** komponenty komunikują się asynchronicznie przez brokery (**Apache Kafka**, RabbitMQ), co zmniejsza powiązania między usługami; **serverless / FaaS** uruchamia funkcje na żądanie bez zarządzania serwerami (AWS Lambda).',
+        '**REST i inne API:** **REST** (R. Fielding, 2000) to styl z ograniczeniami: klient–serwer, **bezstanowość**, cache, **jednolity interfejs**, system warstwowy i opcjonalnie code on demand; opiera się na metodach HTTP (GET, POST, PUT, DELETE). Alternatywy: GraphQL i gRPC.',
+        '**Konteneryzacja i wdrażanie:** **Docker** (obraz, kontener, Dockerfile) pakuje aplikację z zależnościami; **Kubernetes** orkiestruje kontenery (pod, deployment, service); wdrożenia automatyzuje **CI/CD**; dobre praktyki zbiera Twelve-Factor App.',
+      ],
+      example:
+        'Sklep internetowy w architekturze mikroserwisowej: frontend w React → **API Gateway** → usługi **zamówień, płatności i katalogu**, każda z **własną bazą danych**; usługi wymieniają zdarzenia (np. „zamówienie złożone”) przez **Apache Kafka**, a całość działa w kontenerach **Docker** zarządzanych przez **Kubernetes** z potokiem CI/CD. Podobną drogę – od monolitu do mikroserwisów w chmurze AWS – przeszedł **Netflix**.',
+      conclusion:
+        'Nie ma architektury uniwersalnej: monolit bywa najlepszy dla małego zespołu, a mikroserwisy opłacają się przy dużej skali i wielu zespołach (**prawo Conwaya** – struktura systemu odzwierciedla strukturę organizacji). Architekturę dokumentuje się m.in. w UML i w **modelu C4** (S. Brown).',
+    },
+    mustSay: [
+      { term: 'Definicja architektury (ISO 42010)', aliases: ['42010', 'komponent', 'relacj'] },
+      { term: 'Monolit', aliases: ['monolit'] },
+      { term: 'Architektura warstwowa', aliases: ['warstwow', 'trojwarstw', 'wielowarstw', 'layered'] },
+      { term: 'MVC / MVVM', aliases: ['mvc', 'mvvm', 'model view controller', 'reenskaug'] },
+      { term: 'SOA (ESB, SOAP)', aliases: ['soa', 'esb', 'soap', 'wsdl', 'service oriented'] },
+      { term: 'Mikroserwisy', aliases: ['mikroserwis', 'microservice'] },
+      { term: 'Niezależne wdrażanie i własna baza danych', aliases: ['niezalezn wdra', 'wdraz niezalezn', 'wlasna baza', 'wlasn baze', 'wlasn bazy', 'database per service'] },
+      { term: 'API Gateway / circuit breaker', aliases: ['api gateway', 'gateway', 'circuit breaker', 'service discovery'] },
+      { term: 'Architektura zdarzeniowa (Kafka)', aliases: ['zdarzeni', 'event driven', 'kafka', 'rabbitmq'] },
+      { term: 'REST (Fielding)', aliases: ['rest', 'fielding', 'bezstan', 'restful'] },
+      { term: 'Konteneryzacja – Docker', aliases: ['docker', 'kontener', 'container'] },
+      { term: 'Kubernetes', aliases: ['kubernetes', 'k8s', 'orkiestrac'] },
+      { term: 'CI/CD', aliases: ['ci cd', 'cicd', 'continuous'] },
+      { term: 'Atrybuty jakości (ISO 25010)', aliases: ['25010', 'atrybut jakosc', 'skalowaln', 'quality attribute'] },
+    ],
+    quiz: [
+      {
+        q: 'W którym roku R. Fielding zdefiniował styl architektoniczny REST w swojej rozprawie doktorskiej?',
+        options: ['1979', '1994', '2000', '2014'],
+        correct: 2,
+        explain: 'Roy Fielding opisał REST w rozprawie doktorskiej obronionej w 2000 r.; 1979 to MVC (Reenskaug), a 2014 to artykuł o mikroserwisach (Lewis i Fowler).',
+      },
+      {
+        q: 'Kto jest autorem wzorca MVC, opisanego w 1979 r. w środowisku Smalltalk?',
+        options: ['Trygve Reenskaug', 'Roy Fielding', 'Alistair Cockburn', 'Martin Fowler'],
+        correct: 0,
+        explain: 'MVC opracował Trygve Reenskaug w 1979 r.; Cockburn jest autorem architektury heksagonalnej, a Fielding – stylu REST.',
+      },
+      {
+        q: 'Która norma definiuje model jakości produktu programowego (m.in. wydajność, bezpieczeństwo, utrzymywalność)?',
+        options: ['ISO/IEC 27001', 'ISO 9001', 'ISO/IEC/IEEE 42010', 'ISO/IEC 25010'],
+        correct: 3,
+        explain: 'ISO/IEC 25010 (rodzina SQuaRE) określa model jakości produktu; ISO/IEC/IEEE 42010 dotyczy opisu architektury, a ISO/IEC 27001 – bezpieczeństwa informacji.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Wzorzec MVC dzieli aplikację na {{model|Model}}, widok i {{kontroler|controller|Kontroler}}, a jego autorem jest T. {{Reenskaug}} (1979).',
+      },
+      {
+        text: 'Styl architektoniczny {{REST}} opisał {{Fielding|R. Fielding|Roy Fielding}}, a jednym z jego ograniczeń jest {{bezstanowość|bezstanowosc|stateless}} komunikacji.',
+      },
+    ],
+  },
+  {
+    id: 'K23',
+    category: 'kierunkowe',
+    number: 23,
+    day: 3,
+    area: 'Architektura',
+    title: 'Chmura obliczeniowa – definicja NIST, modele usług (IaaS, PaaS, SaaS) i wdrożenia, model współdzielonej odpowiedzialności',
+    hint: 'Zacznij od definicji NIST SP 800-145 i pięciu cech, potem modele usług, modele wdrożenia i wirtualizacja. Zakończ modelem współdzielonej odpowiedzialności oraz ryzykami (vendor lock-in, RODO, koszty).',
+    keywords: [
+      'NIST SP 800-145 (2011)',
+      '5 cech chmury',
+      'IaaS / PaaS / SaaS',
+      'Publiczna, prywatna, hybrydowa',
+      'Shared responsibility',
+      'Wirtualizacja, hipernadzorca',
+      'Vendor lock-in, FinOps',
+      'CAPEX → OPEX',
+    ],
+    answer: {
+      definition:
+        '**Chmura obliczeniowa** (cloud computing) według **NIST SP 800-145 (2011)** to model zapewniający wygodny dostęp sieciowy na żądanie do współdzielonej puli konfigurowalnych zasobów (sieci, serwery, pamięć, aplikacje, usługi), które można szybko udostępnić i zwolnić przy minimalnym wysiłku zarządczym. NIST wymienia pięć cech: **samoobsługę na żądanie**, **szeroki dostęp sieciowy**, **współdzielenie puli zasobów** (multi-tenancy), **szybką elastyczność** i **mierzalność usługi** (pay-per-use). Rozliczanie za faktyczne użycie przesuwa koszty z CAPEX na OPEX.',
+      classification: [
+        '**Modele usług (NIST):** **IaaS** – infrastruktura (maszyny wirtualne, sieć, dyski; AWS EC2, Azure Virtual Machines, Google Compute Engine); **PaaS** – platforma do uruchamiania aplikacji (Heroku, Azure App Service, Google App Engine); **SaaS** – gotowa aplikacja (Microsoft 365, Salesforce, Gmail).',
+        '**Rozszerzenia modeli usług:** **FaaS / serverless** (AWS Lambda) – uruchamianie funkcji wywoływanych zdarzeniami, rozliczane za wywołania; **CaaS** – kontenery jako usługa.',
+        '**Modele wdrożenia (NIST):** chmura **publiczna**, **prywatna**, **społecznościowa** i **hybrydowa**; w praktyce także podejście **multi-cloud** (usługi wielu dostawców).',
+        '**Wirtualizacja i skalowanie:** podstawą chmury jest wirtualizacja; **hipernadzorca typu 1** działa bezpośrednio na sprzęcie (VMware ESXi, Hyper-V, KVM), **typu 2** – na systemie gospodarza (VirtualBox). Skalowanie **pionowe** (mocniejszy serwer) a **poziome** (więcej instancji), autoskalowanie, regiony i strefy dostępności.',
+        '**Model współdzielonej odpowiedzialności:** dostawca odpowiada za bezpieczeństwo **„chmury”** (obiekty, sprzęt, hipernadzorca, sieć), klient za bezpieczeństwo **„w chmurze”**. Zakres klienta maleje od IaaS do SaaS, ale **zawsze** obejmuje **dane, tożsamości i zarządzanie dostępem**.',
+        '**Ryzyka i regulacje:** **vendor lock-in**, suwerenność danych (RODO – transfer poza EOG; EU–US Data Privacy Framework z 2023 r.), kontrola kosztów (**FinOps**); normy **ISO/IEC 27017** (zabezpieczenia usług chmurowych) i **ISO/IEC 27018** (ochrona danych osobowych w chmurze publicznej).',
+      ],
+      example:
+        'Ta aplikacja z fiszkami jest hostowana na **Netlify** – to **PaaS / hosting statyczny** z siecią **CDN**: wystarczy wysłać kod do repozytorium, a platforma sama buduje i publikuje stronę bez zarządzania serwerami. Startup może zbudować produkt w modelu serverless: frontend w **S3 + CloudFront**, backend w **AWS Lambda**, baza **DynamoDB** – płaci wyłącznie za faktyczne użycie, a infrastrukturę opisuje kodem (**IaC**, np. **Terraform**).',
+      conclusion:
+        'Chmura zamienia zakup infrastruktury na usługę, dając **elastyczność i szybkość wdrożeń**, ale wymaga świadomego zarządzania kosztami, zgodnością (RODO) i bezpieczeństwem. Kluczowe jest zrozumienie **modelu współdzielonej odpowiedzialności** – przeniesienie systemu do chmury nie przenosi na dostawcę odpowiedzialności za dane i konfigurację dostępu.',
+    },
+    mustSay: [
+      { term: 'Definicja NIST SP 800-145', aliases: ['nist', '800 145'] },
+      { term: 'Samoobsługa na żądanie', aliases: ['samoobslug', 'on demand', 'na zadani'] },
+      { term: 'Szybka elastyczność (skalowalność)', aliases: ['elastyczn', 'elasticity', 'skalowaln', 'autoskalowan'] },
+      { term: 'Współdzielenie zasobów (multi-tenancy)', aliases: ['multi tenan', 'multitenan', 'wspoldziel', 'pula zasob', 'puli zasob'] },
+      { term: 'Mierzalność usługi (pay-per-use)', aliases: ['mierzaln', 'pay per use', 'pay as you go', 'metered'] },
+      { term: 'IaaS', aliases: ['iaas', 'infrastructure as a service', 'infrastruktur jako uslug'] },
+      { term: 'PaaS', aliases: ['paas', 'platform as a service', 'platform jako uslug'] },
+      { term: 'SaaS', aliases: ['saas', 'software as a service', 'oprogramowani jako uslug'] },
+      { term: 'FaaS / serverless', aliases: ['faas', 'serverless', 'lambda', 'bezserwerow'] },
+      { term: 'Modele wdrożenia (publiczna, prywatna, hybrydowa)', aliases: ['publiczn', 'prywatn', 'hybrydow', 'spolecznosciow', 'multi cloud'] },
+      { term: 'Wirtualizacja i hipernadzorca', aliases: ['wirtualizac', 'hipernadzorc', 'hypervisor', 'vmware', 'kvm'] },
+      { term: 'Model współdzielonej odpowiedzialności', aliases: ['shared responsibility', 'wspoldziel odpowiedzialn', 'odpowiedzialn klient'] },
+      { term: 'Vendor lock-in', aliases: ['vendor lock', 'lock in', 'uzalezni od dostawc'] },
+      { term: 'CAPEX → OPEX', aliases: ['capex', 'opex'] },
+    ],
+    quiz: [
+      {
+        q: 'Ile podstawowych cech chmury obliczeniowej wymienia definicja NIST SP 800-145?',
+        options: ['5', '3', '4', '6'],
+        correct: 0,
+        explain: 'NIST wymienia pięć cech: samoobsługa na żądanie, szeroki dostęp sieciowy, pula zasobów, szybka elastyczność i mierzalność usługi (oraz 3 modele usług i 4 modele wdrożenia).',
+      },
+      {
+        q: 'Który element, zgodnie z modelem współdzielonej odpowiedzialności, pozostaje po stronie klienta nawet w modelu SaaS?',
+        options: [
+          'Zabezpieczenie fizyczne centrum danych',
+          'Hipernadzorca i sieć szkieletowa',
+          'Dane, tożsamości i zarządzanie dostępem',
+          'Zasilanie i chłodzenie serwerowni',
+        ],
+        correct: 2,
+        explain: 'W SaaS dostawca przejmuje większość warstw, lecz klient zawsze odpowiada za swoje dane, konta użytkowników i przydzielanie uprawnień.',
+      },
+      {
+        q: 'Która norma zawiera zabezpieczenia ochrony danych osobowych w chmurze publicznej, w której dostawca działa jako podmiot przetwarzający?',
+        options: ['ISO/IEC 27017', 'ISO/IEC 27018', 'ISO/IEC 27001', 'ISO/IEC 27701'],
+        correct: 1,
+        explain: 'ISO/IEC 27018 dotyczy ochrony danych osobowych (PII) w chmurze publicznej, a ISO/IEC 27017 – zabezpieczeń informacji w usługach chmurowych.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Definicję chmury obliczeniowej zawiera NIST SP {{800-145|SP 800-145}}, a trzy modele usług to {{IaaS}}, PaaS i SaaS.',
+      },
+      {
+        text: 'W modelu współdzielonej odpowiedzialności dostawca odpowiada za bezpieczeństwo „chmury”, a klient za bezpieczeństwo {{w chmurze}}, w tym za {{dane|danych}}, tożsamości i dostęp.',
+      },
+    ],
+  },
+  {
+    id: 'K24',
+    category: 'kierunkowe',
+    number: 24,
+    day: 3,
+    area: 'Cyberzagrożenia',
+    title: 'Klasyfikacja cyberzagrożeń – malware, ransomware, phishing, DDoS, APT, OWASP Top 10, Cyber Kill Chain',
+    hint: 'Zacznij od definicji zagrożenia, podatności i wektora ataku, potem omów podział: malware, socjotechnika, ataki sieciowe, ataki na aplikacje (OWASP Top 10). Zakończ modelami ataku: Cyber Kill Chain i MITRE ATT&CK.',
+    keywords: [
+      'Zagrożenie, podatność, exploit',
+      'Malware: wirus, robak, trojan',
+      'Ransomware (WannaCry 2017)',
+      'Phishing, spear phishing, BEC',
+      'DoS / DDoS, MITM',
+      'OWASP Top 10 (2021)',
+      'APT, zero-day, supply chain',
+      'Cyber Kill Chain (7 faz)',
+    ],
+    answer: {
+      definition:
+        '**Zagrożenie** to potencjalna przyczyna niepożądanego incydentu, który może wyrządzić szkodę systemowi lub organizacji (ISO/IEC 27000). Zagrożenie wykorzystuje **podatność** (słabość systemu) za pomocą **exploita**, drogę ataku nazywa się **wektorem ataku**, a sumę punktów możliwych do zaatakowania – **powierzchnią ataku**. Zagrożenia dzieli się według **źródła** (zewnętrzne i wewnętrzne: cyberprzestępcy, haktywiści, grupy **APT** sponsorowane przez państwa, insiderzy) oraz według celu – naruszenia poufności, integralności lub dostępności (triada **CIA**).',
+      classification: [
+        '**Złośliwe oprogramowanie (malware):** **wirus** (wymaga nosiciela), **robak** (rozprzestrzenia się samodzielnie przez sieć), **koń trojański** (udaje legalny program), spyware i keylogger, **rootkit** (ukrywa obecność), **botnet** (np. Mirai), cryptojacking oraz ataki bezplikowe (fileless).',
+        '**Ransomware:** szyfruje dane i żąda okupu; **WannaCry (2017)** wykorzystał exploit **EternalBlue** na podatność w protokole SMBv1. Cechy współczesne: model **RaaS** (Ransomware-as-a-Service) i **podwójne wymuszenie** (szyfrowanie oraz groźba publikacji skradzionych danych).',
+        '**Socjotechnika:** **phishing** (masowe fałszywe wiadomości), **spear phishing** (ukierunkowany na osobę), **whaling** (kadra zarządzająca), vishing (głos), smishing (SMS), **BEC** (Business Email Compromise), pretexting.',
+        '**Ataki sieciowe:** **DoS / DDoS** – wolumetryczne, protokołowe i warstwy aplikacji; **MITM** (man-in-the-middle), spoofing, zatruwanie DNS.',
+        '**Ataki na aplikacje – OWASP Top 10 (wydanie 2021):** A01 **Broken Access Control**, A02 Cryptographic Failures, A03 **Injection** (m.in. SQLi i XSS), A04 Insecure Design, A05 Security Misconfiguration, A06 Vulnerable and Outdated Components, A07 Identification and Authentication Failures, A08 Software and Data Integrity Failures, A09 Security Logging and Monitoring Failures, A10 SSRF.',
+        '**Zagrożenia zaawansowane:** **zero-day** (podatność nieznana producentowi), **APT** (długotrwały, ukierunkowany atak) oraz ataki na **łańcuch dostaw** (SolarWinds 2020, backdoor w XZ Utils 2024).',
+        '**Modele i katalogi:** **Cyber Kill Chain** (Lockheed Martin, 2011) – 7 faz: rekonesans, uzbrojenie, dostarczenie, eksploitacja, instalacja, dowodzenie i kontrola (C2), działania na celu; **MITRE ATT&CK** (taktyki i techniki), STRIDE (Microsoft), katalog **CVE** i ocena **CVSS**.',
+      ],
+      example:
+        'Atak **ransomware**: pracownik otwiera **phishingowy e-mail** z załącznikiem (dostarczenie) → makro uruchamia ładunek (eksploitacja, instalacja) → łączność z serwerem **C2** → **ruch lateralny** w sieci → **eksfiltracja** danych i szyfrowanie → żądanie okupu. W aplikacjach typowy jest **SQL injection**: wpisanie w polu loginu ciągu „\' OR 1=1 --” czyni warunek zawsze prawdziwym, a obroną są **zapytania parametryzowane** (prepared statements) i walidacja wejścia.',
+      conclusion:
+        'Zagrożenia ewoluują od pojedynczego malware do wieloetapowych kampanii APT i ataków na łańcuch dostaw, dlatego obrona musi obejmować cały cykl ataku (**Kill Chain**, **MITRE ATT&CK**), a także ludzi i procesy, ponieważ socjotechnika atakuje właśnie człowieka. Stan zagrożeń opisują m.in. raporty **ENISA Threat Landscape** i **CERT Polska**.',
+    },
+    mustSay: [
+      { term: 'Zagrożenie, podatność, wektor ataku', aliases: ['podatnos', 'wektor atak', 'exploit', 'vulnerability', 'powierzchni atak'] },
+      { term: 'Triada CIA', aliases: ['cia', 'poufnosc', 'integralnosc', 'dostepnosc'] },
+      { term: 'Malware (wirus, robak, trojan)', aliases: ['malware', 'zlosliw oprogramowani', 'wirus', 'robak', 'trojan'] },
+      { term: 'Ransomware (WannaCry)', aliases: ['ransomware', 'wannacry', 'okup', 'eternalblue'] },
+      { term: 'Phishing i socjotechnika', aliases: ['phishing', 'socjotechnik', 'spear', 'vishing', 'smishing', 'bec'] },
+      { term: 'DoS / DDoS', aliases: ['ddos', 'dos', 'odmow uslug', 'rozproszon'] },
+      { term: 'MITM / spoofing', aliases: ['mitm', 'man in the middle', 'spoofing', 'dns'] },
+      { term: 'APT', aliases: ['apt', 'advanced persistent', 'zaawansowan trwal'] },
+      { term: 'OWASP Top 10', aliases: ['owasp', 'top 10', 'top10'] },
+      { term: 'Injection (SQLi, XSS)', aliases: ['injection', 'sql', 'sqli', 'xss', 'wstrzykiwani'] },
+      { term: 'Zero-day i ataki na łańcuch dostaw', aliases: ['zero day', '0 day', 'lancuch dostaw', 'supply chain', 'solarwinds'] },
+      { term: 'Cyber Kill Chain', aliases: ['kill chain', 'killchain', 'lockheed'] },
+      { term: 'MITRE ATT&CK', aliases: ['mitre', 'att ck', 'attack'] },
+      { term: 'CVE / CVSS', aliases: ['cve', 'cvss'] },
+    ],
+    quiz: [
+      {
+        q: 'Ile faz ma model Cyber Kill Chain opracowany przez Lockheed Martin w 2011 r.?',
+        options: ['5', '7', '10', '14'],
+        correct: 1,
+        explain: 'Cyber Kill Chain ma 7 faz: rekonesans, uzbrojenie, dostarczenie, eksploitacja, instalacja, dowodzenie i kontrola (C2) oraz działania na celu.',
+      },
+      {
+        q: 'Którą pozycję w OWASP Top 10 w wydaniu 2021 zajmuje kategoria Injection (obejmująca m.in. SQLi i XSS)?',
+        options: ['A01', 'A02', 'A03', 'A07'],
+        correct: 2,
+        explain: 'W wydaniu 2021 pierwsze miejsce zajmuje Broken Access Control (A01), drugie Cryptographic Failures (A02), a Injection jest na pozycji A03.',
+      },
+      {
+        q: 'Jaką podatność wykorzystywał exploit EternalBlue użyty przez ransomware WannaCry w 2017 r.?',
+        options: ['Heartbleed w OpenSSL', 'Log4Shell w Log4j', 'Shellshock w Bash', 'Błąd w protokole SMBv1 systemu Windows'],
+        correct: 3,
+        explain: 'EternalBlue atakował podatność w implementacji protokołu SMBv1 w systemie Windows, co pozwoliło WannaCry rozprzestrzeniać się jak robak.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Cyber Kill Chain firmy {{Lockheed Martin}} składa się z {{7|siedmiu}} faz, od rekonesansu po działania na celu.',
+      },
+      {
+        text: 'W OWASP Top 10 (2021) kategoria A01 to {{Broken Access Control|naruszona kontrola dostępu}}, a obroną przed SQL injection są zapytania {{parametryzowane|przygotowane|prepared statements}}.',
+      },
+    ],
+  },
+  {
+    id: 'K25',
+    category: 'kierunkowe',
+    number: 25,
+    day: 3,
+    area: 'Cyberzagrożenia',
+    title: 'Metody ochrony systemów – kryptografia symetryczna i asymetryczna, PKI, MFA, IDS/IPS, SIEM, Zero Trust',
+    hint: 'Zacznij od zasady obrony w głąb, potem kryptografia (symetryczna, asymetryczna, hash, podpis, PKI i TLS), uwierzytelnianie (MFA), ochrona sieci (firewall, IDS / IPS), monitoring (SIEM / SOC) i Zero Trust.',
+    keywords: [
+      'Obrona w głąb',
+      'AES vs RSA / ECC',
+      'Hash, podpis, PKI (X.509)',
+      'TLS 1.3 (RFC 8446)',
+      'MFA, FIDO2, TOTP',
+      'Firewall, IDS / IPS, WAF',
+      'SIEM, SOC, EDR',
+      'Zero Trust (SP 800-207)',
+    ],
+    answer: {
+      definition:
+        '**Ochrona systemów informatycznych** polega na wdrożeniu warstwowych zabezpieczeń technicznych, organizacyjnych i fizycznych, chroniących **poufność, integralność i dostępność** informacji. Podstawą jest zasada **obrony w głąb** (defense in depth) – brak pojedynczego punktu awarii – oraz zasada **najmniejszych uprawnień**. Fundamentem technicznym jest **kryptografia**, której bezpieczeństwo ma wynikać z tajności klucza, a nie algorytmu (**zasada Kerckhoffsa**).',
+      classification: [
+        '**Kryptografia symetryczna:** jeden wspólny klucz do szyfrowania i deszyfrowania; jest szybka, ale wymaga bezpiecznej wymiany klucza. **AES** (FIPS 197, 2001, algorytm Rijndael, blok 128 bitów, klucze 128 / 192 / 256 bitów; tryby **GCM**, CBC), ChaCha20; DES i 3DES są przestarzałe.',
+        '**Kryptografia asymetryczna:** para kluczy **publiczny** i **prywatny**; jest wolniejsza, służy do wymiany kluczy i podpisu. **RSA** (1977, trudność faktoryzacji, klucze ≥ 2048 bitów), **ECC** (krzywe eliptyczne, np. Curve25519, ECDSA), Diffie–Hellman (1976, uzgadnianie klucza). W praktyce stosuje się **szyfrowanie hybrydowe**: asymetryczne uzgodnienie klucza i symetryczne szyfrowanie danych.',
+        '**Skróty, podpis i PKI:** funkcje skrótu (**SHA-256**, SHA-3; MD5 i SHA-1 uznane za złamane z powodu kolizji), HMAC, **podpis cyfrowy**. **PKI** tworzą urzędy certyfikacji (CA), certyfikaty **X.509**, łańcuch zaufania i unieważnianie (CRL, OCSP); protokół **TLS 1.3** (RFC 8446, 2018) łączy te elementy. Kryptografia postkwantowa: NIST FIPS 203 (ML-KEM), 204 (ML-DSA), 205 (SLH-DSA) z sierpnia 2024 r.',
+        '**Uwierzytelnianie i kontrola dostępu:** czynniki wiedzy (hasło), posiadania (token, telefon) i cechy (biometria); **MFA** z **FIDO2 / WebAuthn** (passkeys) oraz **TOTP** (RFC 6238). Autoryzacja według modeli **RBAC** i ABAC oraz zasady **najmniejszych uprawnień**.',
+        '**Ochrona sieci:** **firewall** (filtr pakietów, stanowy, NGFW) i **WAF** (aplikacje webowe); **IDS** wykrywa i alarmuje, **IPS** blokuje ruch aktywnie (metody sygnaturowe i anomalii; Snort, Suricata, Zeek); **VPN** (IPsec, WireGuard) i segmentacja sieci.',
+        '**Monitoring i reagowanie:** **SIEM** zbiera i koreluje logi (Splunk, Microsoft Sentinel, Wazuh, IBM QRadar), pracuje w nim zespół **SOC**; **EDR / XDR** chroni stacje końcowe i wykrywa zachowania podejrzane.',
+        '**Zero Trust i higiena bezpieczeństwa:** **Zero Trust** (NIST SP 800-207, 2020) – „never trust, always verify”: brak domyślnego zaufania do sieci wewnętrznej, ciągła weryfikacja tożsamości i urządzenia, mikrosegmentacja. Uzupełniają je zarządzanie podatnościami i poprawkami, kopie zapasowe 3-2-1 oraz szkolenia.',
+      ],
+      example:
+        'Logowanie do bankowości internetowej: połączenie chroni **TLS 1.3** (wymiana kluczy ECDHE, szyfrowanie **AES-256-GCM**) z certyfikatem **X.509** banku weryfikowanym w łańcuchu zaufania PKI; użytkownik uwierzytelnia się hasłem i **drugim czynnikiem** (passkey FIDO2 lub aplikacja mobilna); klucze kryptograficzne banku przechowuje **HSM**, ruch filtrują firewall i WAF, a system **SIEM** wykrywa anomalie logowań (np. nietypowa lokalizacja) i alarmuje zespół **SOC**.',
+      conclusion:
+        'Żaden pojedynczy mechanizm nie wystarcza – skuteczna ochrona to **obrona w głąb** łącząca kryptografię, kontrolę dostępu, monitoring i procedury, a współczesnym kierunkiem jest **Zero Trust**. Rosnącym wyzwaniem jest komputer kwantowy, dlatego NIST w 2024 r. opublikował pierwsze standardy kryptografii postkwantowej.',
+    },
+    mustSay: [
+      { term: 'Obrona w głąb', aliases: ['obron w glab', 'defense in depth', 'warstwow zabezpiecz'] },
+      { term: 'Kryptografia symetryczna (AES)', aliases: ['symetryczn', 'aes', 'rijndael', 'chacha'] },
+      { term: 'Kryptografia asymetryczna (RSA, ECC)', aliases: ['asymetryczn', 'rsa', 'ecc', 'klucz publiczn', 'klucz prywatn', 'diffie'] },
+      { term: 'Funkcje skrótu i podpis cyfrowy', aliases: ['hash', 'skrot', 'sha', 'hmac', 'podpis cyfrow', 'podpis elektroniczn'] },
+      { term: 'PKI i certyfikaty X.509', aliases: ['pki', 'x 509', 'x509', 'certyfikat', 'urzad certyfikac'] },
+      { term: 'TLS 1.3', aliases: ['tls', '8446', 'ssl', 'https'] },
+      { term: 'MFA (FIDO2, TOTP)', aliases: ['mfa', '2fa', 'wieloskladnik', 'wieloetapow', 'fido', 'webauthn', 'passkey', 'totp'] },
+      { term: 'Zasada najmniejszych uprawnień / RBAC', aliases: ['najmniejszych uprawnien', 'least privilege', 'rbac', 'abac'] },
+      { term: 'Firewall / WAF', aliases: ['firewall', 'zapor', 'waf'] },
+      { term: 'IDS / IPS', aliases: ['ids', 'ips', 'snort', 'suricata', 'intrusion', 'wykrywani intruz'] },
+      { term: 'VPN i segmentacja sieci', aliases: ['vpn', 'ipsec', 'wireguard', 'segmentacj'] },
+      { term: 'SIEM / SOC', aliases: ['siem', 'soc', 'splunk', 'sentinel', 'wazuh', 'edr'] },
+      { term: 'Zero Trust', aliases: ['zero trust', '800 207', 'never trust', 'nigdy nie ufaj'] },
+      { term: 'Kryptografia postkwantowa', aliases: ['postkwant', 'post quantum', 'pqc', 'ml kem'] },
+    ],
+    quiz: [
+      {
+        q: 'Który algorytm kryptografii postkwantowej opisuje standard NIST FIPS 203 z 2024 r.?',
+        options: ['ML-DSA', 'SLH-DSA', 'ML-KEM', 'Curve25519'],
+        correct: 2,
+        explain: 'FIPS 203 opisuje ML-KEM (mechanizm enkapsulacji kluczy), FIPS 204 – ML-DSA, a FIPS 205 – SLH-DSA (oba to podpisy cyfrowe).',
+      },
+      {
+        q: 'Jaką długość bloku ma AES i jakie rozmiary klucza dopuszcza standard FIPS 197?',
+        options: [
+          'Blok 64 bity; klucze 56 / 112 / 168 bitów',
+          'Blok 128 bitów; klucze 128 / 192 / 256 bitów',
+          'Blok 256 bitów; klucze 256 / 384 / 512 bitów',
+          'Blok 128 bitów; klucze 1024 / 2048 / 4096 bitów',
+        ],
+        correct: 1,
+        explain: 'AES (Rijndael) ma stały blok 128 bitów i klucze 128, 192 lub 256 bitów; 64-bitowy blok i klucz 56 bitów to DES.',
+      },
+      {
+        q: 'Jaki numer RFC opisuje protokół TLS 1.3?',
+        options: ['RFC 2246', 'RFC 5246', 'RFC 6238', 'RFC 8446'],
+        correct: 3,
+        explain: 'TLS 1.3 opisuje RFC 8446 (2018); RFC 5246 to TLS 1.2, RFC 2246 to TLS 1.0, a RFC 6238 definiuje hasła jednorazowe TOTP.',
+      },
+    ],
+    cloze: [
+      {
+        text: 'Architekturę Zero Trust opisuje NIST SP {{800-207|SP 800-207}}, a jej hasłem jest „{{never trust, always verify|nigdy nie ufaj, zawsze weryfikuj}}”.',
+      },
+      {
+        text: 'Uwierzytelnianie wieloskładnikowe łączy czynniki wiedzy, {{posiadania}} i {{cechy|biometrii|biometryczny}}, a jednorazowe hasła czasowe TOTP opisuje RFC {{6238}}.',
+      },
+    ],
+  },
+]
