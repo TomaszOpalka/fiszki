@@ -6,6 +6,7 @@ import kierunkowePmBi from './kierunkowe-pm-bi.js'
 import kierunkoweAlgDb from './kierunkowe-alg-db.js'
 import kierunkoweOsNet from './kierunkowe-os-net.js'
 import kierunkoweMlSec from './kierunkowe-ml-sec.js'
+import pdfPelne from './pdf-pelne.js'
 
 const order = (q) => (q.category === 'ogolne' ? 0 : 100) + q.number
 
@@ -17,6 +18,9 @@ export const QUESTIONS = [
   ...kierunkoweOsNet,
   ...kierunkoweMlSec,
 ].sort((a, b) => order(a) - order(b))
+
+// Pełny tekst odpowiedzi z PDF: { [id]: { title, paragraphs: string[] } } – akapit zaczynający się od '• ' to punkt listy.
+export const PDF_FULL = pdfPelne
 
 export const QUESTIONS_BY_ID = Object.fromEntries(QUESTIONS.map((q) => [q.id, q]))
 
@@ -30,17 +34,17 @@ export const DAYS = [
   {
     day: 1,
     title: 'Pytania ogólne 1–15',
-    subtitle: 'Prawo, ekonomia, podstawy SZBI i audytu',
+    subtitle: 'Bezpieczeństwo informacji i audyt, prawo cywilne, gospodarcze i pracy, ekonomia',
   },
   {
     day: 2,
     title: 'Pytania kierunkowe 1–13',
-    subtitle: 'Zarządzanie projektami, BI, hurtownie danych, złożoność, bazy danych',
+    subtitle: 'Zarządzanie projektami IT, hurtownie danych i BI, bezpieczeństwo IT, złożoność, bazy danych',
   },
   {
     day: 3,
     title: 'Pytania kierunkowe 14–25',
-    subtitle: 'IoT, systemy operacyjne, sieci, uczenie maszynowe, architektura i cyberzagrożenia',
+    subtitle: 'Systemy wspomagania decyzji i ekspertowe, IoT, uczenie maszynowe, aplikacje, systemy operacyjne, integracja, cyberzagrożenia',
   },
   {
     day: 4,

@@ -1,8 +1,9 @@
 # Obrona MGR – fiszki z Informatyki
 
 Mobilna aplikacja webowa (PWA) do intensywnej, 4-dniowej nauki do obrony pracy magisterskiej:
-40 zagadnień (15 ogólnych + 25 kierunkowych), każde opracowane według schematu
-**Definicja → Podział → Przykład IT → Wniosek**.
+40 zagadnień (15 ogólnych + 25 kierunkowych) z opracowania odpowiedzi na egzamin dyplomowy
+(`docs/Odpowiedzi_egzamin_Informatyka_WERSJA_PELNA.pdf`), każde jako fiszka według schematu
+**Definicja → Podział → Przykład IT → Wniosek** oraz w pełnej wersji z PDF.
 
 Bez backendu, bez kluczy API, bez kont – całość działa w przeglądarce, a postęp zapisuje się
 w `localStorage` urządzenia. Hosting za darmo na Netlify.
@@ -38,8 +39,7 @@ jak natywna i działa offline.
 
 ## Edycja treści pytań
 
-Treść znajduje się w `src/data/*.js` (format opisany w `PLAN.md`, §4). Po zmianach uruchom
-`npm run validate`. Pytania można przeredagować 1:1 według oficjalnego PDF-a z zagadnieniami –
-aplikacja nie zależy od konkretnych tytułów, tylko od formatu danych.
+Fiszki są w `src/data/ogolne-*.js` i `src/data/kierunkowe-*.js` (format opisany w `PLAN.md`, §4),
+a pełne odpowiedzi z PDF – w `src/data/pdf-pelne.js`. Po zmianach uruchom `npm run validate`.
 
 Pełny plan i specyfikacja: [`PLAN.md`](PLAN.md).

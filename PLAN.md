@@ -28,74 +28,79 @@ scripts/validate-data.mjs  – walidator bazy pytań (`npm run validate`)
 src/main.jsx               – punkt wejścia
 src/index.css              – Tailwind + utility do kart 3D
 src/App.jsx                – CAŁA aplikacja (wszystkie moduły UI i logika) w jednym pliku
-src/data/index.js          – złożenie bazy: QUESTIONS, QUESTIONS_BY_ID, DAYS, CATEGORY_LABELS, AREAS
-src/data/*.js              – treść merytoryczna (6 plików, każdy eksportuje tablicę pytań)
+src/data/index.js          – złożenie bazy: QUESTIONS, QUESTIONS_BY_ID, PDF_FULL, DAYS, CATEGORY_LABELS, AREAS
+src/data/ogolne-*.js, kierunkowe-*.js – fiszki (6 plików, każdy eksportuje tablicę pytań)
+src/data/pdf-pelne.js      – pełne odpowiedzi z PDF (generowane)
+docs/                      – źródłowy PDF z opracowaniem odpowiedzi
 ```
 
 ## 3. Lista 40 zagadnień
 
-> PDF z pytaniami nie trafił do repozytorium, więc lista poniżej to rekonstrukcja na podstawie
-> zakresu podanego w zleceniu (podział na dni i działy). Brzmienie pytań można podmienić 1:1 w
-> plikach `src/data/*.js` – aplikacja nie zależy od konkretnych tytułów.
+Źródło treści: opracowanie „Egzamin dyplomowy – Informatyka, studia magisterskie – wersja pełna” (PDF,
+`docs/Odpowiedzi_egzamin_Informatyka_WERSJA_PELNA.pdf`; podstawa: Załącznik nr 3 do Zarządzenia Dziekana 68/2025).
+Fiszki (`src/data/ogolne-*.js`, `src/data/kierunkowe-*.js`) to ustrukturyzowane streszczenia odpowiedzi z PDF,
+a pełny tekst każdej odpowiedzi jest w `src/data/pdf-pelne.js` (wygenerowany z PDF, z pogrubionymi słowami kluczowymi).
+W wykazie uczelni pytania ogólne 10 i 15 mają identyczne brzmienie – O15 ćwiczy ujęcie uzupełniające z PDF
+(rynek pracy z perspektywy absolwenta informatyki).
 
-### Ogólne (Dzień 1) – `ogolne-prawo.js` (O1–O7), `ogolne-ekonomia-szbi.js` (O8–O15)
-
-| ID | Dział | Zagadnienie |
-|---|---|---|
-| O1 | Prawo | Ochrona programów komputerowych w prawie autorskim – utwór, prawa osobiste i majątkowe, program stworzony przez pracownika |
-| O2 | Prawo | Licencje oprogramowania – licencje własnościowe a wolne i otwarte (GPL, MIT, Apache, copyleft) |
-| O3 | Prawo | Ochrona danych osobowych w świetle RODO – zasady przetwarzania, podstawy prawne i obowiązki administratora |
-| O4 | Prawo | Identyfikacja elektroniczna i usługi zaufania – rozporządzenie eIDAS, rodzaje podpisów elektronicznych |
-| O5 | Prawo | Krajowy system cyberbezpieczeństwa – ustawa o KSC oraz dyrektywy NIS i NIS2 |
-| O6 | Prawo | Przestępstwa przeciwko ochronie informacji w Kodeksie karnym (art. 267–269b, 287 k.k.) |
-| O7 | Prawo | Świadczenie usług drogą elektroniczną i umowy w IT – UŚUDE, umowy wdrożeniowe, SLA |
-| O8 | Ekonomia | Podstawowe kategorie mikroekonomii – popyt, podaż, równowaga rynkowa, elastyczność, struktury rynku |
-| O9 | Ekonomia | Podstawowe kategorie makroekonomii – PKB, inflacja, bezrobocie, polityka pieniężna i fiskalna |
-| O10 | Ekonomia | Ocena efektywności inwestycji IT – NPV, IRR, ROI, okres zwrotu, TCO, próg rentowności |
-| O11 | Ekonomia | Gospodarka cyfrowa i modele biznesowe e-biznesu (B2B, B2C, SaaS, platformy, efekt sieciowy) |
-| O12 | SZBI i audyt | System Zarządzania Bezpieczeństwem Informacji wg ISO/IEC 27001:2022 |
-| O13 | SZBI i audyt | Atrybuty bezpieczeństwa informacji – triada CIA i atrybuty rozszerzone (ISO/IEC 27000) |
-| O14 | SZBI i audyt | Zarządzanie ryzykiem w bezpieczeństwie informacji – ISO 31000, ISO/IEC 27005, metody analizy |
-| O15 | SZBI i audyt | Audyt systemów informatycznych – rodzaje, etapy, standardy (ISO 19011, ISO/IEC 27007, COBIT, ISACA) |
-
-### Kierunkowe 1–13 (Dzień 2) – `kierunkowe-pm-bi.js` (K1–K8), `kierunkowe-alg-db.js` (K9–K13)
+### Ogólne (Dzień 1) – `ogolne-a.js` (O1–O8), `ogolne-b.js` (O9–O15)
 
 | ID | Dział | Zagadnienie |
 |---|---|---|
-| K1 | Zarządzanie projektami | Metodyki zarządzania projektami IT – podejście klasyczne (PMBOK, PRINCE2, Waterfall) a zwinne (Agile) |
-| K2 | Zarządzanie projektami | Scrum i Kanban – role, artefakty, zdarzenia, limity WIP |
-| K3 | Zarządzanie projektami | Planowanie i kontrola projektu – WBS, ścieżka krytyczna (CPM), PERT, wykres Gantta, metoda wartości wypracowanej (EVM) |
-| K4 | Business Intelligence | Systemy Business Intelligence – definicja, architektura, KPI, dashboardy, analityka opisowa → preskryptywna |
-| K5 | Hurtownie danych | Hurtownia danych – definicja Inmona, architektura, podejście Inmona a Kimballa, data mart |
-| K6 | Hurtownie danych | Proces ETL i ELT – ekstrakcja, transformacja, ładowanie, jakość danych |
-| K7 | Hurtownie danych | Modelowanie wielowymiarowe i OLAP – schemat gwiazdy i płatka śniegu, fakty i wymiary, SCD, operacje OLAP |
-| K8 | Business Intelligence | Big Data – model 5V, ekosystem Hadoop i Spark, Data Lake i Lakehouse |
-| K9 | Złożoność | Złożoność obliczeniowa algorytmów – notacje O, Ω, Θ, złożoność czasowa i pamięciowa |
-| K10 | Złożoność | Klasy złożoności problemów – P, NP, NP-zupełne, NP-trudne, problem P vs NP |
-| K11 | Złożoność | Algorytmy sortowania i wyszukiwania oraz struktury danych – porównanie złożoności |
-| K12 | Bazy danych | Relacyjny model danych i normalizacja – klucze, zależności funkcyjne, postacie normalne 1NF–BCNF, SQL |
-| K13 | Bazy danych | Transakcje i ACID, poziomy izolacji, bazy NoSQL i twierdzenie CAP |
+| O1 | SZBI i audyt | Zasady bezpieczeństwa informacji w przedsiębiorstwie |
+| O2 | SZBI i audyt | Istota audytu |
+| O3 | Prawo | Podmioty prawa cywilnego – osoba fizyczna a osoba prawna |
+| O4 | Prawo | Rodzaje i formy zawierania umów |
+| O5 | Prawo | Procedury zakładania własnego przedsiębiorstwa |
+| O6 | Prawo | Przyczyny i rodzaje upadłości przedsiębiorstw |
+| O7 | Prawo | Prawa i obowiązki pracownika i pracodawcy |
+| O8 | Prawo | Ochrona baz danych |
+| O9 | Ekonomia | Rozwój gospodarczy a poziom życia społeczeństwa w świetle podstawowych mierników makroekonomicznych |
+| O10 | Ekonomia | Rynek pracy – uwarunkowania, problemy, tendencje |
+| O11 | Ekonomia | Polityka fiskalna państwa |
+| O12 | Ekonomia | Polityka monetarna państwa |
+| O13 | Ekonomia | Globalizacja i jej wpływ na sytuację gospodarczą |
+| O14 | Ekonomia | Ocena członkostwa w Unii Europejskiej w wymiarze ekonomicznym i społecznym |
+| O15 | Ekonomia | Rynek pracy – uwarunkowania, problemy, tendencje |
 
-### Kierunkowe 14–25 (Dzień 3) – `kierunkowe-os-net.js` (K14–K19), `kierunkowe-ml-sec.js` (K20–K25)
+### Kierunkowe 1–13 (Dzień 2) – `kierunkowe-a.js` (K1–K7), `kierunkowe-b.js` (K8–K13)
 
 | ID | Dział | Zagadnienie |
 |---|---|---|
-| K14 | IoT | Internet Rzeczy – architektura warstwowa, protokoły (MQTT, CoAP, LoRaWAN, Zigbee), edge i fog computing |
-| K15 | Systemy operacyjne | System operacyjny – funkcje, architektury jądra, procesy i wątki, planowanie przydziału procesora |
-| K16 | Systemy operacyjne | Zarządzanie pamięcią – pamięć wirtualna, stronicowanie, segmentacja, algorytmy wymiany stron |
-| K17 | Systemy operacyjne | Współbieżność i synchronizacja – sekcja krytyczna, semafory, muteksy, zakleszczenia (warunki Coffmana) |
-| K18 | Sieci komputerowe | Modele warstwowe ISO/OSI i TCP/IP – warstwy, protokoły, enkapsulacja |
-| K19 | Sieci komputerowe | Adresacja IP i routing – IPv4/IPv6, CIDR, podsieci, NAT, protokoły routingu (RIP, OSPF, BGP) |
-| K20 | Uczenie maszynowe | Uczenie maszynowe – definicja, rodzaje uczenia, przeuczenie, walidacja, metryki jakości modeli |
-| K21 | Uczenie maszynowe | Sztuczne sieci neuronowe i głębokie uczenie – perceptron, propagacja wsteczna, CNN, RNN, Transformery |
-| K22 | Architektura | Architektury systemów informatycznych – warstwowa, MVC, SOA, mikroserwisy, REST, konteneryzacja |
-| K23 | Architektura | Chmura obliczeniowa – definicja NIST, modele usług (IaaS, PaaS, SaaS) i wdrożenia, model współdzielonej odpowiedzialności |
-| K24 | Cyberzagrożenia | Klasyfikacja cyberzagrożeń – malware, ransomware, phishing, DDoS, APT, OWASP Top 10, Cyber Kill Chain |
-| K25 | Cyberzagrożenia | Metody ochrony systemów – kryptografia symetryczna i asymetryczna, PKI, MFA, IDS/IPS, SIEM, Zero Trust |
+| K1 | Zarządzanie projektami | Zarządzanie projektem informatycznym – istota, etapy, zadania |
+| K2 | Zarządzanie projektami | Czynniki wyboru systemu informatycznego |
+| K3 | Zarządzanie projektami | Interesariusze i ograniczenia w projektach informatycznych |
+| K4 | Zarządzanie projektami | Metodyki zarządzania projektem informatycznym |
+| K5 | BI i hurtownie danych | Znaczenie baz i hurtowni danych dla podejmowania decyzji |
+| K6 | BI i hurtownie danych | Funkcje raportowania, analizy i eksploracji danych |
+| K7 | BI i hurtownie danych | Narzędzia, metody wykorzystywane w obszarze Business Intelligence |
+| K8 | Bezpieczeństwo IT | Zagrożenia i metody ochrony informacji i infrastruktury w przedsiębiorstwie |
+| K9 | Bezpieczeństwo IT | Bezpieczeństwo informatyczne i identyfikacja zagrożeń w przedsiębiorstwie |
+| K10 | Bezpieczeństwo IT | System zarządzania bezpieczeństwem |
+| K11 | Złożoność obliczeniowa | Na czym polega złożoność obliczeniowa algorytmów |
+| K12 | Bazy danych | Charakterystyka baz danych – cechy, przykłady |
+| K13 | Bazy danych | Obiekty bazodanowe, pojęcie klucza, typy danych (przykłady) |
+
+### Kierunkowe 14–25 (Dzień 3) – `kierunkowe-c.js` (K14–K19), `kierunkowe-d.js` (K20–K25)
+
+| ID | Dział | Zagadnienie |
+|---|---|---|
+| K14 | Systemy wspomagania decyzji | Wykorzystanie systemów wspomagania decyzji w przedsiębiorstwie |
+| K15 | Systemy wspomagania decyzji | Systemy ekspertowe – budowa, znaczenie, wykorzystanie |
+| K16 | Internet rzeczy | Internet rzeczy – istota działania, zalety, wady, wykorzystanie |
+| K17 | Internet rzeczy | Zagrożenia w systemach Internetu rzeczy |
+| K18 | Uczenie maszynowe | Uczenie maszynowe – analiza pojęcia, działanie, wykorzystanie |
+| K19 | Uczenie maszynowe | Ograniczenia i problemy w uczeniu maszynowym |
+| K20 | Uczenie maszynowe | Metody uczenia maszynowego |
+| K21 | Aplikacje i technologie web | Charakterystyka, bezpieczeństwo aplikacji internetowych i mobilnych |
+| K22 | Aplikacje i technologie web | Technologie backendowe i frontendowe – różnice, przykłady |
+| K23 | Systemy operacyjne | System operacyjny: rola, działanie, budowa, rodzaje |
+| K24 | Integracja systemów | Integracja systemów informatycznych |
+| K25 | Cyberzagrożenia | Wymień i krótko omów wybrane zagrożenia cybernetyczne |
 
 ## 4. Schemat pytania (kontrakt danych)
 
-Każdy plik w `src/data/` eksportuje `export default [ ...pytania ]`. Wzorzec: **O3 w `ogolne-prawo.js`**.
+Każdy plik pytań w `src/data/` eksportuje `export default [ ...pytania ]`.
 
 ```js
 {
@@ -109,11 +114,11 @@ Każdy plik w `src/data/` eksportuje `export default [ ...pytania ]`. Wzorzec: *
   keywords: ['…'],          // 5–8 krótkich haseł na awers karty
   answer: {                 // schemat odpowiedzi na obronie
     definition: '…',        // 1. Definicja / istota (2–4 zdania)
-    classification: ['…'],  // 2. Podziały / etapy / architektura (4–7 punktów, każdy „**Nazwa:** opis”)
+    classification: ['…'],  // 2. Podziały / etapy / architektura (4–8 punktów, każdy „**Nazwa:** opis”)
     example: '…',           // 3. Przykład z praktyki IT (narzędzia, normy, przepisy)
     conclusion: '…',        // 4. Wniosek (1–2 zdania)
   },
-  mustSay: [                // 8–14 pojęć obowiązkowych do Keyword Matchera
+  mustSay: [                // 8–16 pojęć obowiązkowych do Keyword Matchera (pogrubione terminy z PDF)
     { term: 'Minimalizacja danych', aliases: ['minimaliz'] },
   ],
   quiz: [                   // dokładnie 3 pytania ABCD sprawdzające detale
@@ -256,6 +261,6 @@ Ustawienia: przełącznik motywu (system / jasny / ciemny), eksport i import pos
 4. Na telefonie: otwórz adres strony → „Dodaj do ekranu głównego” – aplikacja działa jak natywna, także offline.
 
 ## 11. Podział pracy
-- Planowanie, schemat danych, konfiguracja, wzorcowe pytanie O3, przegląd i testy: model Opus.
-- Implementacja: model Sonnet – 6 agentów treści (po jednym na plik `src/data/*.js`) i 1 agent UI (`src/App.jsx`),
-  pracujący równolegle na wspólnym kontrakcie z §4 i §7.
+- Planowanie, schemat danych, konfiguracja, ekstrakcja tekstu z PDF, przegląd i testy: model Opus.
+- Implementacja: model Sonnet – 6 agentów treści (konwersja odpowiedzi z PDF na fiszki, po jednym na plik
+  `src/data/*.js`) i 1 agent UI (`src/App.jsx`), pracujący równolegle na wspólnym kontrakcie z §4 i §7.

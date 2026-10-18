@@ -39,13 +39,13 @@ function validateQuestion(q) {
     check(typeof a[k] === 'string' && a[k].length > 40, e(`answer.${k} za krótkie lub brak`))
     if (typeof a[k] === 'string') check(balancedBold(a[k]), e(`answer.${k}: niezamknięte **`))
   }
-  check(Array.isArray(a.classification) && a.classification.length >= 4 && a.classification.length <= 7, e('answer.classification: 4–7 punktów'))
+  check(Array.isArray(a.classification) && a.classification.length >= 4 && a.classification.length <= 8, e('answer.classification: 4–8 punktów'))
   ;(a.classification || []).forEach((c, i) => {
     check(typeof c === 'string' && c.length > 20, e(`classification[${i}] za krótkie`))
     if (typeof c === 'string') check(balancedBold(c), e(`classification[${i}]: niezamknięte **`))
   })
 
-  check(Array.isArray(q.mustSay) && q.mustSay.length >= 8 && q.mustSay.length <= 14, e('mustSay: 8–14 pojęć'))
+  check(Array.isArray(q.mustSay) && q.mustSay.length >= 8 && q.mustSay.length <= 16, e('mustSay: 8–16 pojęć'))
   ;(q.mustSay || []).forEach((m, i) => {
     check(typeof m.term === 'string' && m.term.length > 1, e(`mustSay[${i}].term`))
     check(Array.isArray(m.aliases) && m.aliases.length >= 1, e(`mustSay[${i}].aliases: min. 1 alias`))
