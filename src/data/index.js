@@ -1,26 +1,30 @@
 // Zbiorcza baza 40 zagadnień na obronę (15 ogólnych + 25 kierunkowych).
 // Każdy plik eksportuje tablicę obiektów w formacie opisanym w PLAN.md („Schemat pytania”).
-import ogolnePrawo from './ogolne-prawo.js'
-import ogolneEkonomiaSzbi from './ogolne-ekonomia-szbi.js'
-import kierunkowePmBi from './kierunkowe-pm-bi.js'
-import kierunkoweAlgDb from './kierunkowe-alg-db.js'
-import kierunkoweOsNet from './kierunkowe-os-net.js'
-import kierunkoweMlSec from './kierunkowe-ml-sec.js'
+import ogolneA from './ogolne-a.js'
+import ogolneB from './ogolne-b.js'
+import kierunkoweA from './kierunkowe-a.js'
+import kierunkoweB from './kierunkowe-b.js'
+import kierunkoweC from './kierunkowe-c.js'
+import kierunkoweD from './kierunkowe-d.js'
 import pdfPelne from './pdf-pelne.js'
+import pdfSkrocone from './pdf-skrocone.js'
 
 const order = (q) => (q.category === 'ogolne' ? 0 : 100) + q.number
 
 export const QUESTIONS = [
-  ...ogolnePrawo,
-  ...ogolneEkonomiaSzbi,
-  ...kierunkowePmBi,
-  ...kierunkoweAlgDb,
-  ...kierunkoweOsNet,
-  ...kierunkoweMlSec,
+  ...ogolneA,
+  ...ogolneB,
+  ...kierunkoweA,
+  ...kierunkoweB,
+  ...kierunkoweC,
+  ...kierunkoweD,
 ].sort((a, b) => order(a) - order(b))
 
 // Pełny tekst odpowiedzi z PDF: { [id]: { title, paragraphs: string[] } } – akapit zaczynający się od '• ' to punkt listy.
 export const PDF_FULL = pdfPelne
+
+// Wersja skrócona PDF („W PIGUŁCE”): { [id]: { note?: string, bullets: string[] } } – szybka powtórka.
+export const PDF_SHORT = pdfSkrocone
 
 export const QUESTIONS_BY_ID = Object.fromEntries(QUESTIONS.map((q) => [q.id, q]))
 

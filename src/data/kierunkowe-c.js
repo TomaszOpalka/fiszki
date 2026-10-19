@@ -44,7 +44,7 @@ export default [
       { term: 'Podsystem modeli', aliases: ['podsystem modeli', 'baza modeli'] },
       { term: 'Podsystem dialogowy (interfejs)', aliases: ['dialogow', 'interfejs'] },
       { term: 'Podsystem wiedzy / inteligentne SWD', aliases: ['podsystem wiedzy', 'inteligentn'] },
-      { term: 'Klasyfikacja Powera', aliases: ['power', 'data driven', 'model driven'] },
+      { term: 'Klasyfikacja Powera', aliases: ['powera', 'klasyfikacj power', 'data driven', 'model driven'] },
       { term: 'OLAP / Business Intelligence', aliases: ['olap', 'business intelligence'] },
       { term: 'GDSS / EIS', aliases: ['gdss', 'eis'] },
       { term: 'Scoring, optymalizacja tras, prognozowanie popytu', aliases: ['scoring', 'optymalizacj tras', 'prognozowan popytu', 'dynamiczn ustalan'] },

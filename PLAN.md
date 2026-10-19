@@ -31,7 +31,8 @@ src/App.jsx                – CAŁA aplikacja (wszystkie moduły UI i logika) w
 src/data/index.js          – złożenie bazy: QUESTIONS, QUESTIONS_BY_ID, PDF_FULL, DAYS, CATEGORY_LABELS, AREAS
 src/data/ogolne-*.js, kierunkowe-*.js – fiszki (6 plików, każdy eksportuje tablicę pytań)
 src/data/pdf-pelne.js      – pełne odpowiedzi z PDF (generowane)
-docs/                      – źródłowy PDF z opracowaniem odpowiedzi
+src/data/pdf-skrocone.js   – wersja skrócona „W pigułce” z PDF (generowane)
+docs/                      – źródłowe PDF-y: wersja pełna i skrócona
 ```
 
 ## 3. Lista 40 zagadnień
@@ -39,7 +40,8 @@ docs/                      – źródłowy PDF z opracowaniem odpowiedzi
 Źródło treści: opracowanie „Egzamin dyplomowy – Informatyka, studia magisterskie – wersja pełna” (PDF,
 `docs/Odpowiedzi_egzamin_Informatyka_WERSJA_PELNA.pdf`; podstawa: Załącznik nr 3 do Zarządzenia Dziekana 68/2025).
 Fiszki (`src/data/ogolne-*.js`, `src/data/kierunkowe-*.js`) to ustrukturyzowane streszczenia odpowiedzi z PDF,
-a pełny tekst każdej odpowiedzi jest w `src/data/pdf-pelne.js` (wygenerowany z PDF, z pogrubionymi słowami kluczowymi).
+a pełny tekst każdej odpowiedzi jest w `src/data/pdf-pelne.js`, wersja skrócona („W PIGUŁCE”) w `src/data/pdf-skrocone.js`
+(oba wygenerowane z PDF-ów w `docs/`, z pogrubionymi słowami kluczowymi).
 W wykazie uczelni pytania ogólne 10 i 15 mają identyczne brzmienie – O15 ćwiczy ujęcie uzupełniające z PDF
 (rynek pracy z perspektywy absolwenta informatyki).
 
@@ -153,6 +155,7 @@ Każdy plik pytań w `src/data/` eksportuje `export default [ ...pytania ]`.
 - Kolejność w sesji: trudne → nowe → w trakcie → opanowane.
 - Karta 3D (obrót `rotateY`): awers – kategoria, numer (np. „Ogólne · 3”), dział, pełny tytuł, ramka „Podpowiedź”,
   chipy słów-kluczy. Rewers – przewijane sekcje z ikonami: Definicja, Podział, Przykład IT, Wniosek; wyróżnione terminy.
+  Przycisk „Odpowiedź z PDF” otwiera arkusz od dołu z przełącznikiem „W pigułce” (wersja skrócona) | „Pełna odpowiedź”.
 - Gest: `framer-motion` `drag="x"`, obrót karty proporcjonalny do przesunięcia, nakładki „UMIEM” / „POWTÓRZ”,
   próg 110 px lub prędkość > 500 px/s, karta odlatuje za ekran. `touch-action: pan-y` – rewers da się przewijać pionowo.
 - Przyciski: czerwony „Jeszcze powtórz” (lewo), „Obróć”, zielony „Umiem” (prawo), „Cofnij” ostatnią ocenę.
@@ -220,7 +223,8 @@ pojęcie przywołane ⇔ term lub dowolny alias pasuje
 ### 6.6 Kompendium (Baza wiedzy)
 - Pole wyszukiwania (natychmiastowe, bez polskich znaków): tytuł, słowa-klucze, `mustSay`, cała odpowiedź.
 - Filtry: Wszystkie / Ogólne / Kierunkowe, chipy działów, status (nowe / trudne / w trakcie / opanowane).
-- Lista kart-akordeonów: numer, tytuł, dział, status; po rozwinięciu pełna odpowiedź w 4 sekcjach
+- Lista kart-akordeonów: numer, tytuł, dział, status; po rozwinięciu przełącznik widoku Fiszka | W pigułce | Pełna (PDF);
+  wyszukiwanie obejmuje także teksty obu wersji PDF; po rozwinięciu fiszka w 4 sekcjach
   z podświetleniem wyszukiwanej frazy oraz przycisk „Ćwicz słowa-klucze”.
 
 ## 7. Stan aplikacji (`localStorage`, klucz `fiszki-obrona:v1`)

@@ -2,8 +2,8 @@
 
 Mobilna aplikacja webowa (PWA) do intensywnej, 4-dniowej nauki do obrony pracy magisterskiej:
 40 zagadnień (15 ogólnych + 25 kierunkowych) z opracowania odpowiedzi na egzamin dyplomowy
-(`docs/Odpowiedzi_egzamin_Informatyka_WERSJA_PELNA.pdf`), każde jako fiszka według schematu
-**Definicja → Podział → Przykład IT → Wniosek** oraz w pełnej wersji z PDF.
+(`docs/`: wersja pełna i skrócona „W pigułce”), każde jako fiszka według schematu
+**Definicja → Podział → Przykład IT → Wniosek**, a do tego w wersji skróconej i pełnej wprost z PDF-ów.
 
 Bez backendu, bez kluczy API, bez kont – całość działa w przeglądarce, a postęp zapisuje się
 w `localStorage` urządzenia. Hosting za darmo na Netlify.
@@ -12,11 +12,11 @@ w `localStorage` urządzenia. Hosting za darmo na Netlify.
 
 | Zakładka | Co robi |
 |---|---|
-| **Fiszki** | System Leitnera z gestem swipe (prawo = „Umiem”, lewo = „Jeszcze powtórz”), obrót karty 3D, filtry (dzień, kategoria, trudne). Na komputerze: ← → i spacja. |
+| **Fiszki** | System Leitnera z gestem swipe (prawo = „Umiem”, lewo = „Jeszcze powtórz”), obrót karty 3D, filtry (dzień, kategoria, trudne). Na rewersie przycisk z odpowiedzią z PDF („W pigułce” i pełna). Na komputerze: ← → i spacja. |
 | **Egzamin** | Symulacja obrony: losowanie 1 pytania ogólnego i 2 kierunkowych, odpowiedź ustna z timerem 2/3 min i checklistą 4 kryteriów. Quiz ABC ze szczegółów (artykuły, normy ISO, złożoności). |
 | **Plan** | 4-dniowy sprint z paskami postępu (ogólny i dzienny). Dzień 4 rozliczany automatycznie z symulacji, quizu i fiszek „Trudne”. |
 | **Trening** | Keyword Matcher – wpisujesz lub dyktujesz hasła, aplikacja pokazuje zielone (przywołane) i czerwone (pominięte) pojęcia. Tryb „Uzupełnij luki” (cloze). |
-| **Baza** | Kompendium wszystkich 40 zagadnień z natychmiastowym wyszukiwaniem i filtrami. |
+| **Baza** | Kompendium wszystkich 40 zagadnień z natychmiastowym wyszukiwaniem (także w tekście PDF) i filtrami. Każde zagadnienie w trzech widokach: Fiszka, W pigułce, Pełna. |
 
 ## Uruchomienie lokalne
 
@@ -40,6 +40,6 @@ jak natywna i działa offline.
 ## Edycja treści pytań
 
 Fiszki są w `src/data/ogolne-*.js` i `src/data/kierunkowe-*.js` (format opisany w `PLAN.md`, §4),
-a pełne odpowiedzi z PDF – w `src/data/pdf-pelne.js`. Po zmianach uruchom `npm run validate`.
+a odpowiedzi z PDF-ów – w `src/data/pdf-skrocone.js` („W pigułce”) i `src/data/pdf-pelne.js` (pełne). Po zmianach uruchom `npm run validate`.
 
 Pełny plan i specyfikacja: [`PLAN.md`](PLAN.md).

@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, animate, motion, useMotionValue, useTransform } from 'framer-motion'
 import {
   ArrowRight,
@@ -58,7 +59,7 @@ import {
   Upload,
   X,
 } from 'lucide-react'
-import { AREAS, CATEGORY_LABELS, DAYS, QUESTIONS, QUESTIONS_BY_ID } from './data/index.js'
+import { AREAS, CATEGORY_LABELS, DAYS, PDF_FULL, PDF_SHORT, QUESTIONS, QUESTIONS_BY_ID } from './data/index.js'
 
 // ==== Stałe i dane pochodne ====
 
@@ -68,6 +69,21 @@ const STORAGE_KEY = 'fiszki-obrona:v1'
 const ALL_Q = (Array.isArray(QUESTIONS) ? QUESTIONS : []).filter((q) => q && q.id)
 const Q_BY_ID = QUESTIONS_BY_ID || {}
 const AREA_LIST = Array.isArray(AREAS) ? AREAS.filter(Boolean) : []
+
+// Pełne odpowiedzi z PDF: { [id]: { title, paragraphs[] } } – brak wpisu = brak przycisków „Pełna odpowiedź”.
+const FULL_MAP = PDF_FULL && typeof PDF_FULL === 'object' ? PDF_FULL : {}
+const fullOf = (id) => {
+  const f = FULL_MAP[id]
+  return f && Array.isArray(f.paragraphs) && f.paragraphs.length ? f : null
+}
+
+// Wersja skrócona PDF („W PIGUŁCE”): { [id]: { note?, bullets[] } } – szybka powtórka przed egzaminem.
+const SHORT_MAP = PDF_SHORT && typeof PDF_SHORT === 'object' ? PDF_SHORT : {}
+const shortOf = (id) => {
+  const f = SHORT_MAP[id]
+  return f && Array.isArray(f.bullets) && f.bullets.length ? f : null
+}
+const hasPdf = (id) => !!fullOf(id) || !!shortOf(id)
 
 const TABS = [
   { id: 'cards', label: 'Fiszki', icon: Layers },
@@ -336,8 +352,9 @@ function checkGap(input, answers) {
   })
 }
 
-// Wyszukiwarka Kompendium: indeks znormalizowanych pól (tytuł, słowa-klucze, mustSay.term, cała odpowiedź).
-const SEARCH_INDEX = Object.fromEntries(
+// Wyszukiwarka Kompendium: indeksy znormalizowanych pól – fiszka (tytuł, słowa-klucze, mustSay.term,
+// cała odpowiedź) oraz pełny tekst z PDF (osobno, żeby wiedzieć, gdzie trafienie).
+const CARD_INDEX = Object.fromEntries(
   ALL_Q.map((q) => {
     const a = q.answer || {}
     const text = [
@@ -355,6 +372,15 @@ const SEARCH_INDEX = Object.fromEntries(
     ].join(' ')
     return [q.id, normalize(text)]
   }),
+)
+const FULL_INDEX = Object.fromEntries(
+  ALL_Q.map((q) => [q.id, fullOf(q.id) ? normalize(`${FULL_MAP[q.id].title ?? ''} ${FULL_MAP[q.id].paragraphs.join(' ')}`) : '']),
+)
+const SHORT_INDEX = Object.fromEntries(
+  ALL_Q.map((q) => [q.id, shortOf(q.id) ? normalize(`${SHORT_MAP[q.id].note ?? ''} ${SHORT_MAP[q.id].bullets.join(' ')}`) : '']),
+)
+const SEARCH_INDEX = Object.fromEntries(
+  ALL_Q.map((q) => [q.id, `${CARD_INDEX[q.id]} ${SHORT_INDEX[q.id]} ${FULL_INDEX[q.id]}`]),
 )
 
 // Dopasowanie długości 1:1 po „złożeniu” znaków (do podświetlania fraz w oryginalnym tekście).
@@ -660,13 +686,13 @@ function Panel({ className, children, as: Tag = 'div', ...props }) {
   )
 }
 
-function Segmented({ value, onChange, options, className, label }) {
+function Segmented({ value, onChange, options, className, label, columns }) {
   return (
     <div
       role="tablist"
       aria-label={label}
       className={cx('grid gap-1 rounded-2xl bg-slate-200/70 p-1 dark:bg-slate-800', className)}
-      style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+      style={{ gridTemplateColumns: columns || `repeat(${options.length}, minmax(0, 1fr))` }}
     >
       {options.map((o) => {
         const on = o.id === value
@@ -679,7 +705,7 @@ function Segmented({ value, onChange, options, className, label }) {
             aria-selected={on}
             onClick={() => onChange(o.id)}
             className={cx(
-              'flex h-10 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold transition active:scale-95',
+              'flex min-h-10 items-center justify-center gap-1.5 rounded-xl px-2 py-1 text-center text-sm font-semibold leading-tight transition active:scale-95',
               FOCUS,
               on
                 ? 'bg-white text-indigo-700 shadow dark:bg-slate-700 dark:text-white'
@@ -902,6 +928,166 @@ function SessionConfig({ scope, setScope, count, setCount, available, onStart, n
   )
 }
 
+// Pełna odpowiedź z PDF: akapity; kolejne akapity zaczynające się od „• ” tworzą listę <ul>.
+function FullAnswer({ id, query, showTitle = true }) {
+  const f = fullOf(id)
+  if (!f) return null
+  const blocks = []
+  for (const para of f.paragraphs) {
+    const text = String(para ?? '')
+    if (text.startsWith('• ')) {
+      const last = blocks[blocks.length - 1]
+      if (last && last.type === 'ul') last.items.push(text.slice(2))
+      else blocks.push({ type: 'ul', items: [text.slice(2)] })
+    } else if (text.trim()) {
+      blocks.push({ type: 'p', text })
+    }
+  }
+  return (
+    <div className="space-y-3" data-testid="full-answer">
+      {showTitle && f.title && (
+        <div className="flex items-start gap-2 rounded-2xl bg-indigo-50 px-3 py-2 text-sm font-bold text-indigo-800 dark:bg-indigo-500/15 dark:text-indigo-200">
+          <BookOpen size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <span className="min-w-0 break-words">{f.title}</span>
+        </div>
+      )}
+      {blocks.map((b, i) =>
+        b.type === 'ul' ? (
+          <ul key={i} className="space-y-1.5">
+            {b.items.map((it, j) => (
+              <li key={j} className="flex gap-2.5 text-[15px] leading-relaxed text-slate-700 dark:text-slate-200">
+                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
+                <span className="min-w-0 break-words">
+                  <RichText text={it} query={query} />
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} className="break-words text-[15px] leading-relaxed text-slate-700 dark:text-slate-200">
+            <RichText text={b.text} query={query} />
+          </p>
+        ),
+      )}
+    </div>
+  )
+}
+
+// Wersja skrócona z PDF („W PIGUŁCE”): punkty z pogrubionymi słowami kluczowymi.
+function ShortAnswer({ id, query }) {
+  const f = shortOf(id)
+  if (!f) return null
+  return (
+    <div className="space-y-3" data-testid="short-answer">
+      {f.note && (
+        <p className="rounded-2xl bg-amber-50 px-3 py-2 text-sm leading-relaxed text-amber-900 dark:bg-amber-500/15 dark:text-amber-100">
+          <RichText text={f.note} query={query} />
+        </p>
+      )}
+      <ul className="space-y-2">
+        {f.bullets.map((b, i) => (
+          <li key={i} className="flex gap-2.5 text-[15px] leading-relaxed text-slate-700 dark:text-slate-200">
+            <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+            <span className="min-w-0 break-words">
+              <RichText text={b} query={query} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Odpowiedź z PDF z przełącznikiem „W pigułce” / „Pełna odpowiedź” (domyślnie skrót, jeśli istnieje).
+function PdfAnswer({ id, query }) {
+  const hasS = !!shortOf(id)
+  const hasF = !!fullOf(id)
+  const [pick, setPick] = useState(null)
+  useEffect(() => setPick(null), [id])
+  const view = pick ?? (hasS ? 'short' : 'full')
+  return (
+    <div className="space-y-4">
+      {hasS && hasF && (
+        <Segmented
+          label="Wersja odpowiedzi z PDF"
+          value={view}
+          onChange={setPick}
+          options={[
+            { id: 'short', label: 'W pigułce', icon: ListChecks },
+            { id: 'full', label: 'Pełna odpowiedź', icon: BookOpen },
+          ]}
+        />
+      )}
+      {view === 'short' ? <ShortAnswer id={id} query={query} /> : <FullAnswer id={id} query={query} />}
+    </div>
+  )
+}
+
+// Arkusz wysuwany od dołu (portal do <body>): Esc i tło zamykają, treść przewijana.
+function BottomSheet({ open, onClose, label, title, subtitle, children, tall = false }) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [open, onClose])
+
+  return createPortal(
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="sheet"
+          className="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+        >
+          <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={label || title}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: 'spring', damping: 34, stiffness: 340 }}
+            className={cx(
+              'relative z-10 flex w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:rounded-3xl',
+              tall ? 'h-[90dvh] sm:h-[85dvh] sm:max-w-2xl' : 'max-h-[90dvh]',
+            )}
+          >
+            <div className="flex shrink-0 items-start justify-between gap-3 border-b border-slate-100 px-5 py-3 dark:border-slate-800">
+              <div className="min-w-0">
+                <h2 className="break-words text-lg font-extrabold leading-tight">{title}</h2>
+                {subtitle && <p className="mt-0.5 line-clamp-2 break-words text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>}
+              </div>
+              <IconBtn label="Zamknij" icon={X} onClick={onClose} autoFocus />
+            </div>
+            <div
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5"
+              style={{ paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom))' }}
+            >
+              {children}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
+  )
+}
+
 // ==== Header, nawigacja, ustawienia ====
 
 function Header({ dark, onToggleTheme, onOpenSettings }) {
@@ -990,17 +1176,8 @@ function SettingsSheet({ open, onClose }) {
     if (!open) {
       setMsg(null)
       setConfirmReset(false)
-      return
     }
-    const onKey = (e) => e.key === 'Escape' && onClose()
-    window.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [open, onClose])
+  }, [open])
 
   const setSetting = (patch) => setState((s) => ({ ...s, settings: { ...s.settings, ...patch } }))
 
@@ -1045,120 +1222,91 @@ function SettingsSheet({ open, onClose }) {
   const section = 'text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400'
 
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          key="settings"
-          className="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18 }}
-        >
-          <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Ustawienia"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 34, stiffness: 340 }}
-            className="relative z-10 max-h-[90dvh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-t-3xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:rounded-3xl"
-            style={{ paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom))' }}
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-extrabold">Ustawienia</h2>
-              <IconBtn label="Zamknij ustawienia" icon={X} onClick={onClose} autoFocus />
-            </div>
+    <BottomSheet open={open} onClose={onClose} title="Ustawienia" label="Ustawienia">
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <div className={section}>Motyw</div>
+          <Segmented
+            label="Motyw"
+            value={state.settings.theme}
+            onChange={(theme) => setSetting({ theme })}
+            options={[
+              { id: 'system', label: 'System', icon: Monitor },
+              { id: 'light', label: 'Jasny', icon: Sun },
+              { id: 'dark', label: 'Ciemny', icon: Moon },
+            ]}
+          />
+        </div>
 
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <div className={section}>Motyw</div>
-                <Segmented
-                  label="Motyw"
-                  value={state.settings.theme}
-                  onChange={(theme) => setSetting({ theme })}
-                  options={[
-                    { id: 'system', label: 'System', icon: Monitor },
-                    { id: 'light', label: 'Jasny', icon: Sun },
-                    { id: 'dark', label: 'Ciemny', icon: Moon },
-                  ]}
-                />
-              </div>
+        <div className="space-y-2">
+          <div className={section}>Czas odpowiedzi w egzaminie</div>
+          <Segmented
+            label="Czas odpowiedzi"
+            value={state.settings.examMinutes}
+            onChange={(examMinutes) => setSetting({ examMinutes })}
+            options={[
+              { id: 2, label: '2 minuty' },
+              { id: 3, label: '3 minuty' },
+            ]}
+          />
+        </div>
 
-              <div className="space-y-2">
-                <div className={section}>Czas odpowiedzi w egzaminie</div>
-                <Segmented
-                  label="Czas odpowiedzi"
-                  value={state.settings.examMinutes}
-                  onChange={(examMinutes) => setSetting({ examMinutes })}
-                  options={[
-                    { id: 2, label: '2 minuty' },
-                    { id: 3, label: '3 minuty' },
-                  ]}
-                />
-              </div>
+        <div className="space-y-2">
+          <div className={section}>Kopia postępu</div>
+          <div className="grid grid-cols-2 gap-2">
+            <Btn variant="outline" icon={Download} onClick={doExport}>
+              Eksportuj
+            </Btn>
+            <Btn variant="outline" icon={Upload} onClick={() => fileRef.current?.click()}>
+              Importuj
+            </Btn>
+          </div>
+          <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={doImport} />
+        </div>
 
-              <div className="space-y-2">
-                <div className={section}>Kopia postępu</div>
-                <div className="grid grid-cols-2 gap-2">
-                  <Btn variant="outline" icon={Download} onClick={doExport}>
-                    Eksportuj
-                  </Btn>
-                  <Btn variant="outline" icon={Upload} onClick={() => fileRef.current?.click()}>
-                    Importuj
-                  </Btn>
-                </div>
-                <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={doImport} />
-              </div>
-
-              <div className="space-y-2">
-                <div className={section}>Reset</div>
-                {!confirmReset ? (
-                  <Btn variant="outline" icon={Trash2} className="w-full" onClick={() => setConfirmReset(true)}>
-                    Resetuj postęp
-                  </Btn>
-                ) : (
-                  <div className="rounded-2xl border border-rose-300 bg-rose-50 p-3 dark:border-rose-500/40 dark:bg-rose-500/10">
-                    <p className="mb-3 text-sm font-medium text-rose-800 dark:text-rose-200">
-                      Na pewno? Usunie to wszystkie oceny fiszek, historię symulacji i statystyki. Operacji nie można cofnąć.
-                    </p>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Btn variant="soft" onClick={() => setConfirmReset(false)}>
-                        Anuluj
-                      </Btn>
-                      <Btn variant="danger" icon={Trash2} onClick={doReset}>
-                        Tak, usuń
-                      </Btn>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {msg && (
-                <p
-                  role="status"
-                  className={cx(
-                    'rounded-2xl px-3 py-2 text-sm font-medium',
-                    msg.ok
-                      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300'
-                      : 'bg-rose-100 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300',
-                  )}
-                >
-                  {msg.text}
-                </p>
-              )}
-
-              <p className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
-                <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
-                Postęp zapisywany jest lokalnie na tym urządzeniu. Pytań w bazie: {ALL_Q.length}.
+        <div className="space-y-2">
+          <div className={section}>Reset</div>
+          {!confirmReset ? (
+            <Btn variant="outline" icon={Trash2} className="w-full" onClick={() => setConfirmReset(true)}>
+              Resetuj postęp
+            </Btn>
+          ) : (
+            <div className="rounded-2xl border border-rose-300 bg-rose-50 p-3 dark:border-rose-500/40 dark:bg-rose-500/10">
+              <p className="mb-3 text-sm font-medium text-rose-800 dark:text-rose-200">
+                Na pewno? Usunie to wszystkie oceny fiszek, historię symulacji i statystyki. Operacji nie można cofnąć.
               </p>
+              <div className="grid grid-cols-2 gap-2">
+                <Btn variant="soft" onClick={() => setConfirmReset(false)}>
+                  Anuluj
+                </Btn>
+                <Btn variant="danger" icon={Trash2} onClick={doReset}>
+                  Tak, usuń
+                </Btn>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          )}
+        </div>
+
+        {msg && (
+          <p
+            role="status"
+            className={cx(
+              'rounded-2xl px-3 py-2 text-sm font-medium',
+              msg.ok
+                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300'
+                : 'bg-rose-100 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300',
+            )}
+          >
+            {msg.text}
+          </p>
+        )}
+
+        <p className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <Info size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
+          Postęp zapisywany jest lokalnie na tym urządzeniu. Pytań w bazie: {ALL_Q.length}.
+        </p>
+      </div>
+    </BottomSheet>
   )
 }
 
@@ -1176,44 +1324,56 @@ function makeSession(filter, skip, cards) {
   return { queue, pos: 0, known: 0, again: 0, retry: [], history: [] }
 }
 
-function CardFront({ q, status }) {
+function CardFront({ q, status, active }) {
   const keywords = kwOf(q)
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-500/10 backface-hidden dark:border-slate-800 dark:bg-slate-900">
+    <div
+      aria-hidden={!active}
+      className={cx(
+        'absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-500/10 backface-hidden dark:border-slate-800 dark:bg-slate-900',
+        !active && 'pointer-events-none',
+      )}
+    >
       <div className="flex shrink-0 items-center justify-between gap-2 bg-linear-to-r from-indigo-600 to-violet-600 px-5 py-3 text-white">
         <span className="whitespace-nowrap text-sm font-extrabold uppercase tracking-wide">
           {CATEGORY_LABELS?.[q.category] ?? q.category} · {q.number}
         </span>
         <span className="min-w-0 truncate rounded-full bg-white/20 px-3 py-1 text-xs font-semibold">{q.area}</span>
       </div>
-      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain p-5">
-        <StatusBadge status={status} />
-        <h2 className="break-words text-xl font-bold leading-snug sm:text-2xl">{q.title}</h2>
-        {q.hint && (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3.5 dark:border-amber-500/30 dark:bg-amber-500/10">
-            <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wide text-amber-700 dark:text-amber-300">
-              <Sparkles size={14} aria-hidden="true" /> Podpowiedź
+      <div className="relative min-h-0 flex-1">
+        <div className="h-full space-y-4 overflow-y-auto overscroll-contain p-5">
+          <StatusBadge status={status} />
+          <h2 className="break-words text-xl font-bold leading-snug sm:text-2xl">{q.title}</h2>
+          {q.hint && (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3.5 dark:border-amber-500/30 dark:bg-amber-500/10">
+              <div className="mb-1 flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+                <Sparkles size={14} aria-hidden="true" /> Podpowiedź
+              </div>
+              <p className="break-words text-sm leading-relaxed text-amber-900 dark:text-amber-100">{q.hint}</p>
             </div>
-            <p className="break-words text-sm leading-relaxed text-amber-900 dark:text-amber-100">{q.hint}</p>
-          </div>
-        )}
-        {keywords.length > 0 && (
-          <div>
-            <div className="mb-2 text-xs font-extrabold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-              Słowa-klucze
+          )}
+          {keywords.length > 0 && (
+            <div>
+              <div className="mb-2 text-xs font-extrabold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                Słowa-klucze
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {keywords.map((k) => (
+                  <span
+                    key={k}
+                    className="max-w-full break-words rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-200"
+                  >
+                    {k}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {keywords.map((k) => (
-                <span
-                  key={k}
-                  className="max-w-full break-words rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-200"
-                >
-                  {k}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-linear-to-t from-white to-transparent dark:from-slate-900"
+        />
       </div>
       <div className="shrink-0 border-t border-slate-100 px-4 py-2 text-center text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
         Stuknij kartę, aby zobaczyć odpowiedź
@@ -1222,9 +1382,15 @@ function CardFront({ q, status }) {
   )
 }
 
-function CardBack({ q }) {
+function CardBack({ q, active, onOpenFull }) {
   return (
-    <div className="absolute inset-0 flex rotate-y-180 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-500/10 backface-hidden dark:border-slate-800 dark:bg-slate-900">
+    <div
+      aria-hidden={!active}
+      className={cx(
+        'absolute inset-0 flex rotate-y-180 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-500/10 backface-hidden dark:border-slate-800 dark:bg-slate-900',
+        !active && 'pointer-events-none',
+      )}
+    >
       <div className="flex shrink-0 items-center gap-3 bg-linear-to-r from-violet-600 to-indigo-600 px-5 py-3 text-white">
         <span className="whitespace-nowrap text-sm font-extrabold uppercase tracking-wide">
           Odpowiedź · {q.id}
@@ -1233,13 +1399,32 @@ function CardBack({ q }) {
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
         <AnswerSections q={q} />
+        {hasPdf(q.id) && (
+          <button
+            type="button"
+            data-testid="open-full"
+            // Capture + stopPropagation: klik nie odwraca karty i nie uruchamia przeciągania (framer słucha pointerdown na karcie).
+            onPointerDownCapture={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation()
+              onOpenFull?.()
+            }}
+            className={cx(
+              'mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border-2 border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-bold text-indigo-700 transition hover:bg-indigo-100 active:scale-95 dark:border-indigo-500/40 dark:bg-indigo-500/15 dark:text-indigo-200 dark:hover:bg-indigo-500/25',
+              FOCUS,
+            )}
+          >
+            <BookOpen size={18} aria-hidden="true" />
+            Odpowiedź z PDF: w pigułce i pełna
+          </button>
+        )}
         <div className="h-2" />
       </div>
     </div>
   )
 }
 
-const SwipeCard = forwardRef(function SwipeCard({ q, status, flipped, onFlip, onRate }, ref) {
+const SwipeCard = forwardRef(function SwipeCard({ q, status, flipped, onFlip, onRate, onOpenFull }, ref) {
   const x = useMotionValue(0)
   const rotate = useTransform(x, [-200, 200], [-12, 12])
   const likeOpacity = useTransform(x, [25, 120], [0, 1])
@@ -1310,8 +1495,8 @@ const SwipeCard = forwardRef(function SwipeCard({ q, status, flipped, onFlip, on
           transition={{ duration: 0.45, ease: [0.4, 0.15, 0.2, 1] }}
           data-flipped={flipped ? 'true' : 'false'}
         >
-          <CardFront q={q} status={status} />
-          <CardBack q={q} />
+          <CardFront q={q} status={status} active={!flipped} />
+          <CardBack q={q} active={flipped} onOpenFull={onOpenFull} />
         </motion.div>
       </div>
 
@@ -1349,7 +1534,7 @@ function ActionBtn({ tone, icon: Icon, label, className, ...props }) {
     <button
       type="button"
       className={cx(
-        'flex h-14 min-w-0 flex-col items-center justify-center gap-0.5 rounded-2xl px-1 text-[12px] font-bold leading-tight transition active:scale-95 disabled:pointer-events-none disabled:opacity-40',
+        'flex h-14 min-w-0 flex-col items-center justify-center gap-0.5 rounded-2xl px-1 text-[11px] font-bold leading-tight tracking-tight transition active:scale-95 disabled:pointer-events-none disabled:opacity-40',
         FOCUS,
         tones[tone],
         className,
@@ -1367,6 +1552,7 @@ function Cards({ active, filter, setFilter, epoch }) {
   const skip = state.settings.skipMastered
   const [localEpoch, setLocalEpoch] = useState(0)
   const [flipped, setFlipped] = useState(false)
+  const [fullOpen, setFullOpen] = useState(false)
   const cardRef = useRef(null)
 
   // Nowa sesja startuje przy zmianie filtra / przełącznika „pomiń opanowane” / restarcie.
@@ -1420,7 +1606,7 @@ function Cards({ active, filter, setFilter, epoch }) {
 
   // Klawiatura – tylko gdy aktywna zakładka Fiszki i fokus nie jest w polu tekstowym.
   useEffect(() => {
-    if (!active) return
+    if (!active || fullOpen) return
     const onKey = (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
       const el = document.activeElement
@@ -1445,7 +1631,7 @@ function Cards({ active, filter, setFilter, epoch }) {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [active])
+  }, [active, fullOpen])
 
   if (!ALL_Q.length) {
     return (
@@ -1481,21 +1667,22 @@ function Cards({ active, filter, setFilter, epoch }) {
       </div>
 
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-3">
-        <div className="flex items-center gap-3 text-xs font-semibold text-slate-600 dark:text-slate-300" aria-live="polite">
+        <div className="flex items-center gap-2.5 text-[11px] font-semibold text-slate-600 dark:text-slate-300" aria-live="polite">
           <span data-testid="stat-remaining">
-            Pozostało <b className="text-sm text-slate-900 dark:text-white">{Math.max(remaining, 0)}</b>
+            Pozostało <b className="text-[13px] text-slate-900 dark:text-white">{Math.max(remaining, 0)}</b>
           </span>
           <span className="text-emerald-600 dark:text-emerald-400" data-testid="stat-known">
-            Umiem <b className="text-sm">{sess.known}</b>
+            Umiem <b className="text-[13px]">{sess.known}</b>
           </span>
           <span className="text-rose-600 dark:text-rose-400" data-testid="stat-retry">
-            Do powtórki <b className="text-sm">{sess.retry.length}</b>
+            Do powtórki <b className="text-[13px]">{sess.retry.length}</b>
           </span>
         </div>
         <Switch
           checked={skip}
           onChange={(v) => setState((s) => ({ ...s, settings: { ...s.settings, skipMastered: v } }))}
           label="Pomiń opanowane"
+          className="ml-auto !text-[11px] !gap-1.5"
         />
       </div>
 
@@ -1563,13 +1750,14 @@ function Cards({ active, filter, setFilter, epoch }) {
                 flipped={flipped}
                 onFlip={() => setFlipped((f) => !f)}
                 onRate={onRate}
+                onOpenFull={() => setFullOpen(true)}
               />
             </>
           )
         )}
       </div>
 
-      <div className="grid shrink-0 grid-cols-[3.5rem_1fr_4.5rem_1fr] gap-2">
+      <div className="grid shrink-0 grid-cols-[3.25rem_1fr_4rem_1fr] gap-2">
         <ActionBtn
           tone="ghost"
           icon={Undo2}
@@ -1603,6 +1791,17 @@ function Cards({ active, filter, setFilter, epoch }) {
           disabled={!current || finished}
         />
       </div>
+
+      <BottomSheet
+        open={fullOpen && !!current && hasPdf(currentId)}
+        onClose={() => setFullOpen(false)}
+        title={current ? `${current.id} · odpowiedź z PDF` : 'Odpowiedź z PDF'}
+        subtitle={current?.title}
+        label="Odpowiedź z PDF"
+        tall
+      >
+        {current && <PdfAnswer id={current.id} />}
+      </BottomSheet>
     </div>
   )
 }
@@ -3266,9 +3465,11 @@ function Compendium({ target }) {
   const [area, setArea] = useState('all')
   const [status, setStatus] = useState('all')
   const [open, setOpen] = useState({})
+  const [views, setViews] = useState({}) // id → 'card' | 'short' | 'full' (wybór użytkownika)
 
+  const queryTokens = useMemo(() => normalize(query).split(' ').filter(Boolean), [query])
   const results = useMemo(() => {
-    const toks = normalize(query).split(' ').filter(Boolean)
+    const toks = queryTokens
     return ALL_Q.filter(
       (q) =>
         (cat === 'all' || q.category === cat) &&
@@ -3276,7 +3477,7 @@ function Compendium({ target }) {
         (status === 'all' || statusOf(q.id) === status) &&
         toks.every((t) => SEARCH_INDEX[q.id].includes(t)),
     )
-  }, [query, cat, area, status, statusOf])
+  }, [queryTokens, cat, area, status, statusOf])
 
   // Przejście z quizu / treningu: rozwiń pytanie i przewiń do niego.
   useEffect(() => {
@@ -3285,6 +3486,7 @@ function Compendium({ target }) {
     setCat('all')
     setArea('all')
     setStatus('all')
+    setViews((v) => ({ ...v, [target.id]: 'card' }))
     setOpen((o) => ({ ...o, [target.id]: true }))
     const t = setTimeout(() => {
       document.getElementById(`base-${target.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -3398,6 +3600,26 @@ function Compendium({ target }) {
             const st = statusOf(q.id)
             const keywords = kwOf(q)
             const terms = mustOf(q)
+            const hasFull = !!fullOf(q.id)
+            const hasShort = !!shortOf(q.id)
+            const hasAnyPdf = hasFull || hasShort
+            // Trafienie tylko w tekście PDF → domyślnie pokazujemy widok, w którym fraza faktycznie występuje.
+            const inIndex = (idx) => queryTokens.every((t) => idx[q.id].includes(t))
+            const autoView =
+              queryTokens.length === 0 || inIndex(CARD_INDEX)
+                ? 'card'
+                : hasShort && inIndex(SHORT_INDEX)
+                  ? 'short'
+                  : hasFull && inIndex(FULL_INDEX)
+                    ? 'full'
+                    : 'card'
+            const picked = views[q.id]
+            const view =
+              hasAnyPdf && (picked === 'card' || (picked === 'short' && hasShort) || (picked === 'full' && hasFull))
+                ? picked
+                : hasAnyPdf
+                  ? autoView
+                  : 'card'
             return (
               <li
                 key={q.id}
@@ -3433,35 +3655,55 @@ function Compendium({ target }) {
                 </button>
                 <Collapse open={isOpen}>
                   <div className="space-y-5 border-t border-slate-100 p-4 dark:border-slate-800">
-                    {keywords.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {keywords.map((k) => (
-                          <span
-                            key={k}
-                            className="max-w-full break-words rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-200"
-                          >
-                            <RichText text={k} query={query} />
-                          </span>
-                        ))}
-                      </div>
+                    {hasAnyPdf && (
+                      <Segmented
+                        label="Widok odpowiedzi"
+                        value={view}
+                        onChange={(v) => setViews((m) => ({ ...m, [q.id]: v }))}
+                        options={[
+                          { id: 'card', label: 'Fiszka' },
+                          ...(hasShort ? [{ id: 'short', label: 'W pigułce' }] : []),
+                          ...(hasFull ? [{ id: 'full', label: 'Pełna' }] : []),
+                        ]}
+                      />
                     )}
-                    <AnswerSections q={q} query={query} />
-                    {terms.length > 0 && (
-                      <div>
-                        <div className="mb-2 text-xs font-extrabold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                          Pojęcia obowiązkowe
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {terms.map((m) => (
-                            <span
-                              key={m.term}
-                              className="max-w-full break-words rounded-lg bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200"
-                            >
-                              <RichText text={m.term} query={query} />
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+                    {view === 'short' ? (
+                      <ShortAnswer id={q.id} query={query} />
+                    ) : view === 'full' ? (
+                      <FullAnswer id={q.id} query={query} />
+                    ) : (
+                      <>
+                        {keywords.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {keywords.map((k) => (
+                              <span
+                                key={k}
+                                className="max-w-full break-words rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-200"
+                              >
+                                <RichText text={k} query={query} />
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <AnswerSections q={q} query={query} />
+                        {terms.length > 0 && (
+                          <div>
+                            <div className="mb-2 text-xs font-extrabold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                              Pojęcia obowiązkowe
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {terms.map((m) => (
+                                <span
+                                  key={m.term}
+                                  className="max-w-full break-words rounded-lg bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                >
+                                  <RichText text={m.term} query={query} />
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
                     <Btn
                       variant="primary"
@@ -3513,6 +3755,19 @@ export default function App() {
     mq.addEventListener('change', apply)
     return () => mq.removeEventListener('change', apply)
   }, [theme])
+
+  // Po kliknięciu myszą / dotknięciu zdejmujemy fokus z przycisku, żeby Spacja i Enter nadal sterowały fiszką
+  // (odwrót karty) zamiast ponownie uruchamiać ostatnio klikniętą kontrolkę. Aktywacja klawiaturą (detail === 0)
+  // zachowuje fokus, więc nawigacja klawiaturą pozostaje dostępna.
+  useEffect(() => {
+    const onClick = (e) => {
+      if (e.detail === 0 || !(e.target instanceof Element)) return
+      const btn = e.target.closest('button')
+      if (btn && document.activeElement === btn) btn.blur()
+    }
+    window.addEventListener('click', onClick)
+    return () => window.removeEventListener('click', onClick)
+  }, [])
 
   const getBox = useCallback((id) => state.cards[id]?.box ?? 0, [state.cards])
   const statusOf = useCallback((id) => BOX_STATUS[getBox(id)], [getBox])
